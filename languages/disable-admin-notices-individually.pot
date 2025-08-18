@@ -1,0 +1,110 @@
+# Copyright (C) 2025 Disable Admin Notices Individually
+# This file is distributed under the same license as the Disable Admin Notices Individually package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Disable Admin Notices Individually 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/disable-admin-notices-individually\n"
+"POT-Creation-Date: 2025-01-01 00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: disable-admin-notices-individually.php:90
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: disable-admin-notices-individually.php:96
+msgid "Invalid notice ID."
+msgstr ""
+
+#: disable-admin-notices-individually.php:104
+msgid "Notice hidden successfully."
+msgstr ""
+
+#: disable-admin-notices-individually.php:119
+msgid "All hidden notices have been reset."
+msgstr ""
+
+#: disable-admin-notices-individually.php:127
+#: disable-admin-notices-individually.php:128
+msgid "Disable Admin Notices"
+msgstr ""
+
+#: disable-admin-notices-individually.php:129
+msgid "Admin Notices"
+msgstr ""
+
+#: disable-admin-notices-individually.php:143
+msgid "Notice Display Settings"
+msgstr ""
+
+#: disable-admin-notices-individually.php:158
+msgid "Notice Mode"
+msgstr ""
+
+#: disable-admin-notices-individually.php:164
+msgid "Reset Hidden Notices"
+msgstr ""
+
+#: disable-admin-notices-individually.php:170
+msgid "Configure how admin notices are displayed in your WordPress dashboard."
+msgstr ""
+
+#: disable-admin-notices-individually.php:181
+msgid "Show all notifications"
+msgstr ""
+
+#: disable-admin-notices-individually.php:183
+msgid "Display all admin notifications normally without any hiding options."
+msgstr ""
+
+#: disable-admin-notices-individually.php:186
+msgid "Hide notifications individually"
+msgstr ""
+
+#: disable-admin-notices-individually.php:188
+msgid "Show all notifications with a \"hide forever\" button on each one for individual control."
+msgstr ""
+
+#: disable-admin-notices-individually.php:191
+msgid "Hide all notifications"
+msgstr ""
+
+#: disable-admin-notices-individually.php:193
+msgid "Hide all admin notifications completely."
+msgstr ""
+
+#: disable-admin-notices-individually.php:202
+msgid "Reset All Hidden Notices"
+msgstr ""
+
+#: disable-admin-notices-individually.php:205
+#, php-format
+msgid "Currently %d notices are hidden. Click to show them again."
+msgstr ""
+
+#: disable-admin-notices-individually.php:209
+msgid "Resetting..."
+msgstr ""
+
+#: disable-admin-notices-individually.php:238
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: disable-admin-notices-individually.php:241
+msgid "Reset All Hidden Notices"
+msgstr ""
+
+#: disable-admin-notices-individually.php:250
+msgid "Disable Admin Notices Individually"
+msgstr ""
+
+#: disable-admin-notices-individually.php:134
+#: disable-admin-notices-individually.php:218
+msgid "Hide notification forever"
+msgstr ""
