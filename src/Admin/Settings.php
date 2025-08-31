@@ -26,10 +26,10 @@ if (!class_exists('DANI\Admin\Settings')) {
         public static function add_admin_menu()
         {
             add_options_page(
-                    __('Disable Admin Notices', 'disable-admin-notices-individually'),
-                    __('Admin Notices', 'disable-admin-notices-individually'),
+                    __('Disable Admin Notices', 'unnotifier'),
+                    __('Admin Notices', 'unnotifier'),
                     'manage_options',
-                    'disable-admin-notices-individually',
+                    'unnotifier',
                     [__CLASS__, 'admin_page']
             );
         }
@@ -40,14 +40,14 @@ if (!class_exists('DANI\Admin\Settings')) {
 
             add_settings_section(
                     'dani_main_section',
-                    __('Notice Display Settings', 'disable-admin-notices-individually'),
+                    __('Notice Display Settings', 'unnotifier'),
                     [__CLASS__, 'section_callback'],
                     'dani_settings'
             );
 
             add_settings_field(
                     'mode',
-                    __('Notice Mode', 'disable-admin-notices-individually'),
+                    __('Notice Mode', 'unnotifier'),
                     [__CLASS__, 'mode_field_callback'],
                     'dani_settings',
                     'dani_main_section'
@@ -55,7 +55,7 @@ if (!class_exists('DANI\Admin\Settings')) {
 
             add_settings_field(
                     'reset_notices',
-                    __('Reset Hidden Notices', 'disable-admin-notices-individually'),
+                    __('Reset Hidden Notices', 'unnotifier'),
                     [__CLASS__, 'reset_field_callback'],
                     'dani_settings',
                     'dani_main_section'
@@ -63,7 +63,7 @@ if (!class_exists('DANI\Admin\Settings')) {
 
             add_settings_field(
                     'debug',
-                    __('Debug mode', 'disable-admin-notices-individually'),
+                    __('Debug mode', 'unnotifier'),
                     [__CLASS__, 'debug_field_callback'],
                     'dani_settings',
                     'dani_main_section'
@@ -72,7 +72,7 @@ if (!class_exists('DANI\Admin\Settings')) {
 
         public static function section_callback()
         {
-            echo '<p>' . esc_html__('Configure how admin notices are displayed in your WordPress dashboard.', 'disable-admin-notices-individually') . '</p>';
+            echo '<p>' . esc_html__('Configure how admin notices are displayed in your WordPress dashboard.', 'unnotifier') . '</p>';
         }
 
         public static function mode_field_callback()
@@ -85,23 +85,23 @@ if (!class_exists('DANI\Admin\Settings')) {
                 <label>
                     <input type="radio" name="dani_settings[mode]"
                            value="show_all" <?php checked($mode, 'show_all'); ?>>
-                    <?php esc_html_e('Show all notifications', 'disable-admin-notices-individually'); ?>
+                    <?php esc_html_e('Show all notifications', 'unnotifier'); ?>
                 </label><br>
-                <p class="description"><?php esc_html_e('Display all admin notifications normally without any hiding options.', 'disable-admin-notices-individually'); ?></p>
+                <p class="description"><?php esc_html_e('Display all admin notifications normally without any hiding options.', 'unnotifier'); ?></p>
 
                 <label>
                     <input type="radio" name="dani_settings[mode]"
                            value="individual" <?php checked($mode, 'individual'); ?>>
-                    <?php esc_html_e('Hide notifications individually', 'disable-admin-notices-individually'); ?>
+                    <?php esc_html_e('Hide notifications individually', 'unnotifier'); ?>
                 </label><br>
-                <p class="description"><?php esc_html_e('Show all notifications with a "hide forever" button on each one for individual control.', 'disable-admin-notices-individually'); ?></p>
+                <p class="description"><?php esc_html_e('Show all notifications with a "hide forever" button on each one for individual control.', 'unnotifier'); ?></p>
 
                 <label>
                     <input type="radio" name="dani_settings[mode]"
                            value="hide_all" <?php checked($mode, 'hide_all'); ?>>
-                    <?php esc_html_e('Hide all notifications', 'disable-admin-notices-individually'); ?>
+                    <?php esc_html_e('Hide all notifications', 'unnotifier'); ?>
                 </label>
-                <p class="description"><?php esc_html_e('Hide all admin notifications completely.', 'disable-admin-notices-individually'); ?></p>
+                <p class="description"><?php esc_html_e('Hide all admin notifications completely.', 'unnotifier'); ?></p>
             </fieldset>
             <?php
         }
@@ -121,26 +121,26 @@ if (!class_exists('DANI\Admin\Settings')) {
             $nonce = wp_create_nonce('dani_nonce');
             ?>
             <div class="dani-reset-group">
-                <h4><?php esc_html_e('Per-user hidden notices', 'disable-admin-notices-individually'); ?></h4>
+                <h4><?php esc_html_e('Per-user hidden notices', 'unnotifier'); ?></h4>
                 <button type="button" id="dani-reset-notices-user" class="button button-secondary">
-                    <?php esc_html_e('Reset My Hidden Notices', 'disable-admin-notices-individually'); ?>
+                    <?php esc_html_e('Reset My Hidden Notices', 'unnotifier'); ?>
                 </button>
                 <p class="description">
                     <?php
                     // translators: %d is the number of notices currently hidden for the user
-                    printf(esc_html__('Currently %d notices are hidden for your account. Click to show them again.', 'disable-admin-notices-individually'), intval($hidden_user_count)); ?>
+                    printf(esc_html__('Currently %d notices are hidden for your account. Click to show them again.', 'unnotifier'), intval($hidden_user_count)); ?>
                 </p>
 
                 <?php if ($hidden_user_count > 0): ?>
                     <details class="dani-hidden-notices-details">
-                        <summary><?php esc_html_e('Show hidden notices list', 'disable-admin-notices-individually'); ?></summary>
+                        <summary><?php esc_html_e('Show hidden notices list', 'unnotifier'); ?></summary>
                         <div class="dani-hidden-notices-table-wrapper">
                             <table class="dani-hidden-notices-table">
                                 <thead>
                                 <tr>
-                                    <th class="dani-plugin-column"><?php esc_html_e('Plugin', 'disable-admin-notices-individually'); ?></th>
-                                    <th class="dani-content-column"><?php esc_html_e('Notice Content', 'disable-admin-notices-individually'); ?></th>
-                                    <th class="dani-actions-column"><?php esc_html_e('Actions', 'disable-admin-notices-individually'); ?></th>
+                                    <th class="dani-plugin-column"><?php esc_html_e('Plugin', 'unnotifier'); ?></th>
+                                    <th class="dani-content-column"><?php esc_html_e('Notice Content', 'unnotifier'); ?></th>
+                                    <th class="dani-actions-column"><?php esc_html_e('Actions', 'unnotifier'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -171,7 +171,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                                                     data-target="user"
                                                     data-notice-id="<?php echo esc_attr($notice_id); ?>">
                                                 <span class="dashicons dashicons-undo"></span>
-                                                <?php esc_html_e('Restore', 'disable-admin-notices-individually'); ?>
+                                                <?php esc_html_e('Restore', 'unnotifier'); ?>
                                             </button>
                                         </td>
                                     </tr>
@@ -186,27 +186,27 @@ if (!class_exists('DANI\Admin\Settings')) {
             <?php if (current_user_can('manage_options')): ?>
             <hr>
             <div class="dani-reset-group">
-                <h4><?php esc_html_e('Global hidden notices', 'disable-admin-notices-individually'); ?></h4>
+                <h4><?php esc_html_e('Global hidden notices', 'unnotifier'); ?></h4>
                 <button type="button" id="dani-reset-notices-all" class="button button-secondary">
-                    <?php esc_html_e('Reset Hidden Notices For All', 'disable-admin-notices-individually'); ?>
+                    <?php esc_html_e('Reset Hidden Notices For All', 'unnotifier'); ?>
                 </button>
                 <p class="description">
                     <?php
                     // translators: %d is the number of notices currently hidden for all users
-                    printf(esc_html__('Currently %d notices are hidden for all users. Click to restore them.', 'disable-admin-notices-individually'), intval($hidden_global_count)); ?>
+                    printf(esc_html__('Currently %d notices are hidden for all users. Click to restore them.', 'unnotifier'), intval($hidden_global_count)); ?>
                 </p>
 
                 <?php if ($hidden_global_count > 0): ?>
                     <details class="dani-hidden-notices-details">
-                        <summary><?php esc_html_e('Show hidden notices list', 'disable-admin-notices-individually'); ?></summary>
+                        <summary><?php esc_html_e('Show hidden notices list', 'unnotifier'); ?></summary>
                         <div class="dani-hidden-notices-table-wrapper">
                             <table class="dani-hidden-notices-table">
                                 <thead>
                                 <tr>
-                                    <th class="dani-plugin-column"><?php esc_html_e('Plugin', 'disable-admin-notices-individually'); ?></th>
-                                    <th class="dani-content-column"><?php esc_html_e('Notice Content', 'disable-admin-notices-individually'); ?></th>
-                                    <th class="dani-user-column"><?php esc_html_e('Hidden By', 'disable-admin-notices-individually'); ?></th>
-                                    <th class="dani-actions-column"><?php esc_html_e('Actions', 'disable-admin-notices-individually'); ?></th>
+                                    <th class="dani-plugin-column"><?php esc_html_e('Plugin', 'unnotifier'); ?></th>
+                                    <th class="dani-content-column"><?php esc_html_e('Notice Content', 'unnotifier'); ?></th>
+                                    <th class="dani-user-column"><?php esc_html_e('Hidden By', 'unnotifier'); ?></th>
+                                    <th class="dani-actions-column"><?php esc_html_e('Actions', 'unnotifier'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -225,7 +225,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                                     }
 
                                     // Get user display name if available
-                                    $hidden_by_user = __('Unknown', 'disable-admin-notices-individually');
+                                    $hidden_by_user = __('Unknown', 'unnotifier');
                                     if ($hidden_by_user_id) {
                                         $user = get_userdata($hidden_by_user_id);
                                         if ($user) {
@@ -250,7 +250,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                                                     data-target="global"
                                                     data-notice-id="<?php echo esc_attr($notice_id); ?>">
                                                 <span class="dashicons dashicons-undo"></span>
-                                                <?php esc_html_e('Restore', 'disable-admin-notices-individually'); ?>
+                                                <?php esc_html_e('Restore', 'unnotifier'); ?>
                                             </button>
                                         </td>
                                     </tr>
@@ -280,7 +280,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                             }
                         }).done(function (response) {
                             if (response && response.success) {
-                                var msg = response.data && response.data.message ? response.data.message : '<?php echo esc_js(__('Done.', 'disable-admin-notices-individually')); ?>';
+                                var msg = response.data && response.data.message ? response.data.message : '<?php echo esc_js(__('Done.', 'unnotifier')); ?>';
                                 $('#dani-reset-message')
                                     .html('<div class="notice notice-success inline"><p>' + msg + '</p></div>')
                                     .show();
@@ -289,14 +289,14 @@ if (!class_exists('DANI\Admin\Settings')) {
                                 if (target === 'all' && response.data && typeof response.data.hidden_global_count !== 'undefined') {
                                     var $desc = $('#dani-reset-notices-all').closest('.dani-reset-group').find('.description');
                                     <?php /* translators: %d is the number of notices hidden for all users */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for all users. Click to restore them.', 'disable-admin-notices-individually')); ?>'
+                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for all users. Click to restore them.', 'unnotifier')); ?>'
                                         .replace('%d', response.data.hidden_global_count));
                                 }
 
                                 if (target === 'user' && response.data && typeof response.data.hidden_user_count !== 'undefined') {
                                     var $desc = $('#dani-reset-notices-user').closest('.dani-reset-group').find('.description');
                                     <?php /* translators: %d is the number of notices hidden for the current user */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for your account. Click to show them again.', 'disable-admin-notices-individually')); ?>'
+                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for your account. Click to show them again.', 'unnotifier')); ?>'
                                         .replace('%d', response.data.hidden_user_count));
                                 }
 
@@ -304,12 +304,12 @@ if (!class_exists('DANI\Admin\Settings')) {
                                     location.reload();
                                 }, 1200);
                             } else {
-                                var msg = (response && response.data) ? response.data : '<?php echo esc_js(__('An error occurred. Please try again.', 'disable-admin-notices-individually')); ?>';
+                                var msg = (response && response.data) ? response.data : '<?php echo esc_js(__('An error occurred. Please try again.', 'unnotifier')); ?>';
                                 $('#dani-reset-message').html('<div class="notice notice-error inline"><p>' + msg + '</p></div>').show();
                             }
                         }).fail(function () {
                             $('#dani-reset-message')
-                                .html('<div class="notice notice-error inline"><p><?php echo esc_js(__('An error occurred. Please try again.', 'disable-admin-notices-individually')); ?></p></div>')
+                                .html('<div class="notice notice-error inline"><p><?php echo esc_js(__('An error occurred. Please try again.', 'unnotifier')); ?></p></div>')
                                 .show();
                         }).always(function () {
                             $btn.prop('disabled', false).text(texts.default);
@@ -318,15 +318,15 @@ if (!class_exists('DANI\Admin\Settings')) {
 
                     $('#dani-reset-notices-user').on('click', function () {
                         sendReset('user', $(this), {
-                            progress: '<?php echo esc_js(__('Resetting...', 'disable-admin-notices-individually')); ?>',
-                            default: '<?php echo esc_js(__('Reset My Hidden Notices', 'disable-admin-notices-individually')); ?>'
+                            progress: '<?php echo esc_js(__('Resetting...', 'unnotifier')); ?>',
+                            default: '<?php echo esc_js(__('Reset My Hidden Notices', 'unnotifier')); ?>'
                         });
                     });
 
                     $('#dani-reset-notices-all').on('click', function () {
                         sendReset('all', $(this), {
-                            progress: '<?php echo esc_js(__('Resetting...', 'disable-admin-notices-individually')); ?>',
-                            default: '<?php echo esc_js(__('Reset Hidden Notices For All', 'disable-admin-notices-individually')); ?>'
+                            progress: '<?php echo esc_js(__('Resetting...', 'unnotifier')); ?>',
+                            default: '<?php echo esc_js(__('Reset Hidden Notices For All', 'unnotifier')); ?>'
                         });
                     });
 
@@ -345,7 +345,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                         var originalHtml = $btn.html();
 
                         // Disable button and show loading
-                        $btn.prop('disabled', true).html('<span class="dashicons dashicons-update" style="animation: rotation 1s infinite linear;"></span> <?php echo esc_js(__('Restoring...', 'disable-admin-notices-individually')); ?>');
+                        $btn.prop('disabled', true).html('<span class="dashicons dashicons-update" style="animation: rotation 1s infinite linear;"></span> <?php echo esc_js(__('Restoring...', 'unnotifier')); ?>');
 
                         $.ajax({
                             url: ajaxurl,
@@ -360,7 +360,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                         }).done(function (response) {
                             if (response && response.success) {
                                 // Show success message
-                                var msg = response.data && response.data.message ? response.data.message : '<?php echo esc_js(__('Notice restored.', 'disable-admin-notices-individually')); ?>';
+                                var msg = response.data && response.data.message ? response.data.message : '<?php echo esc_js(__('Notice restored.', 'unnotifier')); ?>';
                                 $('#dani-reset-message')
                                     .html('<div class="notice notice-success inline"><p>' + msg + '</p></div>')
                                     .show();
@@ -383,7 +383,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                                 if (target === 'global' && response.data && typeof response.data.hidden_global_count !== 'undefined') {
                                     var $desc = $('#dani-reset-notices-all').closest('.dani-reset-group').find('.description');
                                     <?php /* translators: %d is the number of notices hidden for all users */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for all users. Click to restore them.', 'disable-admin-notices-individually')); ?>'
+                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for all users. Click to restore them.', 'unnotifier')); ?>'
                                         .replace('%d', response.data.hidden_global_count));
 
                                     // Hide details if no more notices
@@ -397,7 +397,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                                 if (target === 'user' && response.data && typeof response.data.hidden_user_count !== 'undefined') {
                                     var $desc = $('#dani-reset-notices-user').closest('.dani-reset-group').find('.description');
                                     <?php /* translators: %d is the number of notices hidden for the current user */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for your account. Click to show them again.', 'disable-admin-notices-individually')); ?>'
+                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for your account. Click to show them again.', 'unnotifier')); ?>'
                                         .replace('%d', response.data.hidden_user_count));
 
                                     // Hide details if no more notices
@@ -413,7 +413,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                                     $('#dani-reset-message').fadeOut();
                                 }, 3000);
                             } else {
-                                var msg = (response && response.data) ? response.data : '<?php echo esc_js(__('Failed to restore notice.', 'disable-admin-notices-individually')); ?>';
+                                var msg = (response && response.data) ? response.data : '<?php echo esc_js(__('Failed to restore notice.', 'unnotifier')); ?>';
                                 $('#dani-reset-message').html('<div class="notice notice-error inline"><p>' + msg + '</p></div>').show();
 
                                 // Re-enable button
@@ -421,7 +421,7 @@ if (!class_exists('DANI\Admin\Settings')) {
                             }
                         }).fail(function () {
                             $('#dani-reset-message')
-                                .html('<div class="notice notice-error inline"><p><?php echo esc_js(__('Network error occurred. Please try again.', 'disable-admin-notices-individually')); ?></p></div>')
+                                .html('<div class="notice notice-error inline"><p><?php echo esc_js(__('Network error occurred. Please try again.', 'unnotifier')); ?></p></div>')
                                 .show();
 
                             // Re-enable button
@@ -440,7 +440,7 @@ if (!class_exists('DANI\Admin\Settings')) {
         {
             ?>
             <div class="wrap">
-                <h1><?php esc_html_e('Disable Admin Notices Individually', 'disable-admin-notices-individually'); ?></h1>
+                <h1><?php esc_html_e('Disable Admin Notices Individually', 'unnotifier'); ?></h1>
                 <form method="post" action="options.php">
                     <?php
                     settings_fields('dani_settings');
@@ -465,17 +465,17 @@ if (!class_exists('DANI\Admin\Settings')) {
             ?>
             <label>
                 <input type="checkbox" name="dani_settings[debug]" value="1" <?php checked($debug, true); ?>>
-                <?php esc_html_e('Enable debug logging of notice processing (for troubleshooting).', 'disable-admin-notices-individually'); ?>
+                <?php esc_html_e('Enable debug logging of notice processing (for troubleshooting).', 'unnotifier'); ?>
             </label>
             <p class="description">
-                <?php esc_html_e('When enabled, the plugin writes diagnostic information and hidden notice actions to log files in the uploads/dani-logs directory.', 'disable-admin-notices-individually'); ?>
+                <?php esc_html_e('When enabled, the plugin writes diagnostic information and hidden notice actions to log files in the uploads/dani-logs directory.', 'unnotifier'); ?>
                 <?php if ($debug): ?>
                     <?php if ($has_log): ?>
                         <br>
-                        <a href="<?php echo esc_url($download_url); ?>"><?php esc_html_e('Download latest log', 'disable-admin-notices-individually'); ?></a>
+                        <a href="<?php echo esc_url($download_url); ?>"><?php esc_html_e('Download latest log', 'unnotifier'); ?></a>
                         (<?php echo esc_html($size_h); ?>)
                     <?php else: ?>
-                        <br><?php esc_html_e('No log file yet. It will appear after the next action is logged.', 'disable-admin-notices-individually'); ?>
+                        <br><?php esc_html_e('No log file yet. It will appear after the next action is logged.', 'unnotifier'); ?>
                     <?php endif; ?>
                 <?php endif; ?>
             </p>
@@ -507,12 +507,12 @@ if (!class_exists('DANI\Admin\Settings')) {
         public static function download_log()
         {
             if (!current_user_can('manage_options')) {
-                wp_die(esc_html__('Insufficient permissions.', 'disable-admin-notices-individually'));
+                wp_die(esc_html__('Insufficient permissions.', 'unnotifier'));
             }
             check_admin_referer('dani_download_log');
             $info = self::get_latest_log_info();
             if (!$info || empty($info['path']) || !file_exists($info['path'])) {
-                wp_die(esc_html__('Log file not found.', 'disable-admin-notices-individually'));
+                wp_die(esc_html__('Log file not found.', 'unnotifier'));
             }
             $path = $info['path'];
             $filename = basename($path);
@@ -525,12 +525,12 @@ if (!class_exists('DANI\Admin\Settings')) {
             }
 
             if (!$wp_filesystem || !$wp_filesystem->exists($path)) {
-                wp_die(esc_html__('Log file not accessible.', 'disable-admin-notices-individually'));
+                wp_die(esc_html__('Log file not accessible.', 'unnotifier'));
             }
 
             $content = $wp_filesystem->get_contents($path);
             if ($content === false) {
-                wp_die(esc_html__('Failed to read log file.', 'disable-admin-notices-individually'));
+                wp_die(esc_html__('Failed to read log file.', 'unnotifier'));
             }
 
             header('Content-Description: File Transfer');

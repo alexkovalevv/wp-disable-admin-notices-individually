@@ -1,6 +1,6 @@
-=== Disable Admin Notices Individually (Reloaded) ===
+=== Unnotifier — disable admin notices individually ===
 Contributors: alexkovalevv
-Donate link: https://wordpress.org/support/plugin/disable-admin-notices-individually/
+Donate link: https://wordpress.org/support/plugin/unnotifier/
 Tags: admin, notices, hide, disable, dashboard
 Requires at least: 5.0
 Tested up to: 6.8
@@ -13,7 +13,7 @@ Clean up your WordPress admin dashboard by hiding notices individually or all at
 
 == Description ==
 
-**Disable Admin Notices Individually** gives you complete control over admin notifications in your WordPress dashboard. Stop being overwhelmed by plugin update notices, promotional messages, and other admin notifications that clutter your workspace.
+**Unnotifier** gives you complete control over admin notifications in your WordPress dashboard. Stop being overwhelmed by plugin update notices, promotional messages, and other admin notifications that clutter your workspace.
 
 = Key Features =
 
@@ -122,13 +122,13 @@ Currently, the plugin applies settings globally for all users with admin access.
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial release of Disable Admin Notices Individually. Clean up your WordPress admin dashboard today!
+Initial release of Unnotifier. Clean up your WordPress admin dashboard today!
 
 == Support ==
 
 For support, feature requests, or bug reports, please visit:
 
-* **Plugin Support Forum:** https://wordpress.org/support/plugin/disable-admin-notices-individually/
+* **Plugin Support Forum:** https://wordpress.org/support/plugin/unnotifier/
 * **Documentation:** Available in the plugin settings page
 * **GitHub Repository:** [Link to your GitHub repo if available]
 

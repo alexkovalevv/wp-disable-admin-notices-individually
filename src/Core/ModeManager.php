@@ -137,16 +137,16 @@ class ModeManager implements ModeManagerInterface
     {
         return [
             'show_all' => [
-                'label' => __('Show All Notices', 'disable-admin-notices-individually'),
-                'description' => __('Display all admin notices without modification.', 'disable-admin-notices-individually')
+                'label' => __('Show All Notices', 'unnotifier'),
+                'description' => __('Display all admin notices without modification.', 'unnotifier')
             ],
             'individual' => [
-                'label' => __('Individual Control', 'disable-admin-notices-individually'),
-                'description' => __('Show notices with hide buttons for individual control.', 'disable-admin-notices-individually')
+                'label' => __('Individual Control', 'unnotifier'),
+                'description' => __('Show notices with hide buttons for individual control.', 'unnotifier')
             ],
             'hide_all' => [
-                'label' => __('Hide All Notices', 'disable-admin-notices-individually'),
-                'description' => __('Hide all admin notices completely.', 'disable-admin-notices-individually')
+                'label' => __('Hide All Notices', 'unnotifier'),
+                'description' => __('Hide all admin notices completely.', 'unnotifier')
             ]
         ];
     }
@@ -205,7 +205,7 @@ class ModeManager implements ModeManagerInterface
         if (!$this->is_valid_mode($new_mode)) {
             return [
                 'success' => false,
-                'message' => __('Invalid mode specified.', 'disable-admin-notices-individually')
+                'message' => __('Invalid mode specified.', 'unnotifier')
             ];
         }
 
@@ -214,7 +214,7 @@ class ModeManager implements ModeManagerInterface
         if ($old_mode === $new_mode) {
             return [
                 'success' => true,
-                'message' => __('Mode is already set to the selected value.', 'disable-admin-notices-individually')
+                'message' => __('Mode is already set to the selected value.', 'unnotifier')
             ];
         }
 
@@ -223,7 +223,7 @@ class ModeManager implements ModeManagerInterface
                 'success' => true,
                 'message' => sprintf(
                     // translators: %1$s is the old mode name, %2$s is the new mode name
-                    __('Mode changed from %1$s to %2$s.', 'disable-admin-notices-individually'),
+                    __('Mode changed from %1$s to %2$s.', 'unnotifier'),
                     $this->get_mode_label($old_mode),
                     $this->get_mode_label($new_mode)
                 )
@@ -232,7 +232,7 @@ class ModeManager implements ModeManagerInterface
 
         return [
             'success' => false,
-            'message' => __('Failed to update mode.', 'disable-admin-notices-individually')
+            'message' => __('Failed to update mode.', 'unnotifier')
         ];
     }
 

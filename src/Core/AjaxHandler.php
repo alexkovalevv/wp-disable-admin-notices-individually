@@ -37,7 +37,7 @@ class AjaxHandler implements AjaxHandlerInterface
     public function ajax_hide_notice(): void
     {
         if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'dani_nonce')) {
-            wp_send_json_error(__('Invalid nonce.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Invalid nonce.', 'unnotifier'));
             return;
         }
 
@@ -54,7 +54,7 @@ class AjaxHandler implements AjaxHandlerInterface
         ];
 
         if (empty($notice_id)) {
-            wp_send_json_error(__('Missing notice ID.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Missing notice ID.', 'unnotifier'));
             return;
         }
 
@@ -81,7 +81,7 @@ class AjaxHandler implements AjaxHandlerInterface
     public function ajax_reset_notices(): void
     {
         if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'dani_nonce')) {
-            wp_send_json_error(__('Invalid nonce.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Invalid nonce.', 'unnotifier'));
             return;
         }
 
@@ -107,7 +107,7 @@ class AjaxHandler implements AjaxHandlerInterface
     public function ajax_restore_single_notice(): void
     {
         if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'dani_nonce')) {
-            wp_send_json_error(__('Invalid nonce.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Invalid nonce.', 'unnotifier'));
             return;
         }
 
@@ -115,7 +115,7 @@ class AjaxHandler implements AjaxHandlerInterface
         $action_type = sanitize_text_field(wp_unslash($_POST['action_type'] ?? 'user'));
 
         if (empty($notice_id)) {
-            wp_send_json_error(__('Missing notice ID.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Missing notice ID.', 'unnotifier'));
             return;
         }
 
@@ -155,20 +155,20 @@ class AjaxHandler implements AjaxHandlerInterface
         // Check permissions
         if (!current_user_can('manage_options')) {
             Logger::log('Global hide failed: insufficient permissions', ['notice_id' => $notice_id]);
-            wp_send_json_error(__('Insufficient permissions to hide notices globally.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Insufficient permissions to hide notices globally.', 'unnotifier'));
             return;
         }
 
         // Validate notice ID
         if (empty($notice_id)) {
-            wp_send_json_error(__('Invalid notice ID provided.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Invalid notice ID provided.', 'unnotifier'));
             return;
         }
 
         // Check if notice is already hidden
         $current_notices = $this->options->get_global_hidden_notices();
         if (isset($current_notices[$notice_id])) {
-            wp_send_json_success(__('Notice is already hidden globally for all users.', 'disable-admin-notices-individually'));
+            wp_send_json_success(__('Notice is already hidden globally for all users.', 'unnotifier'));
             return;
         }
 
@@ -177,7 +177,7 @@ class AjaxHandler implements AjaxHandlerInterface
 
         if ($result) {
             Logger::log('Notice hidden globally', ['notice_id' => $notice_id]);
-            wp_send_json_success(__('Notice hidden globally for all users.', 'disable-admin-notices-individually'));
+            wp_send_json_success(__('Notice hidden globally for all users.', 'unnotifier'));
         } else {
             // Check for specific error conditions
             $error_message = $this->get_failure_reason($notice_id);
@@ -199,16 +199,16 @@ class AjaxHandler implements AjaxHandlerInterface
     {
         // Check database error
         if (!empty($GLOBALS['wpdb']->last_error)) {
-            return __('Database error occurred. Please check database connection and permissions.', 'disable-admin-notices-individually');
+            return __('Database error occurred. Please check database connection and permissions.', 'unnotifier');
         }
 
         // Check if options are accessible
         if ($this->options->get_all() === false) {
-            return __('Cannot access plugin settings. Please check database permissions.', 'disable-admin-notices-individually');
+            return __('Cannot access plugin settings. Please check database permissions.', 'unnotifier');
         }
 
         // Generic error
-        return __('Failed to hide notice globally. Please try again or contact administrator.', 'disable-admin-notices-individually');
+        return __('Failed to hide notice globally. Please try again or contact administrator.', 'unnotifier');
     }
 
     /**
@@ -228,7 +228,7 @@ class AjaxHandler implements AjaxHandlerInterface
                 'session_user_id' => $user_id,
                 'is_user_logged_in' => is_user_logged_in()
             ]);
-            wp_send_json_error(__('User not logged in. Please log in to hide notices.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('User not logged in. Please log in to hide notices.', 'unnotifier'));
             return;
         }
 
@@ -239,7 +239,7 @@ class AjaxHandler implements AjaxHandlerInterface
                 'notice_id_type' => gettype($notice_id),
                 'user_id' => $user_id
             ]);
-            wp_send_json_error(__('Invalid notice ID provided.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Invalid notice ID provided.', 'unnotifier'));
             return;
         }
 
@@ -253,7 +253,7 @@ class AjaxHandler implements AjaxHandlerInterface
                 'user_id' => $user_id,
                 'existing_data' => $current_user_notices[$notice_id]
             ]);
-            wp_send_json_success(__('Notice is already hidden for you.', 'disable-admin-notices-individually'));
+            wp_send_json_success(__('Notice is already hidden for you.', 'unnotifier'));
             return;
         }
 
@@ -276,7 +276,7 @@ class AjaxHandler implements AjaxHandlerInterface
                 'previous_count' => count($current_user_notices),
                 'new_count' => count($updated_user_notices)
             ]);
-            wp_send_json_success(__('Notice hidden for you.', 'disable-admin-notices-individually'));
+            wp_send_json_success(__('Notice hidden for you.', 'unnotifier'));
         } else {
             // Detailed error investigation
             $error_details = [
@@ -293,7 +293,7 @@ class AjaxHandler implements AjaxHandlerInterface
             if (!empty($GLOBALS['wpdb']->last_error)) {
                 $error_details['specific_error'] = 'Database error: ' . $GLOBALS['wpdb']->last_error;
                 Logger::log('User hide failed: database error', $error_details);
-                wp_send_json_error(__('Database error occurred while hiding notice. Please check database connection.', 'disable-admin-notices-individually'));
+                wp_send_json_error(__('Database error occurred while hiding notice. Please check database connection.', 'unnotifier'));
                 return;
             }
 
@@ -302,7 +302,7 @@ class AjaxHandler implements AjaxHandlerInterface
             if ($test_meta === false && $GLOBALS['wpdb']->last_error) {
                 $error_details['specific_error'] = 'Cannot access user meta data';
                 Logger::log('User hide failed: cannot access user meta', $error_details);
-                wp_send_json_error(__('Cannot access user settings. Please check database permissions.', 'disable-admin-notices-individually'));
+                wp_send_json_error(__('Cannot access user settings. Please check database permissions.', 'unnotifier'));
                 return;
             }
 
@@ -311,7 +311,7 @@ class AjaxHandler implements AjaxHandlerInterface
             if (!$user_data) {
                 $error_details['specific_error'] = 'User data not found for user ID: ' . $user_id;
                 Logger::log('User hide failed: invalid user', $error_details);
-                wp_send_json_error(__('User account not found. Please log in again.', 'disable-admin-notices-individually'));
+                wp_send_json_error(__('User account not found. Please log in again.', 'unnotifier'));
                 return;
             }
 
@@ -321,7 +321,7 @@ class AjaxHandler implements AjaxHandlerInterface
             $error_details['user_exists'] = !empty($user_data);
             Logger::log('User hide failed: unknown reason', $error_details);
 
-            wp_send_json_error(__('Failed to hide notice for user. Check error logs for details.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Failed to hide notice for user. Check error logs for details.', 'unnotifier'));
         }
     }
 
@@ -333,7 +333,7 @@ class AjaxHandler implements AjaxHandlerInterface
     private function handle_global_reset(): void
     {
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(__('Insufficient permissions.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Insufficient permissions.', 'unnotifier'));
             return;
         }
 
@@ -350,12 +350,12 @@ class AjaxHandler implements AjaxHandlerInterface
             $updated_user_count = count($this->options->get_user_hidden_notices());
 
             wp_send_json_success([
-                'message' => __('All hidden notices have been reset for all users.', 'disable-admin-notices-individually'),
+                'message' => __('All hidden notices have been reset for all users.', 'unnotifier'),
                 'hidden_global_count' => $updated_global_count,
                 'hidden_user_count' => $updated_user_count
             ]);
         } else {
-            wp_send_json_error(__('Failed to reset notices.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Failed to reset notices.', 'unnotifier'));
         }
     }
 
@@ -368,7 +368,7 @@ class AjaxHandler implements AjaxHandlerInterface
     {
         $user_id = get_current_user_id();
         if ($user_id === 0) {
-            wp_send_json_error(__('User not logged in.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('User not logged in.', 'unnotifier'));
             return;
         }
 
@@ -379,11 +379,11 @@ class AjaxHandler implements AjaxHandlerInterface
             $updated_user_count = count($this->options->get_user_hidden_notices());
 
             wp_send_json_success([
-                'message' => __('Your hidden notices have been reset.', 'disable-admin-notices-individually'),
+                'message' => __('Your hidden notices have been reset.', 'unnotifier'),
                 'hidden_user_count' => $updated_user_count
             ]);
         } else {
-            wp_send_json_error(__('Failed to reset your notices.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Failed to reset your notices.', 'unnotifier'));
         }
     }
 
@@ -396,7 +396,7 @@ class AjaxHandler implements AjaxHandlerInterface
     private function handle_single_global_restore(string $notice_id): void
     {
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(__('Insufficient permissions.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Insufficient permissions.', 'unnotifier'));
             return;
         }
 
@@ -409,13 +409,13 @@ class AjaxHandler implements AjaxHandlerInterface
 
             wp_send_json_success([
                 // translators: %s is the notice ID that was restored
-                'message' => sprintf(__('Notice %s has been restored for all users.', 'disable-admin-notices-individually'), $notice_id),
+                'message' => sprintf(__('Notice %s has been restored for all users.', 'unnotifier'), $notice_id),
                 'notice_id' => $notice_id,
                 'hidden_global_count' => $updated_global_count,
                 'hidden_user_count' => $updated_user_count
             ]);
         } else {
-            wp_send_json_error(__('Failed to restore notice globally.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('Failed to restore notice globally.', 'unnotifier'));
         }
     }
 
@@ -429,7 +429,7 @@ class AjaxHandler implements AjaxHandlerInterface
     {
         $user_id = get_current_user_id();
         if ($user_id === 0) {
-            wp_send_json_error(__('User not logged in.', 'disable-admin-notices-individually'));
+            wp_send_json_error(__('User not logged in.', 'unnotifier'));
             return;
         }
 
@@ -450,12 +450,12 @@ class AjaxHandler implements AjaxHandlerInterface
 
                 wp_send_json_success([
                     // translators: %s is the notice ID that was restored
-                    'message' => sprintf(__('Notice %s has been restored for you.', 'disable-admin-notices-individually'), $notice_id),
+                    'message' => sprintf(__('Notice %s has been restored for you.', 'unnotifier'), $notice_id),
                     'notice_id' => $notice_id,
                     'hidden_user_count' => $updated_user_count
                 ]);
             } else {
-                wp_send_json_error(__('Failed to restore notice for user.', 'disable-admin-notices-individually'));
+                wp_send_json_error(__('Failed to restore notice for user.', 'unnotifier'));
             }
         } else {
             // Check for backward compatibility with old format (simple array)
@@ -475,15 +475,15 @@ class AjaxHandler implements AjaxHandlerInterface
 
                     wp_send_json_success([
                         // translators: %s is the notice ID that was restored
-                        'message' => sprintf(__('Notice %s has been restored for you.', 'disable-admin-notices-individually'), $notice_id),
+                        'message' => sprintf(__('Notice %s has been restored for you.', 'unnotifier'), $notice_id),
                         'notice_id' => $notice_id,
                         'hidden_user_count' => $updated_user_count
                     ]);
                 } else {
-                    wp_send_json_error(__('Failed to restore notice for user.', 'disable-admin-notices-individually'));
+                    wp_send_json_error(__('Failed to restore notice for user.', 'unnotifier'));
                 }
             } else {
-                wp_send_json_error(__('Notice not found in hidden list.', 'disable-admin-notices-individually'));
+                wp_send_json_error(__('Notice not found in hidden list.', 'unnotifier'));
             }
         }
     }

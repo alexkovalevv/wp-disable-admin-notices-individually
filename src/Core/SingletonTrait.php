@@ -53,9 +53,9 @@ trait SingletonTrait
     final public function __wakeup()
     {
         if (function_exists('wc_doing_it_wrong')) {
-            wc_doing_it_wrong(__FUNCTION__, __('Unserializing instances of this class is forbidden.', 'disable-admin-notices-individually'), '1.0');
+            wc_doing_it_wrong(__FUNCTION__, __('Unserializing instances of this class is forbidden.', 'unnotifier'), '1.0');
         } else {
-            wp_die(esc_html(__('Unserializing instances of this class is forbidden.', 'disable-admin-notices-individually')));
+            wp_die(esc_html(__('Unserializing instances of this class is forbidden.', 'unnotifier')));
         }
     }
 }

@@ -42,8 +42,8 @@ class NoticeRenderer implements NoticeRendererInterface
             wp_localize_script('dani-admin', 'dani_ajax', [
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('dani_nonce'),
-                'hide_me_text' => __('Hide for me', 'disable-admin-notices-individually'),
-                'hide_all_text' => __('Hide for all', 'disable-admin-notices-individually'),
+                'hide_me_text' => __('Hide for me', 'unnotifier'),
+                'hide_all_text' => __('Hide for all', 'unnotifier'),
             ]);
             wp_enqueue_style('dani-admin', DANI_PLUGIN_URL . 'assets/css/admin.css', [], DANI_VERSION);
             $dani_assets_enqueued = true;
@@ -130,8 +130,8 @@ class NoticeRenderer implements NoticeRendererInterface
                 %s
             </a>',
             esc_attr($notice_id),
-            esc_attr__('Hide this notice only for me', 'disable-admin-notices-individually'),
-            esc_html__('Hide for me', 'disable-admin-notices-individually')
+            esc_attr__('Hide this notice only for me', 'unnotifier'),
+            esc_html__('Hide for me', 'unnotifier')
         );
 
         // Скрыть для всех — только для тех, у кого есть права админа
@@ -142,8 +142,8 @@ class NoticeRenderer implements NoticeRendererInterface
                     %s
                 </a>',
                 esc_attr($notice_id),
-                esc_attr__('Hide this notice for all users', 'disable-admin-notices-individually'),
-                esc_html__('Hide for all', 'disable-admin-notices-individually')
+                esc_attr__('Hide this notice for all users', 'unnotifier'),
+                esc_html__('Hide for all', 'unnotifier')
             );
         }
 
@@ -156,11 +156,11 @@ class NoticeRenderer implements NoticeRendererInterface
                     %s <strong>%s</strong>. %s <a href="%s">%s</a>
                 </small>
             </div>',
-            esc_html__('Notice from', 'disable-admin-notices-individually'),
+            esc_html__('Notice from', 'unnotifier'),
             esc_html($source_plugin),
-            esc_html__('Hide controls by', 'disable-admin-notices-individually'),
-            esc_url(admin_url('options-general.php?page=disable-admin-notices-individually')),
-            esc_html__('Disable Admin Notices Individually', 'disable-admin-notices-individually')
+            esc_html__('Hide controls by', 'unnotifier'),
+            esc_url(admin_url('options-general.php?page=unnotifier')),
+            esc_html__('Disable Admin Notices Individually', 'unnotifier')
         );
 
         // Объединяем кнопки и информацию в один контейнер

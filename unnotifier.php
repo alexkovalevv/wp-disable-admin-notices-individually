@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Disable Admin Notices Individually (Reloaded)
- * Plugin URI: https://wordpress.org/plugins/disable-admin-notices-individually/
- * Description: Disable admin notices individually with options to hide all notices, hide selected notices, or show all notices. Each notice gets a "hide forever" button for individual control.
+ * Plugin Name: Unnotifier — disable admin notices individually
+ * Plugin URI: https://wordpress.org/plugins/unnotifier/
+ * Description: Unnotifier disable admin notices individually with options to hide all notices, hide selected notices, or show all notices. Each notice gets a "hide forever" button for individual control.
  * Version: 1.0.0
  * Author: Alex Kovalev
  * Author URI: https://alexkovalev.pro
- * Text Domain: disable-admin-notices-individually
+ * Text Domain: unnotifier
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.6
@@ -51,7 +51,7 @@ spl_autoload_register(function ($class) {
 });
 
 add_action('init', function () {
-    load_textdomain('disable-admin-notices-individually', DANI_PLUGIN_DIR . 'languages/' . get_locale() . '.mo');
+    load_textdomain('unnotifier', DANI_PLUGIN_DIR . 'languages/' . get_locale() . '.mo');
 
     Options::instance();
     Settings::init();
