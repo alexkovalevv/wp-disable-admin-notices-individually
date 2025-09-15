@@ -27,13 +27,13 @@ if (__FILE__ != WP_UNINSTALL_PLUGIN) {
 /**
  * Remove plugin options from database
  */
-function dani_cleanup_database()
+function unn_cleanup_database()
 {
     // Remove main plugin settings
-    delete_option('dani_settings');
+    delete_option('unn_settings');
 
     // Remove any transients that might have been created
-    delete_transient('dani_notices_cache');
+    delete_transient('unn_notices_cache');
 
     // For multisite installations, remove options from all sites
     if (is_multisite()) {
@@ -44,8 +44,8 @@ function dani_cleanup_database()
             switch_to_blog($site->blog_id);
 
             // Remove options for this site
-            delete_option('dani_settings');
-            delete_transient('dani_notices_cache');
+            delete_option('unn_settings');
+            delete_transient('unn_notices_cache');
 
             restore_current_blog();
         }
@@ -55,7 +55,7 @@ function dani_cleanup_database()
 /**
  * Remove user meta data
  */
-function dani_cleanup_user_meta()
+function unn_cleanup_user_meta()
 {
     // Remove user meta for all users using WordPress API
     // Get all users who have the meta key
@@ -72,11 +72,11 @@ function dani_cleanup_user_meta()
 /**
  * Clean up any scheduled events
  */
-function dani_cleanup_scheduled_events()
+function unn_cleanup_scheduled_events()
 {
     // Remove any scheduled cron events
     // (Currently the plugin doesn't use cron, but this is for future compatibility)
-    wp_clear_scheduled_hook('dani_cleanup_old_notices');
+    wp_clear_scheduled_hook('unn_cleanup_old_notices');
 }
 
 /**
@@ -84,9 +84,9 @@ function dani_cleanup_scheduled_events()
  */
 
 // Execute cleanup functions
-dani_cleanup_database();
-dani_cleanup_user_meta();
-dani_cleanup_scheduled_events();
+unn_cleanup_database();
+unn_cleanup_user_meta();
+unn_cleanup_scheduled_events();
 
 // Clear any object cache
 if (function_exists('wp_cache_flush')) {

@@ -1,15 +1,14 @@
 <?php
 
-namespace DANI\Core;
+namespace UNNO\Core;
 
-use DANI\Core\Contracts\AjaxHandlerInterface;
-use DANI\Data\Options;
-use DANI\Core\Logger;
+use UNNO\Core\Contracts\AjaxHandlerInterface;
+use UNNO\Data\Options;
 
 /**
  * Handles AJAX requests for notice operations
  *
- * @package DANI\Core
+ * @package UNNO\Core
  * @since 1.0.0
  */
 class AjaxHandler implements AjaxHandlerInterface
@@ -36,7 +35,7 @@ class AjaxHandler implements AjaxHandlerInterface
      */
     public function ajax_hide_notice(): void
     {
-        if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'dani_nonce')) {
+        if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'unno_ajax_nonce')) {
             wp_send_json_error(__('Invalid nonce.', 'unnotifier'));
             return;
         }
@@ -47,10 +46,10 @@ class AjaxHandler implements AjaxHandlerInterface
         // Get additional notice metadata
         $notice_metadata = [
             'source_plugin' => sanitize_text_field(wp_unslash($_POST['source_plugin'] ?? 'Unknown Plugin')),
-            'content' => wp_kses_post(wp_unslash($_POST['notice_content'] ?? '')),
-            'excerpt' => sanitize_text_field(wp_unslash($_POST['notice_excerpt'] ?? '')),
-            'hidden_at' => current_time('timestamp'),
-            'hidden_by_user_id' => get_current_user_id()
+            'notice_content' => wp_unslash($_POST['notice_content'] ?? ''),
+            'notice_excerpt' => sanitize_text_field(wp_unslash($_POST['notice_excerpt'] ?? 'Administrative notice')),
+            'hidden_by_user_id' => get_current_user_id(),
+            'hidden_at' => current_time('mysql')
         ];
 
         if (empty($notice_id)) {
@@ -58,13 +57,6 @@ class AjaxHandler implements AjaxHandlerInterface
             return;
         }
 
-        Logger::log('AJAX hide notice request', [
-            'notice_id' => $notice_id,
-            'action_type' => $action_type,
-            'user_id' => get_current_user_id(),
-            'source_plugin' => $notice_metadata['source_plugin'],
-            'excerpt' => $notice_metadata['excerpt']
-        ]);
 
         if ($action_type === 'all') {
             $this->handle_global_hide($notice_id, $notice_metadata);
@@ -80,17 +72,12 @@ class AjaxHandler implements AjaxHandlerInterface
      */
     public function ajax_reset_notices(): void
     {
-        if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'dani_nonce')) {
+        if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'unno_ajax_nonce')) {
             wp_send_json_error(__('Invalid nonce.', 'unnotifier'));
             return;
         }
 
         $action_type = sanitize_text_field(wp_unslash($_POST['action_type'] ?? 'user'));
-
-        Logger::log('AJAX reset notices request', [
-            'action_type' => $action_type,
-            'user_id' => get_current_user_id()
-        ]);
 
         if ($action_type === 'all') {
             $this->handle_global_reset();
@@ -106,7 +93,7 @@ class AjaxHandler implements AjaxHandlerInterface
      */
     public function ajax_restore_single_notice(): void
     {
-        if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'dani_nonce')) {
+        if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'] ?? '')), 'unno_ajax_nonce')) {
             wp_send_json_error(__('Invalid nonce.', 'unnotifier'));
             return;
         }
@@ -119,11 +106,6 @@ class AjaxHandler implements AjaxHandlerInterface
             return;
         }
 
-        Logger::log('AJAX restore single notice request', [
-            'notice_id' => $notice_id,
-            'action_type' => $action_type,
-            'user_id' => get_current_user_id()
-        ]);
 
         if ($action_type === 'all') {
             $this->handle_single_global_restore($notice_id);
@@ -154,7 +136,6 @@ class AjaxHandler implements AjaxHandlerInterface
     {
         // Check permissions
         if (!current_user_can('manage_options')) {
-            Logger::log('Global hide failed: insufficient permissions', ['notice_id' => $notice_id]);
             wp_send_json_error(__('Insufficient permissions to hide notices globally.', 'unnotifier'));
             return;
         }
@@ -176,15 +157,10 @@ class AjaxHandler implements AjaxHandlerInterface
         $result = $this->options->add_global_hidden_notice($notice_id, $metadata);
 
         if ($result) {
-            Logger::log('Notice hidden globally', ['notice_id' => $notice_id]);
             wp_send_json_success(__('Notice hidden globally for all users.', 'unnotifier'));
         } else {
             // Check for specific error conditions
             $error_message = $this->get_failure_reason($notice_id);
-            Logger::log('Global hide failed', [
-                'notice_id' => $notice_id,
-                'db_error' => $GLOBALS['wpdb']->last_error ?? 'none'
-            ]);
             wp_send_json_error($error_message);
         }
     }
@@ -223,22 +199,12 @@ class AjaxHandler implements AjaxHandlerInterface
         // Check if user is logged in
         $user_id = get_current_user_id();
         if ($user_id === 0) {
-            Logger::log('User hide failed: user not logged in', [
-                'notice_id' => $notice_id,
-                'session_user_id' => $user_id,
-                'is_user_logged_in' => is_user_logged_in()
-            ]);
             wp_send_json_error(__('User not logged in. Please log in to hide notices.', 'unnotifier'));
             return;
         }
 
         // Validate notice ID
         if (empty($notice_id) || !is_string($notice_id)) {
-            Logger::log('User hide failed: invalid notice ID', [
-                'notice_id' => $notice_id,
-                'notice_id_type' => gettype($notice_id),
-                'user_id' => $user_id
-            ]);
             wp_send_json_error(__('Invalid notice ID provided.', 'unnotifier'));
             return;
         }
@@ -248,51 +214,22 @@ class AjaxHandler implements AjaxHandlerInterface
 
         // Check if notice is already hidden for user
         if (isset($current_user_notices[$notice_id])) {
-            Logger::log('Notice already hidden for user', [
-                'notice_id' => $notice_id,
-                'user_id' => $user_id,
-                'existing_data' => $current_user_notices[$notice_id]
-            ]);
             wp_send_json_success(__('Notice is already hidden for you.', 'unnotifier'));
             return;
         }
 
-        Logger::log('Attempting to hide notice for user', [
-            'notice_id' => $notice_id,
-            'user_id' => $user_id,
-            'metadata' => $metadata,
-            'current_user_notices_count' => count($current_user_notices)
-        ]);
 
         // Attempt to add notice to user hidden list
         $result = $this->options->add_user_hidden_notice($notice_id, $metadata, $user_id);
 
         if ($result) {
             $updated_user_notices = $this->options->get_user_hidden_notices($user_id);
-            Logger::log('Successfully added notice to user hidden', [
-                'notice_id' => $notice_id,
-                'user_id' => $user_id,
-                'metadata' => $metadata,
-                'previous_count' => count($current_user_notices),
-                'new_count' => count($updated_user_notices)
-            ]);
             wp_send_json_success(__('Notice hidden for you.', 'unnotifier'));
         } else {
             // Detailed error investigation
-            $error_details = [
-                'notice_id' => $notice_id,
-                'user_id' => $user_id,
-                'metadata_provided' => !empty($metadata),
-                'metadata_count' => count($metadata),
-                'current_user_notices_count' => count($current_user_notices),
-                'wp_debug' => defined('WP_DEBUG') ? WP_DEBUG : 'undefined',
-                'db_error' => $GLOBALS['wpdb']->last_error ?? 'none'
-            ];
 
             // Check if database connection is working
             if (!empty($GLOBALS['wpdb']->last_error)) {
-                $error_details['specific_error'] = 'Database error: ' . $GLOBALS['wpdb']->last_error;
-                Logger::log('User hide failed: database error', $error_details);
                 wp_send_json_error(__('Database error occurred while hiding notice. Please check database connection.', 'unnotifier'));
                 return;
             }
@@ -301,7 +238,6 @@ class AjaxHandler implements AjaxHandlerInterface
             $test_meta = get_user_meta($user_id, 'test_meta', true);
             if ($test_meta === false && $GLOBALS['wpdb']->last_error) {
                 $error_details['specific_error'] = 'Cannot access user meta data';
-                Logger::log('User hide failed: cannot access user meta', $error_details);
                 wp_send_json_error(__('Cannot access user settings. Please check database permissions.', 'unnotifier'));
                 return;
             }
@@ -310,7 +246,6 @@ class AjaxHandler implements AjaxHandlerInterface
             $user_data = get_userdata($user_id);
             if (!$user_data) {
                 $error_details['specific_error'] = 'User data not found for user ID: ' . $user_id;
-                Logger::log('User hide failed: invalid user', $error_details);
                 wp_send_json_error(__('User account not found. Please log in again.', 'unnotifier'));
                 return;
             }
@@ -319,7 +254,6 @@ class AjaxHandler implements AjaxHandlerInterface
             $error_details['specific_error'] = 'add_user_hidden_notice returned false for unknown reason';
             $error_details['user_login'] = $user_data->user_login;
             $error_details['user_exists'] = !empty($user_data);
-            Logger::log('User hide failed: unknown reason', $error_details);
 
             wp_send_json_error(__('Failed to hide notice for user. Check error logs for details.', 'unnotifier'));
         }
@@ -343,17 +277,12 @@ class AjaxHandler implements AjaxHandlerInterface
                 $this->update_user_hidden_notices([]);
             }
 
-            Logger::log('Reset all global hidden notices');
 
             // Return updated count for JavaScript to update the UI
             $updated_global_count = count($this->options->get_global_hidden_notices());
             $updated_user_count = count($this->options->get_user_hidden_notices());
 
-            wp_send_json_success([
-                'message' => __('All hidden notices have been reset for all users.', 'unnotifier'),
-                'hidden_global_count' => $updated_global_count,
-                'hidden_user_count' => $updated_user_count
-            ]);
+            wp_send_json_success(__('All notices reset successfully.', 'unnotifier'));
         } else {
             wp_send_json_error(__('Failed to reset notices.', 'unnotifier'));
         }
@@ -373,15 +302,11 @@ class AjaxHandler implements AjaxHandlerInterface
         }
 
         if ($this->update_user_hidden_notices([])) {
-            Logger::log('Reset user hidden notices', ['user_id' => $user_id]);
 
             // Return updated count for JavaScript to update the UI
             $updated_user_count = count($this->options->get_user_hidden_notices());
 
-            wp_send_json_success([
-                'message' => __('Your hidden notices have been reset.', 'unnotifier'),
-                'hidden_user_count' => $updated_user_count
-            ]);
+            wp_send_json_success(__('Your notices reset successfully.', 'unnotifier'));
         } else {
             wp_send_json_error(__('Failed to reset your notices.', 'unnotifier'));
         }
@@ -401,19 +326,13 @@ class AjaxHandler implements AjaxHandlerInterface
         }
 
         if ($this->options->remove_global_hidden_notice($notice_id)) {
-            Logger::log('Restored single global hidden notice', ['notice_id' => $notice_id]);
 
             // Return updated counts
             $updated_global_count = count($this->options->get_global_hidden_notices());
             $updated_user_count = count($this->options->get_user_hidden_notices());
 
-            wp_send_json_success([
-                // translators: %s is the notice ID that was restored
-                'message' => sprintf(__('Notice %s has been restored for all users.', 'unnotifier'), $notice_id),
-                'notice_id' => $notice_id,
-                'hidden_global_count' => $updated_global_count,
-                'hidden_user_count' => $updated_user_count
-            ]);
+            // translators: %s is the notice ID
+            wp_send_json_success(sprintf(__('Notice %s restored globally.', 'unnotifier'), $notice_id));
         } else {
             wp_send_json_error(__('Failed to restore notice globally.', 'unnotifier'));
         }
@@ -440,20 +359,12 @@ class AjaxHandler implements AjaxHandlerInterface
             unset($hidden_user[$notice_id]);
 
             if ($this->update_user_hidden_notices($hidden_user)) {
-                Logger::log('Restored single user hidden notice', [
-                    'notice_id' => $notice_id,
-                    'user_id' => $user_id
-                ]);
 
                 // Return updated count
                 $updated_user_count = count($this->options->get_user_hidden_notices());
 
-                wp_send_json_success([
-                    // translators: %s is the notice ID that was restored
-                    'message' => sprintf(__('Notice %s has been restored for you.', 'unnotifier'), $notice_id),
-                    'notice_id' => $notice_id,
-                    'hidden_user_count' => $updated_user_count
-                ]);
+                // translators: %s is the notice ID
+                wp_send_json_success(sprintf(__('Notice %s restored for you.', 'unnotifier'), $notice_id));
             } else {
                 wp_send_json_error(__('Failed to restore notice for user.', 'unnotifier'));
             }
@@ -465,20 +376,12 @@ class AjaxHandler implements AjaxHandlerInterface
                 $hidden_user = array_values($hidden_user); // Re-index array
 
                 if ($this->update_user_hidden_notices($hidden_user)) {
-                    Logger::log('Restored single user hidden notice (legacy format)', [
-                        'notice_id' => $notice_id,
-                        'user_id' => $user_id
-                    ]);
 
                     // Return updated count
                     $updated_user_count = count($this->options->get_user_hidden_notices());
 
-                    wp_send_json_success([
-                        // translators: %s is the notice ID that was restored
-                        'message' => sprintf(__('Notice %s has been restored for you.', 'unnotifier'), $notice_id),
-                        'notice_id' => $notice_id,
-                        'hidden_user_count' => $updated_user_count
-                    ]);
+                    // translators: %s is the notice ID
+                    wp_send_json_success(sprintf(__('Notice %s restored for you.', 'unnotifier'), $notice_id));
                 } else {
                     wp_send_json_error(__('Failed to restore notice for user.', 'unnotifier'));
                 }

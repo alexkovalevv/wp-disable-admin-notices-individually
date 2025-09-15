@@ -1,14 +1,14 @@
 <?php
 
-namespace DANI\Core;
+namespace UNNO\Core;
 
-use DANI\Core\Contracts\ModeManagerInterface;
-use DANI\Data\Options;
+use UNNO\Core\Contracts\ModeManagerInterface;
+use UNNO\Data\Options;
 
 /**
  * Manages notice display modes (show_all, individual, hide_all)
  * 
- * @package DANI\Core
+ * @package UNNO\Core
  * @since 1.0.0
  */
 class ModeManager implements ModeManagerInterface

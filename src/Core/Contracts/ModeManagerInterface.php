@@ -1,11 +1,11 @@
 <?php
 
-namespace DANI\Core\Contracts;
+namespace UNNO\Core\Contracts;
 
 /**
  * Interface for notice mode management
  * 
- * @package DANI\Core\Contracts
+ * @package UNNO\Core\Contracts
  * @since 1.0.0
  */
 interface ModeManagerInterface

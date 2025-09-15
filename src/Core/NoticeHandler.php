@@ -1,15 +1,14 @@
 <?php
 
-namespace DANI\Core;
+namespace UNNO\Core;
 
-use DANI\Core\Contracts\NoticeHandlerInterface;
-use DANI\Data\Options;
-use DANI\Core\Logger;
+use UNNO\Core\Contracts\NoticeHandlerInterface;
+use UNNO\Data\Options;
 
 /**
  * Handles notice capture and processing operations
  * 
- * @package DANI\Core
+ * @package UNNO\Core
  * @since 1.0.0
  */
 class NoticeHandler implements NoticeHandlerInterface
@@ -43,19 +42,17 @@ class NoticeHandler implements NoticeHandlerInterface
      */
     public function capture_notices(): void
     {
-        global $dani_captured_notices_by_hook;
+        global $unno_captured_notices_by_hook;
 
         $hidden_global = $this->options->get(Options::GLOBAL_HIDDEN_NOTICES_KEY, []);
         $hidden_user = $this->options->get_user_hidden_notices();
 
-        $this->log_capture_start($hidden_global, $hidden_user);
 
         $notices_by_hook = $this->collect_notices_by_hook($hidden_global, $hidden_user);
         
         $total_notices = array_sum(array_map('count', $notices_by_hook));
-        Logger::log("=== CAPTURE NOTICES END === Total notices to display: $total_notices");
 
-        $dani_captured_notices_by_hook = $notices_by_hook;
+        $unno_captured_notices_by_hook = $notices_by_hook;
 
         $this->setup_notice_printing();
     }
@@ -212,21 +209,21 @@ class NoticeHandler implements NoticeHandlerInterface
             
             if (is_object($object)) {
                 $class_name = get_class($object);
-                return strpos($class_name, 'DANI\\') === 0 ||
-                       strpos($class_name, 'DANI_') === 0 ||
+                return strpos($class_name, 'UNNO\\') === 0 ||
+                       strpos($class_name, 'UNN_') === 0 ||
                        in_array($method, ['capture_notices', 'print_notices'], true);
             }
         }
         
         if (is_string($callback)) {
-            return strpos($callback, 'dani_') === 0;
+            return strpos($callback, 'unno_') === 0;
         }
         
         return false;
     }
 
     /**
-     * Safely call a notice callback
+     * Safely call a notice callback with enhanced plugin detection
      * 
      * @param array $callback_data Callback data from WordPress hook
      * @return string Output from callback or empty string
@@ -241,38 +238,47 @@ class NoticeHandler implements NoticeHandlerInterface
         }
 
         try {
+            // Start output buffering
             ob_start();
             
+            // Call the callback
             if ($accepted_args <= 0) {
                 call_user_func($callback);
             } else {
                 call_user_func($callback);
             }
             
-            return ob_get_clean() ?: '';
+            $output = ob_get_clean() ?: '';
+            
+            // If we got output, try to enhance plugin detection using stack trace
+            if (!empty($output)) {
+                $this->enhance_plugin_detection_for_callback($callback, $output);
+            }
+            
+            return $output;
         } catch (Exception $e) {
             ob_end_clean();
-            Logger::log('Error calling notice callback', [
-                'callback' => $this->get_callback_string($callback),
-                'error' => $e->getMessage()
-            ]);
             return '';
         }
     }
-
+    
     /**
-     * Log the start of notice capture process
+     * Enhance plugin detection for a specific callback using stack trace
      * 
-     * @param array $hidden_global Global hidden notices
-     * @param array $hidden_user User hidden notices
+     * @param mixed $callback The callback function
+     * @param string $output The output from the callback
      * @return void
      */
-    private function log_capture_start(array $hidden_global, array $hidden_user): void
+    private function enhance_plugin_detection_for_callback($callback, string $output): void
     {
-        Logger::log('=== CAPTURE NOTICES START ===');
-        Logger::log('Hidden global count: ' . count($hidden_global), $hidden_global);
-        Logger::log('Hidden user count: ' . count($hidden_user), $hidden_user);
+        try {
+            // Get the plugin name using enhanced detection
+            $plugin_name = $this->get_plugin_name_from_stack_trace($callback);
+        } catch (\Exception $e) {
+            // Silent fail to avoid breaking the main functionality
+        }
     }
+
 
     /**
      * Collect notices from all hooks
@@ -291,7 +297,6 @@ class NoticeHandler implements NoticeHandlerInterface
                 continue;
             }
 
-            Logger::log("Processing hook: $hook_name with " . count($callbacks_map) . " priority levels");
 
             $notices_by_hook[$hook_name] = $this->process_hook_callbacks(
                 $hook_name, 
@@ -366,14 +371,11 @@ class NoticeHandler implements NoticeHandlerInterface
         // Determine source plugin name
         $source_plugin = $this->get_plugin_name_from_callback($callback_data['function'] ?? null);
 
-        $this->log_notice_info($hook_name, $priority, $callback_data, $notice_id, $output);
 
         if ($this->is_notice_hidden($notice_id, $hidden_user, $hidden_global)) {
-            Logger::log("Notice $notice_id is HIDDEN, skipping");
             return null;
         }
 
-        Logger::log("Notice $notice_id will be DISPLAYED from plugin: $source_plugin");
 
         return [
             'id' => $notice_id,
@@ -392,19 +394,6 @@ class NoticeHandler implements NoticeHandlerInterface
      * @param string $output Notice output
      * @return void
      */
-    private function log_notice_info(string $hook_name, int $priority, array $callback_data, string $notice_id, string $output): void
-    {
-        $callback_info = $this->get_callback_string($callback_data['function'] ?? null);
-
-        Logger::log("Notice generated", [
-            'hook' => $hook_name,
-            'priority' => $priority,
-            'callback' => $callback_info,
-            'notice_id' => $notice_id,
-            'content_length' => strlen($output),
-            'content_preview' => substr(wp_strip_all_tags($output), 0, 100)
-        ]);
-    }
 
     /**
      * Setup notice printing after capture
@@ -420,7 +409,7 @@ class NoticeHandler implements NoticeHandlerInterface
         foreach ($this->notice_hooks as $hook_name) {
             add_action($hook_name, function() use ($hook_name) {
                 // This will be handled by NoticeRenderer, pass hook name
-                do_action('dani_print_notices', $hook_name);
+                do_action('unno_print_notices', $hook_name);
             }, 9999);
         }
     }
@@ -471,7 +460,7 @@ class NoticeHandler implements NoticeHandlerInterface
     }
 
     /**
-     * Get plugin name from callback function
+     * Get plugin name from callback function with enhanced detection
      * 
      * @param mixed $callback Callback to analyze
      * @return string Plugin name or fallback
@@ -481,6 +470,13 @@ class NoticeHandler implements NoticeHandlerInterface
         $plugin_name = 'Unknown Plugin';
         
         try {
+            // First try enhanced stack trace detection
+            $plugin_name = $this->get_plugin_name_from_stack_trace($callback);
+            if ($plugin_name !== 'Unknown Plugin') {
+                return $plugin_name;
+            }
+            
+            // Original reflection-based detection
             if (is_array($callback) && count($callback) >= 2) {
                 $object = $callback[0];
                 $method = $callback[1];
@@ -524,13 +520,231 @@ class NoticeHandler implements NoticeHandlerInterface
                 }
             }
         } catch (\Exception $e) {
-            Logger::log('Error determining plugin name from callback', [
-                'callback' => $this->get_callback_string($callback),
-                'error' => $e->getMessage()
-            ]);
         }
         
         return $plugin_name;
+    }
+
+    /**
+     * Enhanced plugin detection using improved reflection analysis
+     * 
+     * @param mixed $callback Callback to analyze
+     * @return string Plugin name or 'Unknown Plugin'
+     */
+    private function get_plugin_name_from_stack_trace($callback): string
+    {
+        static $plugin_cache = [];
+        
+        try {
+            // Get callback identifier for caching
+            $callback_id = $this->get_callback_string($callback);
+            
+            // Check cache first
+            if (isset($plugin_cache[$callback_id])) {
+                return $plugin_cache[$callback_id];
+            }
+            
+            // First try reflection-based detection (safer)
+            $plugin_name = $this->get_plugin_name_from_callback_reflection($callback);
+            if ($plugin_name !== 'Unknown Plugin') {
+                $plugin_cache[$callback_id] = $plugin_name;
+                return $plugin_name;
+            }
+            
+            // Only use stack trace if reflection failed, we're in a safe context, and plugin name detection is enabled
+            $options = Options::instance();
+            $show_plugin_names = $options->get('show_plugin_names', true);
+            
+            if ($show_plugin_names && function_exists('debug_backtrace') && !defined('DOING_AJAX')) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace -- Used for plugin detection
+                $stack_trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
+                
+                // Look for plugin files in the stack trace
+                foreach ($stack_trace as $frame) {
+                    if (!isset($frame['file'])) {
+                        continue;
+                    }
+                    
+                    $file_path = $frame['file'];
+                    $normalized_path = str_replace('\\', '/', $file_path);
+                    
+                    // Skip our own plugin files
+                    if (strpos($normalized_path, '/unnotifier/') !== false) {
+                        continue;
+                    }
+                    
+                    // Skip WordPress core files
+                    if (strpos($normalized_path, '/wp-admin/') !== false || 
+                        strpos($normalized_path, '/wp-includes/') !== false) {
+                        continue;
+                    }
+                    
+                    // Look for plugin files
+                    if (strpos($normalized_path, '/wp-content/plugins/') !== false) {
+                        $plugin_name = $this->extract_plugin_name_from_path_enhanced($normalized_path);
+                        if ($plugin_name !== 'Unknown Plugin') {
+                            // Cache the result
+                            $plugin_cache[$callback_id] = $plugin_name;
+                            return $plugin_name;
+                        }
+                    }
+                }
+            }
+            
+            // Fallback to 'Unknown Plugin'
+            $plugin_cache[$callback_id] = 'Unknown Plugin';
+            return 'Unknown Plugin';
+            
+        } catch (\Exception $e) {
+            return 'Unknown Plugin';
+        }
+    }
+    
+    /**
+     * Enhanced plugin name extraction from file path with better detection
+     * 
+     * @param string $file_path Path to the file
+     * @return string Plugin name
+     */
+    private function extract_plugin_name_from_path_enhanced(string $file_path): string
+    {
+        // Normalize path separators
+        $file_path = str_replace('\\', '/', $file_path);
+        
+        // Check if it's in wp-content/plugins/
+        if (strpos($file_path, '/wp-content/plugins/') !== false) {
+            $parts = explode('/wp-content/plugins/', $file_path);
+            if (count($parts) > 1) {
+                $plugin_parts = explode('/', $parts[1]);
+                $plugin_folder = $plugin_parts[0];
+                
+                // Skip our own plugin
+                if ($plugin_folder === 'unnotifier') {
+                    return 'Unknown Plugin';
+                }
+                
+                // Try multiple strategies to find the plugin name
+                $plugin_name = $this->find_plugin_name_by_folder($plugin_folder);
+                if ($plugin_name) {
+                    return $plugin_name;
+                }
+            }
+        }
+        
+        return 'Unknown Plugin';
+    }
+    
+    /**
+     * Find plugin name by folder with improved detection strategies
+     * 
+     * @param string $plugin_folder Plugin folder name
+     * @return string|null Plugin name or null
+     */
+    private function find_plugin_name_by_folder(string $plugin_folder): ?string
+    {
+        static $folder_cache = [];
+        
+        // Check cache first
+        if (isset($folder_cache[$plugin_folder])) {
+            return $folder_cache[$plugin_folder];
+        }
+        
+        $plugin_name = null;
+        
+        // Strategy 1: Try exact folder name match
+        $exact_file = WP_PLUGIN_DIR . '/' . $plugin_folder . '/' . $plugin_folder . '.php';
+        if (file_exists($exact_file)) {
+            $plugin_name = $this->get_plugin_name_from_file($exact_file);
+            if ($plugin_name) {
+                $folder_cache[$plugin_folder] = $plugin_name;
+                return $plugin_name;
+            }
+        }
+        
+       
+        // Strategy 2: Scan all PHP files in the folder
+        $php_files = glob(WP_PLUGIN_DIR . '/' . $plugin_folder . '/*.php');
+        if ($php_files) {
+            foreach ($php_files as $file_path) {
+                $plugin_name = $this->get_plugin_name_from_file($file_path);
+                if ($plugin_name) {
+                    $folder_cache[$plugin_folder] = $plugin_name;
+                    return $plugin_name;
+                }
+            }
+        }
+        
+        // Strategy 3: Use WordPress get_plugins() if available
+        if (function_exists('get_plugins')) {
+            $all_plugins = get_plugins();
+            foreach ($all_plugins as $plugin_file => $plugin_data) {
+                if (strpos($plugin_file, $plugin_folder . '/') === 0) {
+                    $plugin_name = $plugin_data['Name'] ?? null;
+                    if ($plugin_name) {
+                        $folder_cache[$plugin_folder] = $plugin_name;
+                        return $plugin_name;
+                    }
+                }
+            }
+        }
+        
+        // Strategy 4: Fallback to humanized folder name
+        $plugin_name = $this->humanize_plugin_folder_name($plugin_folder);
+        $folder_cache[$plugin_folder] = $plugin_name;
+        return $plugin_name;
+    }
+    
+    /**
+     * Get plugin name from callback using reflection (fallback method)
+     * 
+     * @param mixed $callback Callback to analyze
+     * @return string Plugin name
+     */
+    private function get_plugin_name_from_callback_reflection($callback): string
+    {
+        try {
+            if (is_array($callback) && count($callback) >= 2) {
+                $object = $callback[0];
+                $method = $callback[1];
+                
+                if (is_object($object)) {
+                    $reflection = new \ReflectionClass($object);
+                    $file_path = $reflection->getFileName();
+                    
+                    if ($file_path) {
+                        return $this->extract_plugin_name_from_path_enhanced($file_path);
+                    }
+                } elseif (is_string($object)) {
+                    if (class_exists($object)) {
+                        $reflection = new \ReflectionClass($object);
+                        $file_path = $reflection->getFileName();
+                        
+                        if ($file_path) {
+                            return $this->extract_plugin_name_from_path_enhanced($file_path);
+                        }
+                    }
+                }
+            } elseif (is_string($callback)) {
+                if (function_exists($callback)) {
+                    $reflection = new \ReflectionFunction($callback);
+                    $file_path = $reflection->getFileName();
+                    
+                    if ($file_path) {
+                        return $this->extract_plugin_name_from_path_enhanced($file_path);
+                    }
+                }
+            } elseif (is_object($callback) && method_exists($callback, '__invoke')) {
+                $reflection = new \ReflectionClass($callback);
+                $file_path = $reflection->getFileName();
+                
+                if ($file_path) {
+                    return $this->extract_plugin_name_from_path_enhanced($file_path);
+                }
+            }
+        } catch (\Exception $e) {
+        }
+        
+        return 'Unknown Plugin';
     }
 
     /**

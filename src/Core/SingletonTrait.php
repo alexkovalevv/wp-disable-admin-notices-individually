@@ -3,7 +3,7 @@
  * Singleton Trait
  */
 
-namespace DANI\Core;
+namespace UNNO\Core;
 
 if (!defined('ABSPATH')) {
     exit;

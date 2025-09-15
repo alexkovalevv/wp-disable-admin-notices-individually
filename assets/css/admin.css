@@ -5,7 +5,7 @@
  */
 
 /* Hide control wrapper (top-left) */
-.dani-hide-button-wrapper {
+.unno-hide-button-wrapper {
     display: flex;
     align-items: center;
     justify-content: left;
@@ -19,14 +19,14 @@
 }
 
 /* Button group - левая сторона */
-.dani-buttons-group {
+.unno-buttons-group {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 /* Button styling */
-.dani-hide-notice.button {
+.unno-hide-notice.button {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -40,46 +40,46 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.dani-hide-notice.button:hover {
+.unno-hide-notice.button:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }
 
-.dani-hide-notice.button:focus {
+.unno-hide-notice.button:focus {
     outline: 2px solid #2271b1;
     outline-offset: 1px;
     box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.3);
 }
 
 /* "Hide for me" button styling */
-.dani-hide-for-user {
+.unno-hide-for-user {
     background: #f6f7f7;
     border-color: #dcdcde;
     color: #3c434a;
 }
 
-.dani-hide-for-user:hover {
+.unno-hide-for-user:hover {
     background: #f0f0f1;
     border-color: #c3c4c7;
     color: #1d2327;
 }
 
 /* "Hide for all" button styling (primary) */
-.dani-hide-for-all.button-primary {
+.unno-hide-for-all.button-primary {
     background: #2271b1;
     border-color: #2271b1;
     color: #ffffff;
 }
 
-.dani-hide-for-all.button-primary:hover {
+.unno-hide-for-all.button-primary:hover {
     background: #135e96;
     border-color: #135e96;
     color: #ffffff;
 }
 
 /* Icon styling */
-.dani-hide-notice .dashicons {
+.unno-hide-notice .dashicons {
     font-size: 14px;
     width: 14px;
     height: 14px;
@@ -87,13 +87,13 @@
 }
 
 /* Plugin info styling - правая сторона */
-.dani-plugin-info {
+.unno-plugin-info {
     display: flex;
     align-items: center;
     flex-shrink: 0;
 }
 
-.dani-plugin-info small {
+.unno-plugin-info small {
     font-size: 11px;
     line-height: 1.3;
     color: #666;
@@ -101,44 +101,44 @@
     white-space: nowrap;
 }
 
-.dani-plugin-info a {
+.unno-plugin-info a {
     color: #0073aa;
     text-decoration: none;
 }
 
-.dani-plugin-info a:hover {
+.unno-plugin-info a:hover {
     text-decoration: underline;
 }
 
 /* Notice wrapper modifications */
-.notice.dani-notice-wrapper,
-.notice:has(.dani-hide-button-wrapper) {
+.notice.unno-notice-wrapper,
+.notice:has(.unno-hide-button-wrapper) {
     position: relative;
 }
 
 /* Loading state for hide button */
-.dani-hide-notice.loading {
+.unno-hide-notice.loading {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-.dani-hide-notice.loading .dashicons {
-    animation: dani-spin 1s linear infinite;
+.unno-hide-notice.loading .dashicons {
+    animation: unno-spin 1s linear infinite;
 }
 
 /* Animation for hiding notices */
-.dani-notice-hiding {
+.unno-notice-hiding {
     opacity: 0.5;
     transition: opacity 0.3s ease;
 }
 
-.dani-notice-hidden {
+.unno-notice-hidden {
     display: none;
 }
 
 /* Spinner animation */
-@keyframes dani-spin {
+@keyframes unno-spin {
     from {
         transform: rotate(0deg);
     }
@@ -147,34 +147,44 @@
     }
 }
 
+/* Rotation animation for loading spinner */
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 782px) {
-    .dani-hide-button-wrapper {
+    .unno-hide-button-wrapper {
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
     }
 
-    .dani-buttons-group {
+    .unno-buttons-group {
         justify-content: center;
     }
 
-    .dani-plugin-info {
+    .unno-plugin-info {
         justify-content: center;
     }
 
-    .dani-plugin-info small {
+    .unno-plugin-info small {
         white-space: normal;
         text-align: center;
         font-size: 10px;
     }
 
-    .dani-hide-notice.button {
+    .unno-hide-notice.button {
         font-size: 11px;
         padding: 3px 6px;
     }
 
-    .dani-hide-notice .dashicons {
+    .unno-hide-notice .dashicons {
         font-size: 12px;
         width: 12px;
         height: 12px;
@@ -182,7 +192,7 @@
 }
 
 @media screen and (max-width: 480px) {
-    .dani-buttons-group {
+    .unno-buttons-group {
         flex-direction: column;
         gap: 4px;
     }
@@ -190,25 +200,25 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-    .dani-hide-notice.button,
-    .dani-notice-hiding {
+    .unno-hide-notice.button,
+    .unno-notice-hiding {
         transition: none;
     }
 
-    .dani-hide-notice.loading .dashicons {
+    .unno-hide-notice.loading .dashicons {
         animation: none;
     }
 }
 
 /* Hidden notices management styles */
-.dani-hidden-notices-details {
+.unno-hidden-notices-details {
     margin-top: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background: #fafafa;
 }
 
-.dani-hidden-notices-details summary {
+.unno-hidden-notices-details summary {
     padding: 10px 15px;
     cursor: pointer;
     background: #f0f0f1;
@@ -218,21 +228,21 @@
     transition: background-color 0.2s ease;
 }
 
-.dani-hidden-notices-details summary:hover {
+.unno-hidden-notices-details summary:hover {
     background: #e8e8e9;
 }
 
-.dani-hidden-notices-details summary:focus {
+.unno-hidden-notices-details summary:focus {
     outline: 2px solid #2271b1;
     outline-offset: -2px;
 }
 
-.dani-hidden-notices-details[open] summary {
+.unno-hidden-notices-details[open] summary {
     border-bottom: 1px solid #ddd;
 }
 
 /* Table wrapper for scrolling */
-.dani-hidden-notices-table-wrapper {
+.unno-hidden-notices-table-wrapper {
     padding: 15px;
     max-height: 400px;
     overflow-y: auto;
@@ -240,7 +250,7 @@
 }
 
 /* Table styles */
-.dani-hidden-notices-table {
+.unno-hidden-notices-table {
     width: 100%;
     border-collapse: collapse;
     background: #fff;
@@ -249,13 +259,13 @@
     overflow: hidden;
 }
 
-.dani-hidden-notices-table thead {
+.unno-hidden-notices-table thead {
     background: #f1f1f1;
     color: #23282d;
     border-bottom: 2px solid #ddd;
 }
 
-.dani-hidden-notices-table th {
+.unno-hidden-notices-table th {
     padding: 12px 10px;
     text-align: left;
     font-weight: 600;
@@ -265,21 +275,21 @@
     border-right: 1px solid #ddd;
 }
 
-.dani-hidden-notices-table th:last-child {
+.unno-hidden-notices-table th:last-child {
     border-right: none;
 }
 
-.dani-hidden-notices-table tbody tr {
+.unno-hidden-notices-table tbody tr {
     background: #fff;
     transition: background-color 0.2s ease;
     border-bottom: 1px solid #e5e5e5;
 }
 
-.dani-hidden-notices-table tbody tr:hover {
+.unno-hidden-notices-table tbody tr:hover {
     background: #f9f9f9;
 }
 
-.dani-hidden-notices-table td {
+.unno-hidden-notices-table td {
     padding: 12px 10px;
     vertical-align: top;
     font-size: 13px;
@@ -287,44 +297,44 @@
 }
 
 /* Column specific styles */
-.dani-plugin-column,
-.dani-plugin-cell {
+.unno-plugin-column,
+.unno-plugin-cell {
     width: 20%;
     min-width: 120px;
 }
 
-.dani-content-column,
-.dani-content-cell {
+.unno-content-column,
+.unno-content-cell {
     width: 45%;
     min-width: 200px;
 }
 
-.dani-user-column,
-.dani-user-cell {
+.unno-user-column,
+.unno-user-cell {
     width: 20%;
     min-width: 110px;
 }
 
-.dani-actions-column,
-.dani-actions-cell {
+.unno-actions-column,
+.unno-actions-cell {
     width: 15%;
     min-width: 100px;
     text-align: center;
 }
 
 /* Plugin cell styling */
-.dani-plugin-cell strong {
+.unno-plugin-cell strong {
     color: #2271b1;
     font-weight: 600;
     display: block;
 }
 
 /* Content cell styling */
-.dani-content-cell {
+.unno-content-cell {
     position: relative;
 }
 
-.dani-notice-excerpt {
+.unno-notice-excerpt {
     display: block;
     margin-bottom: 4px;
     line-height: 1.3;
@@ -332,7 +342,7 @@
     font-weight: 400;
 }
 
-.dani-notice-id {
+.unno-notice-id {
     font-family: 'Courier New', Courier, monospace;
     font-size: 11px;
     color: #666;
@@ -344,7 +354,7 @@
 
 
 /* Action cell styling */
-.dani-actions-cell .button {
+.unno-actions-cell .button {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -355,19 +365,19 @@
     white-space: nowrap;
 }
 
-.dani-actions-cell .button .dashicons {
+.unno-actions-cell .button .dashicons {
     font-size: 14px;
     width: 14px;
     height: 14px;
 }
 
-.dani-actions-cell .button:disabled {
+.unno-actions-cell .button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
 /* Empty state for hidden notices */
-.dani-hidden-notices-table-wrapper:empty::before {
+.unno-hidden-notices-table-wrapper:empty::before {
     content: "No hidden notices found.";
     display: block;
     text-align: center;
@@ -398,59 +408,59 @@
     }
 }
 
-.dani-notice-row.removing {
+.unno-notice-row.removing {
     animation: fadeOutRow 0.4s ease-out forwards;
 }
 
 /* Responsive adjustments for tables */
 @media screen and (max-width: 1200px) {
-    .dani-content-column,
-    .dani-content-cell {
+    .unno-content-column,
+    .unno-content-cell {
         width: 40%;
     }
     
-    .dani-plugin-column,
-    .dani-plugin-cell {
+    .unno-plugin-column,
+    .unno-plugin-cell {
         width: 25%;
     }
 }
 
 @media screen and (max-width: 782px) {
-    .dani-hidden-notices-table-wrapper {
+    .unno-hidden-notices-table-wrapper {
         padding: 10px;
         max-height: 300px;
     }
     
-    .dani-hidden-notices-table {
+    .unno-hidden-notices-table {
         font-size: 12px;
     }
     
-    .dani-hidden-notices-table th,
-    .dani-hidden-notices-table td {
+    .unno-hidden-notices-table th,
+    .unno-hidden-notices-table td {
         padding: 8px 6px;
     }
     
-    .dani-hidden-notices-table th {
+    .unno-hidden-notices-table th {
         font-size: 11px;
     }
     
     /* Stack table on very small screens */
-    .dani-hidden-notices-table,
-    .dani-hidden-notices-table thead,
-    .dani-hidden-notices-table tbody,
-    .dani-hidden-notices-table th,
-    .dani-hidden-notices-table td,
-    .dani-hidden-notices-table tr {
+    .unno-hidden-notices-table,
+    .unno-hidden-notices-table thead,
+    .unno-hidden-notices-table tbody,
+    .unno-hidden-notices-table th,
+    .unno-hidden-notices-table td,
+    .unno-hidden-notices-table tr {
         display: block;
     }
     
-    .dani-hidden-notices-table thead tr {
+    .unno-hidden-notices-table thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
     
-    .dani-hidden-notices-table tr {
+    .unno-hidden-notices-table tr {
         border: 1px solid #ddd;
         margin-bottom: 10px;
         padding: 10px;
@@ -458,14 +468,14 @@
         background: #fff;
     }
     
-    .dani-hidden-notices-table td {
+    .unno-hidden-notices-table td {
         border: none;
         padding: 5px 0;
         position: relative;
         padding-left: 30%;
     }
     
-    .dani-hidden-notices-table td:before {
+    .unno-hidden-notices-table td:before {
         content: attr(data-label) ": ";
         position: absolute;
         left: 0;
@@ -477,30 +487,30 @@
         letter-spacing: 0.5px;
     }
     
-    .dani-actions-cell {
+    .unno-actions-cell {
         text-align: left;
     }
 }
 
 /* RTL support */
-.rtl .dani-hide-button-wrapper {
+.rtl .unno-hide-button-wrapper {
     flex-direction: row-reverse;
 }
 
-.rtl .dani-buttons-group {
+.rtl .unno-buttons-group {
     flex-direction: row-reverse;
 }
 
-.rtl .dani-plugin-info {
+.rtl .unno-plugin-info {
     text-align: left;
 }
 
-.rtl .dani-notice-item .dani-notice-id {
+.rtl .unno-notice-item .unno-notice-id {
     margin-right: 0;
     margin-left: 10px;
 }
 
-.rtl .dani-notice-item .dani-notice-date {
+.rtl .unno-notice-item .unno-notice-date {
     margin-right: 0;
     margin-left: 10px;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace DANI\Data;
+namespace UNNO\Data;
 
 /**
  * Centralized options storage/retrieval for Disable Admin Notices Individually
@@ -9,10 +9,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use DANI\Core\SingletonTrait;
-use DANI\Core\Logger;
+use UNNO\Core\SingletonTrait;
 
-if (!class_exists('DANI\Data\Options')) {
+if (!class_exists('UNNO\Data\Options')) {
     class Options
     {
         use SingletonTrait;
@@ -20,14 +19,13 @@ if (!class_exists('DANI\Data\Options')) {
         /**
          * Единственный экземпляр класса
          */
-        public const OPTION_KEY = 'dani_settings';
+        public const OPTION_KEY = 'unn_settings';
         public const USER_HIDDEN_NOTICES_KEY = 'user_hidden_notices';
         public const GLOBAL_HIDDEN_NOTICES_KEY = 'global_hidden_notices';
 
         private $defaults = [
-            'mode' => 'individual',
-            'debug' => false,
             self::GLOBAL_HIDDEN_NOTICES_KEY => [],
+            'show_plugin_names' => true,
         ];
 
         /**
@@ -43,7 +41,6 @@ if (!class_exists('DANI\Data\Options')) {
                     // Try to add option instead of update
                     $result = add_option(self::OPTION_KEY, $this->defaults);
                 }
-                Logger::log('Options: Set defaults', ['success' => $result]);
             }
         }
 
@@ -52,7 +49,15 @@ if (!class_exists('DANI\Data\Options')) {
          */
         public function get_all(): array
         {
-            return get_option(self::OPTION_KEY, []);
+            $options = get_option(self::OPTION_KEY, []);
+            
+            // Ensure we always return an array
+            if (!is_array($options)) {
+                $this->set_defaults();
+                $options = get_option(self::OPTION_KEY, []);
+            }
+            
+            return is_array($options) ? $options : [];
         }
 
         /**
@@ -116,10 +121,6 @@ if (!class_exists('DANI\Data\Options')) {
             // If metadata is provided, store as associative array with metadata
             if (!empty($metadata)) {
                 $notice_data = array_merge([
-                    'hidden_at' => current_time('timestamp'),
-                    'source_plugin' => 'Unknown Plugin',
-                    'excerpt' => '',
-                    'content' => ''
                 ], $metadata);
 
                 // Санитизируем данные перед сохранением
@@ -188,10 +189,6 @@ if (!class_exists('DANI\Data\Options')) {
             // Prepare notice data
             if (!empty($metadata)) {
                 $notice_data = array_merge([
-                    'hidden_at' => current_time('timestamp'),
-                    'source_plugin' => 'Unknown Plugin',
-                    'excerpt' => '',
-                    'content' => ''
                 ], $metadata);
             } else {
                 $notice_data = ['hidden_at' => current_time('timestamp')];
@@ -205,11 +202,6 @@ if (!class_exists('DANI\Data\Options')) {
             $result = $this->update(self::GLOBAL_HIDDEN_NOTICES_KEY, $hidden);
 
             if (!$result) {
-                Logger::log('Options: Failed to add global hidden notice', [
-                    'notice_key' => $notice_key,
-                    'has_metadata' => !empty($metadata),
-                    'sanitized_data' => $notice_data
-                ]);
             }
 
             return $result;

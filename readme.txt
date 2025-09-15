@@ -5,7 +5,7 @@ Tags: admin, notices, hide, disable, dashboard
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,28 @@ Currently, the plugin applies settings globally for all users with admin access.
 
 == Changelog ==
 
+= 1.2.0 =
+* **Fixed Plugin Prefix Issue**: Changed plugin prefix from "unn" to "unno" to comply with WordPress.org requirements
+* **Improved Notice Metadata**: Enhanced storage and display of notice metadata including plugin names and content
+* **Better Plugin Detection**: Improved algorithm for detecting which plugin generates each notice
+* **Enhanced Settings Interface**: Better display of hidden notices with proper plugin names and content excerpts
+* **Code Quality Improvements**: Updated all CSS classes, JavaScript selectors, and PHP functions to use new prefix
+* **WordPress Standards Compliance**: Full compliance with WordPress coding standards and plugin directory requirements
+* **Bug Fixes**: Fixed issues with notice display and metadata storage
+* **Performance Optimizations**: Improved loading and processing of admin notices
+
+= 1.1.0 =
+* **Enhanced Plugin Detection**: Improved algorithm for detecting which plugin generates each notice
+* **Stack Trace Analysis**: Added advanced stack trace analysis to identify plugin source files
+* **Reflection-Based Detection**: Implemented reflection API for better callback analysis
+* **Plugin Name Extraction**: Enhanced extraction of plugin names from file paths and headers
+* **Fallback Handling**: Better handling of unknown plugins with "Unknown Plugin" label
+* **Performance Optimization**: Added caching for plugin detection results
+* **Code Refactoring**: Complete refactoring from DANI to UNN namespace and prefixes
+* **Security Improvements**: Enhanced nonce verification and input sanitization
+* **Bug Fixes**: Fixed various edge cases in plugin detection and notice handling
+* **WordPress 6.8 Compatibility**: Updated for latest WordPress version
+
 = 1.0.0 =
 * Initial release
 * Three display modes: show all, hide individually, hide all
@@ -120,6 +142,12 @@ Currently, the plugin applies settings globally for all users with admin access.
 * WordPress 6.4 compatibility
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Important update with WordPress.org compliance fixes! Changed plugin prefix to meet requirements, improved notice metadata display, and enhanced plugin detection. Includes better settings interface and performance optimizations.
+
+= 1.1.0 =
+Major update with enhanced plugin detection! Now you can see exactly which plugin generates each notice, making it easier to manage your admin dashboard. Includes improved performance, better security, and WordPress 6.8 compatibility.
 
 = 1.0.0 =
 Initial release of Unnotifier. Clean up your WordPress admin dashboard today!
@@ -153,6 +181,22 @@ This plugin does not collect, store, or transmit any personal data. All function
 * **External Dependencies:** None
 * **Multisite Compatible:** Yes
 * **Translation Ready:** Yes (translations welcome!)
+
+== Important Notice About Caching ==
+
+**Output Buffering Usage:** This plugin uses output buffering (ob_start()) only in the WordPress admin area to capture and process admin notices. This functionality is NOT used on the frontend of your website.
+
+**Server Caching Compatibility:** If you experience issues with admin area caching or if your hosting provider uses server-based caching (such as nginx, Varnish, or similar services), please note that this plugin may conflict with such caching systems. In such cases, we recommend not using this plugin.
+
+**WordPress Managed Hosting:** Some managed WordPress hosting providers may prohibit plugins that use output buffering due to potential conflicts with their caching infrastructure. Please check with your hosting provider before using this plugin if you're on a managed WordPress hosting service.
+
+== Plugin Detection Feature ==
+
+**debug_backtrace() Usage:** This plugin uses PHP's debug_backtrace() function to detect which plugin generates each admin notice. This feature is enabled by default but can be disabled in the plugin settings under "Show plugin names in notices?".
+
+**Performance Considerations:** The debug_backtrace() function may have a slight performance impact on high-traffic sites. If you experience performance issues, you can disable this feature in the plugin settings. When disabled, notices will show "Unknown Plugin" instead of the actual plugin name.
+
+**Technical Details:** The plugin analyzes the call stack to identify plugin files and extracts plugin names from their headers. This helps users identify the source of notifications for better management.
 
 == Credits ==
 

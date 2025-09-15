@@ -1,6 +1,6 @@
 <?php
 
-namespace DANI\Admin;
+namespace UNNO\Admin;
 
 /**
  * Settings and configuration for Disable Admin Notices Individually
@@ -9,9 +9,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use DANI\Data\Options;
+use UNNO\Data\Options;
 
-if (!class_exists('DANI\Admin\Settings')) {
+if (!class_exists('UNNO\Admin\Settings')) {
     class Settings
     {
         public static function init()
@@ -19,7 +19,7 @@ if (!class_exists('DANI\Admin\Settings')) {
             if (is_admin()) {
                 add_action('admin_menu', [__CLASS__, 'add_admin_menu']);
                 add_action('admin_init', [__CLASS__, 'admin_init']);
-                add_action('admin_post_dani_download_log', [__CLASS__, 'download_log']);
+                add_action('admin_post_unn_download_log', [__CLASS__, 'download_log']);
             }
         }
 
@@ -27,7 +27,7 @@ if (!class_exists('DANI\Admin\Settings')) {
         {
             add_options_page(
                     __('Disable Admin Notices', 'unnotifier'),
-                    __('Admin Notices', 'unnotifier'),
+                    __('Unnotifier', 'unnotifier'),
                     'manage_options',
                     'unnotifier',
                     [__CLASS__, 'admin_page']
@@ -36,37 +36,45 @@ if (!class_exists('DANI\Admin\Settings')) {
 
         public static function admin_init()
         {
-            register_setting('dani_settings', 'dani_settings', [__CLASS__, 'sanitize_settings']);
+            register_setting('unno_settings', 'unno_settings', [__CLASS__, 'sanitize_settings']);
 
             add_settings_section(
-                    'dani_main_section',
+                    'unn_main_section',
                     __('Notice Display Settings', 'unnotifier'),
                     [__CLASS__, 'section_callback'],
-                    'dani_settings'
+                    'unno_settings'
             );
 
             add_settings_field(
                     'mode',
                     __('Notice Mode', 'unnotifier'),
                     [__CLASS__, 'mode_field_callback'],
-                    'dani_settings',
-                    'dani_main_section'
+                    'unno_settings',
+                    'unn_main_section'
             );
 
             add_settings_field(
                     'reset_notices',
                     __('Reset Hidden Notices', 'unnotifier'),
                     [__CLASS__, 'reset_field_callback'],
-                    'dani_settings',
-                    'dani_main_section'
+                    'unno_settings',
+                    'unn_main_section'
             );
 
             add_settings_field(
                     'debug',
                     __('Debug mode', 'unnotifier'),
                     [__CLASS__, 'debug_field_callback'],
-                    'dani_settings',
-                    'dani_main_section'
+                    'unno_settings',
+                    'unn_main_section'
+            );
+
+            add_settings_field(
+                    'show_plugin_names',
+                    __('Show plugin names in notices?', 'unnotifier'),
+                    [__CLASS__, 'show_plugin_names_field_callback'],
+                    'unno_settings',
+                    'unn_main_section'
             );
         }
 
@@ -83,21 +91,21 @@ if (!class_exists('DANI\Admin\Settings')) {
             ?>
             <fieldset>
                 <label>
-                    <input type="radio" name="dani_settings[mode]"
+                    <input type="radio" name="unno_settings[mode]"
                            value="show_all" <?php checked($mode, 'show_all'); ?>>
                     <?php esc_html_e('Show all notifications', 'unnotifier'); ?>
                 </label><br>
                 <p class="description"><?php esc_html_e('Display all admin notifications normally without any hiding options.', 'unnotifier'); ?></p>
 
                 <label>
-                    <input type="radio" name="dani_settings[mode]"
+                    <input type="radio" name="unno_settings[mode]"
                            value="individual" <?php checked($mode, 'individual'); ?>>
                     <?php esc_html_e('Hide notifications individually', 'unnotifier'); ?>
                 </label><br>
                 <p class="description"><?php esc_html_e('Show all notifications with a "hide forever" button on each one for individual control.', 'unnotifier'); ?></p>
 
                 <label>
-                    <input type="radio" name="dani_settings[mode]"
+                    <input type="radio" name="unno_settings[mode]"
                            value="hide_all" <?php checked($mode, 'hide_all'); ?>>
                     <?php esc_html_e('Hide all notifications', 'unnotifier'); ?>
                 </label>
@@ -118,11 +126,11 @@ if (!class_exists('DANI\Admin\Settings')) {
             $hidden_user = $options_instance->get_user_hidden_notices();
             $hidden_user_count = count($hidden_user);
 
-            $nonce = wp_create_nonce('dani_nonce');
+            $nonce = wp_create_nonce('unno_ajax_nonce');
             ?>
-            <div class="dani-reset-group">
+            <div class="unno-reset-group">
                 <h4><?php esc_html_e('Per-user hidden notices', 'unnotifier'); ?></h4>
-                <button type="button" id="dani-reset-notices-user" class="button button-secondary">
+                <button type="button" id="unno-reset-notices-user" class="button button-secondary">
                     <?php esc_html_e('Reset My Hidden Notices', 'unnotifier'); ?>
                 </button>
                 <p class="description">
@@ -132,15 +140,15 @@ if (!class_exists('DANI\Admin\Settings')) {
                 </p>
 
                 <?php if ($hidden_user_count > 0): ?>
-                    <details class="dani-hidden-notices-details">
+                    <details class="unno-hidden-notices-details">
                         <summary><?php esc_html_e('Show hidden notices list', 'unnotifier'); ?></summary>
-                        <div class="dani-hidden-notices-table-wrapper">
-                            <table class="dani-hidden-notices-table">
+                        <div class="unno-hidden-notices-table-wrapper">
+                            <table class="unno-hidden-notices-table">
                                 <thead>
                                 <tr>
-                                    <th class="dani-plugin-column"><?php esc_html_e('Plugin', 'unnotifier'); ?></th>
-                                    <th class="dani-content-column"><?php esc_html_e('Notice Content', 'unnotifier'); ?></th>
-                                    <th class="dani-actions-column"><?php esc_html_e('Actions', 'unnotifier'); ?></th>
+                                    <th class="unno-plugin-column"><?php esc_html_e('Plugin', 'unnotifier'); ?></th>
+                                    <th class="unno-content-column"><?php esc_html_e('Notice Content', 'unnotifier'); ?></th>
+                                    <th class="unno-actions-column"><?php esc_html_e('Actions', 'unnotifier'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -148,26 +156,32 @@ if (!class_exists('DANI\Admin\Settings')) {
                                     <?php
                                     // Handle both old format (simple array) and new format (associative array with metadata)
                                     if (is_array($notice_data)) {
-                                        $source_plugin = $notice_data['source_plugin'] ?? 'WordPress Admin';
-                                        $excerpt = $notice_data['excerpt'] ?? 'Administrative notice';
+                                        $source_plugin = $notice_data['source_plugin'] ?? 'Unknown Plugin';
+                                        $excerpt = $notice_data['notice_excerpt'] ?? $notice_data['excerpt'] ?? 'Administrative notice';
+                                        
+                                        // Strip HTML tags from excerpt for display
+                                        $excerpt = wp_strip_all_tags($excerpt);
+                                        if (empty($excerpt)) {
+                                            $excerpt = 'Administrative notice';
+                                        }
                                     } else {
                                         // Old format - notice_data is actually notice_id
                                         $notice_id = $notice_data;
-                                        $source_plugin = 'WordPress Admin';
+                                        $source_plugin = 'Unknown Plugin';
                                         $excerpt = 'Legacy notice - ' . substr($notice_id, 0, 20);
                                     }
                                     ?>
-                                    <tr class="dani-notice-row" data-notice-id="<?php echo esc_attr($notice_id); ?>">
-                                        <td class="dani-plugin-cell">
+                                    <tr class="unno-notice-row" data-notice-id="<?php echo esc_attr($notice_id); ?>">
+                                        <td class="unno-plugin-cell">
                                             <strong><?php echo esc_html($source_plugin); ?></strong>
                                         </td>
-                                        <td class="dani-content-cell">
-                                        <span class="dani-notice-excerpt" title="<?php echo esc_attr($excerpt); ?>">
+                                        <td class="unno-content-cell">
+                                        <span class="unno-notice-excerpt" title="<?php echo esc_attr($excerpt); ?>">
                                             <?php echo esc_html(mb_strlen($excerpt) > 80 ? mb_substr($excerpt, 0, 77) . '...' : $excerpt); ?>
                                         </span>
                                         </td>
-                                        <td class="dani-actions-cell">
-                                            <button type="button" class="button button-small dani-restore-single-notice"
+                                        <td class="unno-actions-cell">
+                                            <button type="button" class="button button-small unno-restore-single-notice"
                                                     data-target="user"
                                                     data-notice-id="<?php echo esc_attr($notice_id); ?>">
                                                 <span class="dashicons dashicons-undo"></span>
@@ -185,9 +199,9 @@ if (!class_exists('DANI\Admin\Settings')) {
 
             <?php if (current_user_can('manage_options')): ?>
             <hr>
-            <div class="dani-reset-group">
+            <div class="unno-reset-group">
                 <h4><?php esc_html_e('Global hidden notices', 'unnotifier'); ?></h4>
-                <button type="button" id="dani-reset-notices-all" class="button button-secondary">
+                <button type="button" id="unno-reset-notices-all" class="button button-secondary">
                     <?php esc_html_e('Reset Hidden Notices For All', 'unnotifier'); ?>
                 </button>
                 <p class="description">
@@ -197,16 +211,16 @@ if (!class_exists('DANI\Admin\Settings')) {
                 </p>
 
                 <?php if ($hidden_global_count > 0): ?>
-                    <details class="dani-hidden-notices-details">
+                    <details class="unno-hidden-notices-details">
                         <summary><?php esc_html_e('Show hidden notices list', 'unnotifier'); ?></summary>
-                        <div class="dani-hidden-notices-table-wrapper">
-                            <table class="dani-hidden-notices-table">
+                        <div class="unno-hidden-notices-table-wrapper">
+                            <table class="unno-hidden-notices-table">
                                 <thead>
                                 <tr>
-                                    <th class="dani-plugin-column"><?php esc_html_e('Plugin', 'unnotifier'); ?></th>
-                                    <th class="dani-content-column"><?php esc_html_e('Notice Content', 'unnotifier'); ?></th>
-                                    <th class="dani-user-column"><?php esc_html_e('Hidden By', 'unnotifier'); ?></th>
-                                    <th class="dani-actions-column"><?php esc_html_e('Actions', 'unnotifier'); ?></th>
+                                    <th class="unno-plugin-column"><?php esc_html_e('Plugin', 'unnotifier'); ?></th>
+                                    <th class="unno-content-column"><?php esc_html_e('Notice Content', 'unnotifier'); ?></th>
+                                    <th class="unno-user-column"><?php esc_html_e('Hidden By', 'unnotifier'); ?></th>
+                                    <th class="unno-actions-column"><?php esc_html_e('Actions', 'unnotifier'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -214,12 +228,18 @@ if (!class_exists('DANI\Admin\Settings')) {
                                     <?php
                                     // Handle both old format (timestamp only) and new format (associative array with metadata)
                                     if (is_array($notice_data)) {
-                                        $source_plugin = $notice_data['source_plugin'] ?? 'WordPress Admin';
-                                        $excerpt = $notice_data['excerpt'] ?? 'Administrative notice';
+                                        $source_plugin = $notice_data['source_plugin'] ?? 'Unknown Plugin';
+                                        $excerpt = $notice_data['notice_excerpt'] ?? $notice_data['excerpt'] ?? 'Administrative notice';
                                         $hidden_by_user_id = $notice_data['hidden_by_user_id'] ?? null;
+                                        
+                                        // Strip HTML tags from excerpt for display
+                                        $excerpt = wp_strip_all_tags($excerpt);
+                                        if (empty($excerpt)) {
+                                            $excerpt = 'Administrative notice';
+                                        }
                                     } else {
                                         // Old format - notice_data is timestamp
-                                        $source_plugin = 'WordPress Admin';
+                                        $source_plugin = 'Unknown Plugin';
                                         $excerpt = 'Legacy global notice - ' . substr($notice_id, 0, 20);
                                         $hidden_by_user_id = null;
                                     }
@@ -233,20 +253,20 @@ if (!class_exists('DANI\Admin\Settings')) {
                                         }
                                     }
                                     ?>
-                                    <tr class="dani-notice-row" data-notice-id="<?php echo esc_attr($notice_id); ?>">
-                                        <td class="dani-plugin-cell">
+                                    <tr class="unno-notice-row" data-notice-id="<?php echo esc_attr($notice_id); ?>">
+                                        <td class="unno-plugin-cell">
                                             <strong><?php echo esc_html($source_plugin); ?></strong>
                                         </td>
-                                        <td class="dani-content-cell">
-                                        <span class="dani-notice-excerpt" title="<?php echo esc_attr($excerpt); ?>">
+                                        <td class="unno-content-cell">
+                                        <span class="unno-notice-excerpt" title="<?php echo esc_attr($excerpt); ?>">
                                             <?php echo esc_html(mb_strlen($excerpt) > 80 ? mb_substr($excerpt, 0, 77) . '...' : $excerpt); ?>
                                         </span>
                                         </td>
-                                        <td class="dani-user-cell">
-                                            <span class="dani-hidden-user"><?php echo esc_html($hidden_by_user); ?></span>
+                                        <td class="unno-user-cell">
+                                            <span class="unno-hidden-user"><?php echo esc_html($hidden_by_user); ?></span>
                                         </td>
-                                        <td class="dani-actions-cell">
-                                            <button type="button" class="button button-small dani-restore-single-notice"
+                                        <td class="unno-actions-cell">
+                                            <button type="button" class="button button-small unno-restore-single-notice"
                                                     data-target="global"
                                                     data-notice-id="<?php echo esc_attr($notice_id); ?>">
                                                 <span class="dashicons dashicons-undo"></span>
@@ -263,176 +283,7 @@ if (!class_exists('DANI\Admin\Settings')) {
             </div>
         <?php endif; ?>
 
-            <div id="dani-reset-message" style="display:none;"></div>
-
-            <script>
-                jQuery(function ($) {
-                    function sendReset(target, $btn, texts) {
-                        $btn.prop('disabled', true).text(texts.progress);
-                        $.ajax({
-                            url: ajaxurl,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                action: 'dani_reset_notices',
-                                nonce: '<?php echo esc_js($nonce); ?>',
-                                action_type: target // 'user' | 'all'
-                            }
-                        }).done(function (response) {
-                            if (response && response.success) {
-                                var msg = response.data && response.data.message ? response.data.message : '<?php echo esc_js(__('Done.', 'unnotifier')); ?>';
-                                $('#dani-reset-message')
-                                    .html('<div class="notice notice-success inline"><p>' + msg + '</p></div>')
-                                    .show();
-
-                                // If a new counter comes, update the description under the corresponding button
-                                if (target === 'all' && response.data && typeof response.data.hidden_global_count !== 'undefined') {
-                                    var $desc = $('#dani-reset-notices-all').closest('.dani-reset-group').find('.description');
-                                    <?php /* translators: %d is the number of notices hidden for all users */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for all users. Click to restore them.', 'unnotifier')); ?>'
-                                        .replace('%d', response.data.hidden_global_count));
-                                }
-
-                                if (target === 'user' && response.data && typeof response.data.hidden_user_count !== 'undefined') {
-                                    var $desc = $('#dani-reset-notices-user').closest('.dani-reset-group').find('.description');
-                                    <?php /* translators: %d is the number of notices hidden for the current user */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for your account. Click to show them again.', 'unnotifier')); ?>'
-                                        .replace('%d', response.data.hidden_user_count));
-                                }
-
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 1200);
-                            } else {
-                                var msg = (response && response.data) ? response.data : '<?php echo esc_js(__('An error occurred. Please try again.', 'unnotifier')); ?>';
-                                $('#dani-reset-message').html('<div class="notice notice-error inline"><p>' + msg + '</p></div>').show();
-                            }
-                        }).fail(function () {
-                            $('#dani-reset-message')
-                                .html('<div class="notice notice-error inline"><p><?php echo esc_js(__('An error occurred. Please try again.', 'unnotifier')); ?></p></div>')
-                                .show();
-                        }).always(function () {
-                            $btn.prop('disabled', false).text(texts.default);
-                        });
-                    }
-
-                    $('#dani-reset-notices-user').on('click', function () {
-                        sendReset('user', $(this), {
-                            progress: '<?php echo esc_js(__('Resetting...', 'unnotifier')); ?>',
-                            default: '<?php echo esc_js(__('Reset My Hidden Notices', 'unnotifier')); ?>'
-                        });
-                    });
-
-                    $('#dani-reset-notices-all').on('click', function () {
-                        sendReset('all', $(this), {
-                            progress: '<?php echo esc_js(__('Resetting...', 'unnotifier')); ?>',
-                            default: '<?php echo esc_js(__('Reset Hidden Notices For All', 'unnotifier')); ?>'
-                        });
-                    });
-
-                    // Handle single notice restore (updated for table structure)
-                    $(document).on('click', '.dani-restore-single-notice', function () {
-                        var $btn = $(this);
-                        var noticeId = $btn.data('notice-id');
-                        var target = $btn.data('target');
-                        var $noticeRow = $btn.closest('.dani-notice-row, .dani-notice-item'); // Support both table and old structure
-
-                        if (!noticeId) {
-                            return;
-                        }
-
-                        // Store original button HTML
-                        var originalHtml = $btn.html();
-
-                        // Disable button and show loading
-                        $btn.prop('disabled', true).html('<span class="dashicons dashicons-update" style="animation: rotation 1s infinite linear;"></span> <?php echo esc_js(__('Restoring...', 'unnotifier')); ?>');
-
-                        $.ajax({
-                            url: ajaxurl,
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                action: 'dani_restore_single_notice',
-                                nonce: '<?php echo esc_js($nonce); ?>',
-                                notice_id: noticeId,
-                                action_type: target
-                            }
-                        }).done(function (response) {
-                            if (response && response.success) {
-                                // Show success message
-                                var msg = response.data && response.data.message ? response.data.message : '<?php echo esc_js(__('Notice restored.', 'unnotifier')); ?>';
-                                $('#dani-reset-message')
-                                    .html('<div class="notice notice-success inline"><p>' + msg + '</p></div>')
-                                    .show();
-
-                                // Add removing class and animate out
-                                $noticeRow.addClass('removing');
-
-                                // Remove the notice row/item after animation
-                                setTimeout(function () {
-                                    $noticeRow.remove();
-
-                                    // Check if table is now empty
-                                    var $table = $noticeRow.closest('.dani-hidden-notices-table');
-                                    if ($table.length && $table.find('tbody tr').length === 0) {
-                                        $table.closest('.dani-hidden-notices-details').hide();
-                                    }
-                                }, 400);
-
-                                // Update counters
-                                if (target === 'global' && response.data && typeof response.data.hidden_global_count !== 'undefined') {
-                                    var $desc = $('#dani-reset-notices-all').closest('.dani-reset-group').find('.description');
-                                    <?php /* translators: %d is the number of notices hidden for all users */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for all users. Click to restore them.', 'unnotifier')); ?>'
-                                        .replace('%d', response.data.hidden_global_count));
-
-                                    // Hide details if no more notices
-                                    if (response.data.hidden_global_count === 0) {
-                                        setTimeout(function () {
-                                            $('#dani-reset-notices-all').closest('.dani-reset-group').find('.dani-hidden-notices-details').fadeOut();
-                                        }, 500);
-                                    }
-                                }
-
-                                if (target === 'user' && response.data && typeof response.data.hidden_user_count !== 'undefined') {
-                                    var $desc = $('#dani-reset-notices-user').closest('.dani-reset-group').find('.description');
-                                    <?php /* translators: %d is the number of notices hidden for the current user */ ?>
-                                    $desc.text('<?php echo esc_js(__('Currently %d notices are hidden for your account. Click to show them again.', 'unnotifier')); ?>'
-                                        .replace('%d', response.data.hidden_user_count));
-
-                                    // Hide details if no more notices
-                                    if (response.data.hidden_user_count === 0) {
-                                        setTimeout(function () {
-                                            $('#dani-reset-notices-user').closest('.dani-reset-group').find('.dani-hidden-notices-details').fadeOut();
-                                        }, 500);
-                                    }
-                                }
-
-                                // Auto-hide message after 3 seconds
-                                setTimeout(function () {
-                                    $('#dani-reset-message').fadeOut();
-                                }, 3000);
-                            } else {
-                                var msg = (response && response.data) ? response.data : '<?php echo esc_js(__('Failed to restore notice.', 'unnotifier')); ?>';
-                                $('#dani-reset-message').html('<div class="notice notice-error inline"><p>' + msg + '</p></div>').show();
-
-                                // Re-enable button
-                                $btn.prop('disabled', false).html(originalHtml);
-                            }
-                        }).fail(function () {
-                            $('#dani-reset-message')
-                                .html('<div class="notice notice-error inline"><p><?php echo esc_js(__('Network error occurred. Please try again.', 'unnotifier')); ?></p></div>')
-                                .show();
-
-                            // Re-enable button
-                            $btn.prop('disabled', false).html(originalHtml);
-                        });
-                    });
-
-                    // Add rotation animation for loading spinner
-                    $('<style>@keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(359deg); } }</style>').appendTo('head');
-                });
-            </script>
+            <div id="unno-reset-message" style="display:none;"></div>
             <?php
         }
 
@@ -443,8 +294,8 @@ if (!class_exists('DANI\Admin\Settings')) {
                 <h1><?php esc_html_e('Disable Admin Notices Individually', 'unnotifier'); ?></h1>
                 <form method="post" action="options.php">
                     <?php
-                    settings_fields('dani_settings');
-                    do_settings_sections('dani_settings');
+                    settings_fields('unno_settings');
+                    do_settings_sections('unno_settings');
                     submit_button();
                     ?>
                 </form>
@@ -461,14 +312,14 @@ if (!class_exists('DANI\Admin\Settings')) {
             $info = self::get_latest_log_info();
             $has_log = $info && !empty($info['size']);
             $size_h = $has_log ? size_format($info['size']) : '';
-            $download_url = wp_nonce_url(admin_url('admin-post.php?action=dani_download_log'), 'dani_download_log');
+            $download_url = wp_nonce_url(admin_url('admin-post.php?action=unn_download_log'), 'unn_download_log');
             ?>
             <label>
-                <input type="checkbox" name="dani_settings[debug]" value="1" <?php checked($debug, true); ?>>
+                <input type="checkbox" name="unno_settings[debug]" value="1" <?php checked($debug, true); ?>>
                 <?php esc_html_e('Enable debug logging of notice processing (for troubleshooting).', 'unnotifier'); ?>
             </label>
             <p class="description">
-                <?php esc_html_e('When enabled, the plugin writes diagnostic information and hidden notice actions to log files in the uploads/dani-logs directory.', 'unnotifier'); ?>
+                <?php esc_html_e('When enabled, the plugin writes diagnostic information and hidden notice actions to log files in the uploads/unno-logs directory.', 'unnotifier'); ?>
                 <?php if ($debug): ?>
                     <?php if ($has_log): ?>
                         <br>
@@ -482,14 +333,31 @@ if (!class_exists('DANI\Admin\Settings')) {
             <?php
         }
 
+        public static function show_plugin_names_field_callback()
+        {
+            $options_instance = Options::instance();
+            $show_plugin_names = $options_instance->get('show_plugin_names', true);
+            ?>
+            <label>
+                <input type="checkbox" name="unno_settings[show_plugin_names]" value="1" <?php checked($show_plugin_names, true); ?>>
+                <?php esc_html_e('Show plugin names in notices (enabled by default).', 'unnotifier'); ?>
+            </label>
+            <p class="description">
+                <?php esc_html_e('When enabled, the plugin will attempt to detect and display the name of the plugin that generated each notice. This helps identify the source of notifications.', 'unnotifier'); ?>
+                <br>
+                <strong><?php esc_html_e('Note:', 'unnotifier'); ?></strong> <?php esc_html_e('This feature uses debug_backtrace() for plugin detection, which may impact performance on high-traffic sites.', 'unnotifier'); ?>
+            </p>
+            <?php
+        }
+
         private static function get_latest_log_info()
         {
             $upload_dir = wp_upload_dir();
-            $dir = trailingslashit($upload_dir['basedir']) . 'dani-logs/';
+            $dir = trailingslashit($upload_dir['basedir']) . 'unno-logs/';
             if (!is_dir($dir)) {
                 return null;
             }
-            $files = glob($dir . 'dani-debug-*.log');
+            $files = glob($dir . 'unno-debug-*.log');
             if (!$files) {
                 return null;
             }
@@ -509,7 +377,7 @@ if (!class_exists('DANI\Admin\Settings')) {
             if (!current_user_can('manage_options')) {
                 wp_die(esc_html__('Insufficient permissions.', 'unnotifier'));
             }
-            check_admin_referer('dani_download_log');
+            check_admin_referer('unn_download_log');
             $info = self::get_latest_log_info();
             if (!$info || empty($info['path']) || !file_exists($info['path'])) {
                 wp_die(esc_html__('Log file not found.', 'unnotifier'));

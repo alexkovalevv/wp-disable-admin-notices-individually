@@ -1,6 +1,6 @@
 <?php
 
-namespace DANI\Core;
+namespace UNNO\Core;
 
 /**
  * Main coordinator class for Disable Admin Notices Individually
@@ -11,17 +11,16 @@ namespace DANI\Core;
  * - AjaxHandler: Handles AJAX requests
  * - ModeManager: Manages display modes
  * 
- * @package DANI\Core
+ * @package UNNO\Core
  * @since 1.0.0
  */
 if (!defined('ABSPATH')) {
     exit;
 }
 
-use DANI\Data\Options;
-use DANI\Core\Logger;
+use UNNO\Data\Options;
 
-if (!class_exists('DANI\Core\Notices')) {
+if (!class_exists('UNNO\Core\Notices')) {
     class Notices
     {
         use SingletonTrait;
@@ -85,10 +84,10 @@ if (!class_exists('DANI\Core\Notices')) {
             add_action('init', [$this, 'plugin_init']);
 
             if (is_admin()) {
-                add_action('wp_ajax_dani_hide_notice', [$this->ajax_handler, 'ajax_hide_notice']);
-                add_action('wp_ajax_dani_reset_notices', [$this->ajax_handler, 'ajax_reset_notices']);
-                add_action('wp_ajax_dani_restore_single_notice', [$this->ajax_handler, 'ajax_restore_single_notice']);
-                add_action('dani_print_notices', [$this->notice_renderer, 'print_notices']);
+                add_action('wp_ajax_unno_hide_notice', [$this->ajax_handler, 'ajax_hide_notice']);
+                add_action('wp_ajax_unno_reset_notices', [$this->ajax_handler, 'ajax_reset_notices']);
+                add_action('wp_ajax_unno_restore_single_notice', [$this->ajax_handler, 'ajax_restore_single_notice']);
+                add_action('unno_print_notices', [$this->notice_renderer, 'print_notices']);
             }
         }
 
@@ -162,7 +161,7 @@ if (!class_exists('DANI\Core\Notices')) {
          */
         public function get_version(): string
         {
-            return defined('DANI_VERSION') ? DANI_VERSION : '1.0.0';
+            return defined('UNNO_VERSION') ? UNNO_VERSION : '1.0.0';
         }
 
         /**
@@ -184,7 +183,6 @@ if (!class_exists('DANI\Core\Notices')) {
          */
         public function debug_log(string $message, array $context = []): void
         {
-            Logger::log($message, $context);
         }
     }
 }
