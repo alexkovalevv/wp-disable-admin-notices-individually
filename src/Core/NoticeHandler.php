@@ -256,7 +256,7 @@ class NoticeHandler implements NoticeHandlerInterface
             }
             
             return $output;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             ob_end_clean();
             return '';
         }

@@ -1,0 +1,7 @@
+# SVN directory for WordPress.org plugin repository
+svn/
+
+# Dependencies and build output
+node_modules/
+compiled/
+

@@ -1,0 +1,314 @@
+/**
+ * Custom Modal Dialog Styles
+ * Confirmation dialogs styled to match WordPress Admin
+ * 
+ * @package Unnotifier
+ * @since 1.2.2
+ */
+
+/* ========================================
+   Modal Overlay
+   ======================================== */
+
+.unno-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: unno-fadeIn 0.2s ease forwards;
+}
+
+@keyframes unno-fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Modal Container
+   ======================================== */
+
+.unno-modal {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    transform: scale(0.9);
+    animation: unno-scaleIn 0.2s ease forwards;
+}
+
+@keyframes unno-scaleIn {
+    to {
+        transform: scale(1);
+    }
+}
+
+/* ========================================
+   Modal Header
+   ======================================== */
+
+.unno-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #dcdcde;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.unno-modal-header .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #d63638;
+}
+
+.unno-modal-header.unno-modal-warning .dashicons {
+    color: #dba617;
+}
+
+.unno-modal-header.unno-modal-info .dashicons {
+    color: #2271b1;
+}
+
+.unno-modal-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ========================================
+   Modal Body
+   ======================================== */
+
+.unno-modal-body {
+    padding: 20px 24px;
+    color: #50575e;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.unno-modal-body p {
+    margin: 0 0 12px;
+}
+
+.unno-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+.unno-modal-body strong {
+    color: #1d2327;
+    font-weight: 600;
+}
+
+/* ========================================
+   Modal Footer
+   ======================================== */
+
+.unno-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #dcdcde;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #f6f7f7;
+    border-radius: 0 0 4px 4px;
+}
+
+/* ========================================
+   Modal Buttons
+   ======================================== */
+
+.unno-modal-btn {
+    padding: 8px 16px;
+    border: 1px solid #2271b1;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.unno-modal-btn:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
+/* Primary button (Confirm) */
+.unno-modal-btn-primary {
+    background: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+
+.unno-modal-btn-primary:hover {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+
+.unno-modal-btn-primary:active {
+    background: #0a4b78;
+    border-color: #0a4b78;
+}
+
+/* Danger button (for destructive actions) */
+.unno-modal-btn-danger {
+    background: #d63638;
+    color: #fff;
+    border-color: #d63638;
+}
+
+.unno-modal-btn-danger:hover {
+    background: #b32d2e;
+    border-color: #b32d2e;
+    color: #fff;
+}
+
+.unno-modal-btn-danger:active {
+    background: #8a2424;
+    border-color: #8a2424;
+}
+
+/* Warning button */
+.unno-modal-btn-warning {
+    background: #dba617;
+    color: #fff;
+    border-color: #dba617;
+}
+
+.unno-modal-btn-warning:hover {
+    background: #c29008;
+    border-color: #c29008;
+    color: #fff;
+}
+
+/* Secondary button (Cancel) */
+.unno-modal-btn-secondary {
+    background: #fff;
+    color: #2c3338;
+    border-color: #8c8f94;
+}
+
+.unno-modal-btn-secondary:hover {
+    background: #f6f7f7;
+    color: #1d2327;
+    border-color: #646970;
+}
+
+.unno-modal-btn-secondary:active {
+    background: #dcdcde;
+    border-color: #50575e;
+}
+
+/* ========================================
+   Close Button
+   ======================================== */
+
+.unno-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #787c82;
+    transition: color 0.2s ease;
+}
+
+.unno-modal-close:hover {
+    color: #1d2327;
+}
+
+.unno-modal-close .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   Loading State
+   ======================================== */
+
+.unno-modal-btn.unno-loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+    padding-left: 40px;
+}
+
+.unno-modal-btn.unno-loading::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: unno-spin 0.6s linear infinite;
+}
+
+@keyframes unno-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media screen and (max-width: 600px) {
+    .unno-modal {
+        max-width: 90%;
+        margin: 20px;
+    }
+    
+    .unno-modal-header,
+    .unno-modal-body,
+    .unno-modal-footer {
+        padding: 16px 20px;
+    }
+    
+    .unno-modal-footer {
+        flex-direction: column-reverse;
+    }
+    
+    .unno-modal-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+.unno-modal-overlay[aria-hidden="true"] {
+    display: none;
+}
+
+/* Focus trap */
+.unno-modal-overlay:focus {
+    outline: none;
+}
+

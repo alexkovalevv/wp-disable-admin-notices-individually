@@ -46,7 +46,7 @@ class AjaxHandler implements AjaxHandlerInterface
         // Get additional notice metadata
         $notice_metadata = [
             'source_plugin' => sanitize_text_field(wp_unslash($_POST['source_plugin'] ?? 'Unknown Plugin')),
-            'notice_content' => wp_unslash($_POST['notice_content'] ?? ''),
+            'notice_content' => wp_kses_post(wp_unslash($_POST['notice_content'] ?? '')),
             'notice_excerpt' => sanitize_text_field(wp_unslash($_POST['notice_excerpt'] ?? 'Administrative notice')),
             'hidden_by_user_id' => get_current_user_id(),
             'hidden_at' => current_time('mysql')
@@ -106,8 +106,8 @@ class AjaxHandler implements AjaxHandlerInterface
             return;
         }
 
-
-        if ($action_type === 'all') {
+        // Handle global or user notice restore
+        if ($action_type === 'global' || $action_type === 'all') {
             $this->handle_single_global_restore($notice_id);
         } else {
             $this->handle_single_user_restore($notice_id);
@@ -325,14 +325,24 @@ class AjaxHandler implements AjaxHandlerInterface
             return;
         }
 
-        if ($this->options->remove_global_hidden_notice($notice_id)) {
+        // Check if notice exists in global hidden list
+        $global_hidden = $this->options->get_global_hidden_notices();
+        if (!isset($global_hidden[$notice_id])) {
+            wp_send_json_error(__('Notice not found in hidden list.', 'unnotifier'));
+            return;
+        }
 
+        // Remove the notice
+        if ($this->options->remove_global_hidden_notice($notice_id)) {
             // Return updated counts
             $updated_global_count = count($this->options->get_global_hidden_notices());
             $updated_user_count = count($this->options->get_user_hidden_notices());
 
-            // translators: %s is the notice ID
-            wp_send_json_success(sprintf(__('Notice %s restored globally.', 'unnotifier'), $notice_id));
+            wp_send_json_success([
+                'message' => sprintf(__('Notice %s restored globally.', 'unnotifier'), $notice_id),
+                'hidden_global_count' => $updated_global_count,
+                'hidden_user_count' => $updated_user_count
+            ]);
         } else {
             wp_send_json_error(__('Failed to restore notice globally.', 'unnotifier'));
         }
@@ -359,12 +369,15 @@ class AjaxHandler implements AjaxHandlerInterface
             unset($hidden_user[$notice_id]);
 
             if ($this->update_user_hidden_notices($hidden_user)) {
-
-                // Return updated count
+                // Return updated counts
                 $updated_user_count = count($this->options->get_user_hidden_notices());
+                $updated_global_count = count($this->options->get_global_hidden_notices());
 
-                // translators: %s is the notice ID
-                wp_send_json_success(sprintf(__('Notice %s restored for you.', 'unnotifier'), $notice_id));
+                wp_send_json_success([
+                    'message' => sprintf(__('Notice %s restored for you.', 'unnotifier'), $notice_id),
+                    'hidden_user_count' => $updated_user_count,
+                    'hidden_global_count' => $updated_global_count
+                ]);
             } else {
                 wp_send_json_error(__('Failed to restore notice for user.', 'unnotifier'));
             }
@@ -376,12 +389,15 @@ class AjaxHandler implements AjaxHandlerInterface
                 $hidden_user = array_values($hidden_user); // Re-index array
 
                 if ($this->update_user_hidden_notices($hidden_user)) {
-
-                    // Return updated count
+                    // Return updated counts
                     $updated_user_count = count($this->options->get_user_hidden_notices());
+                    $updated_global_count = count($this->options->get_global_hidden_notices());
 
-                    // translators: %s is the notice ID
-                    wp_send_json_success(sprintf(__('Notice %s restored for you.', 'unnotifier'), $notice_id));
+                    wp_send_json_success([
+                        'message' => sprintf(__('Notice %s restored for you.', 'unnotifier'), $notice_id),
+                        'hidden_user_count' => $updated_user_count,
+                        'hidden_global_count' => $updated_global_count
+                    ]);
                 } else {
                     wp_send_json_error(__('Failed to restore notice for user.', 'unnotifier'));
                 }

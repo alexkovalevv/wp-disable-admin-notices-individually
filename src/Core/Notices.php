@@ -45,63 +45,72 @@ if (!class_exists('UNNO\Core\Notices')) {
          */
         private $ajax_handler;
 
-        /**
-         * @var ModeManager
-         */
-        private $mode_manager;
+    /**
+     * @var ModeManager
+     */
+    private $mode_manager;
+
+    /**
+     * @var AdminBarNotices
+     */
+    private $admin_bar_notices;
 
 
-        /**
-         * Constructor - Initialize dependencies and hooks
-         */
-        protected function __construct()
-        {
-            $this->init_dependencies();
-            $this->init_hooks();
+    /**
+     * Constructor - Initialize dependencies and hooks
+     */
+    protected function __construct()
+    {
+        $this->init_dependencies();
+        $this->init_hooks();
+    }
+
+    /**
+     * Initialize plugin dependencies
+     * 
+     * @return void
+     */
+    private function init_dependencies(): void
+    {
+        $this->options = Options::instance();
+        $this->notice_handler = new NoticeHandler($this->options);
+        $this->notice_renderer = new NoticeRenderer();
+        $this->ajax_handler = new AjaxHandler($this->options);
+        $this->mode_manager = new ModeManager($this->options, $this->notice_handler);
+        $this->admin_bar_notices = new AdminBarNotices($this->options);
+    }
+
+    /**
+     * Initialize WordPress hooks
+     * 
+     * @return void
+     */
+    private function init_hooks(): void
+    {
+        add_action('init', [$this, 'plugin_init']);
+
+        if (is_admin() || is_network_admin()) {
+            add_action('wp_ajax_unno_hide_notice', [$this->ajax_handler, 'ajax_hide_notice']);
+            add_action('wp_ajax_unno_reset_notices', [$this->ajax_handler, 'ajax_reset_notices']);
+            add_action('wp_ajax_unno_restore_single_notice', [$this->ajax_handler, 'ajax_restore_single_notice']);
+            add_action('unno_print_notices', [$this->notice_renderer, 'print_notices']);
+            
+            // Initialize admin bar functionality earlier in the lifecycle
+            $this->admin_bar_notices->init();
         }
+    }
 
-        /**
-         * Initialize plugin dependencies
-         * 
-         * @return void
-         */
-        private function init_dependencies(): void
-        {
-            $this->options = Options::instance();
-            $this->notice_handler = new NoticeHandler($this->options);
-            $this->notice_renderer = new NoticeRenderer();
-            $this->ajax_handler = new AjaxHandler($this->options);
-            $this->mode_manager = new ModeManager($this->options, $this->notice_handler);
+    /**
+     * Initialize plugin functionality
+     * 
+     * @return void
+     */
+    public function plugin_init(): void
+    {
+        if (is_admin()) {
+            $this->mode_manager->init_notice_handling();
         }
-
-        /**
-         * Initialize WordPress hooks
-         * 
-         * @return void
-         */
-        private function init_hooks(): void
-        {
-            add_action('init', [$this, 'plugin_init']);
-
-            if (is_admin()) {
-                add_action('wp_ajax_unno_hide_notice', [$this->ajax_handler, 'ajax_hide_notice']);
-                add_action('wp_ajax_unno_reset_notices', [$this->ajax_handler, 'ajax_reset_notices']);
-                add_action('wp_ajax_unno_restore_single_notice', [$this->ajax_handler, 'ajax_restore_single_notice']);
-                add_action('unno_print_notices', [$this->notice_renderer, 'print_notices']);
-            }
-        }
-
-        /**
-         * Initialize plugin functionality
-         * 
-         * @return void
-         */
-        public function plugin_init(): void
-        {
-            if (is_admin()) {
-                $this->mode_manager->init_notice_handling();
-            }
-        }
+    }
 
         /**
          * Get the options instance
@@ -143,26 +152,36 @@ if (!class_exists('UNNO\Core\Notices')) {
             return $this->ajax_handler;
         }
 
-        /**
-         * Get the mode manager instance
-         * 
-         * @return ModeManager
-         */
-        public function get_mode_manager(): ModeManager
-        {
-            return $this->mode_manager;
-        }
+    /**
+     * Get the mode manager instance
+     * 
+     * @return ModeManager
+     */
+    public function get_mode_manager(): ModeManager
+    {
+        return $this->mode_manager;
+    }
+
+    /**
+     * Get the admin bar notices instance
+     * 
+     * @return AdminBarNotices
+     */
+    public function get_admin_bar_notices(): AdminBarNotices
+    {
+        return $this->admin_bar_notices;
+    }
 
 
-        /**
-         * Get current plugin version
-         * 
-         * @return string
-         */
-        public function get_version(): string
-        {
-            return defined('UNNO_VERSION') ? UNNO_VERSION : '1.0.0';
-        }
+    /**
+     * Get current plugin version
+     * 
+     * @return string
+     */
+    public function get_version(): string
+    {
+        return defined('UNNO_VERSION') ? UNNO_VERSION : '1.0.0';
+    }
 
         /**
          * Check if plugin is in debug mode

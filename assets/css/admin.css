@@ -18,7 +18,7 @@
     backdrop-filter: blur(2px);
 }
 
-/* Button group - левая сторона */
+/* Button group - left column */
 .unno-buttons-group {
     display: flex;
     align-items: center;
@@ -86,7 +86,7 @@
     line-height: 1;
 }
 
-/* Plugin info styling - правая сторона */
+/* Plugin info styling - right column */
 .unno-plugin-info {
     display: flex;
     align-items: center;
@@ -408,7 +408,8 @@
     }
 }
 
-.unno-notice-row.removing {
+.unno-notice-row.removing,
+.wp-list-table.hiddennotices tr.removing {
     animation: fadeOutRow 0.4s ease-out forwards;
 }
 
@@ -513,4 +514,439 @@
 .rtl .unno-notice-item .unno-notice-date {
     margin-right: 0;
     margin-left: 10px;
+}
+
+/**
+ * Review Notice Component Styles
+ * 
+ * Beautiful notice encouraging users to rate the plugin
+ * and provide feedback.
+ * 
+ * @since 1.2.5
+ */
+
+/**
+ * Review Notice Container
+ */
+.unno-review-notice {
+    border-left-color: #2271b1;
+    padding: 0 !important;
+    margin: 20px 0 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+/**
+ * Review Notice Content
+ */
+.unno-review-notice__content {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    background: linear-gradient(135deg, #f0f6fc 0%, #ffffff 100%);
+}
+
+/**
+ * Review Notice Icon
+ */
+.unno-review-notice__icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    box-shadow: 0 2px 8px rgba(34, 113, 177, 0.3);
+}
+
+.unno-review-notice__icon .dashicons {
+    color: #fff;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+}
+
+/**
+ * Review Notice Text Container
+ */
+.unno-review-notice__text {
+    flex: 1;
+}
+
+/**
+ * Review Notice Title
+ */
+.unno-review-notice__title {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+    line-height: 1.4;
+}
+
+/**
+ * Review Notice Message
+ */
+.unno-review-notice__message {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #50575e;
+}
+
+.unno-review-notice__message:last-of-type {
+    margin-bottom: 16px;
+}
+
+.unno-review-notice__message strong {
+    color: #2271b1;
+    font-weight: 600;
+}
+
+/**
+ * Review Notice Actions
+ */
+.unno-review-notice__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/**
+ * Review Notice Buttons
+ */
+.unno-review-notice__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+    vertical-align: middle;
+    height: auto;
+    min-height: 32px;
+}
+
+.unno-review-notice__button::before {
+    display: none;
+}
+
+.unno-review-notice__button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin: 0;
+    position: static;
+    top: auto;
+    left: auto;
+}
+
+.unno-review-notice__button {
+    text-align: center;
+}
+
+.unno-review-notice__button.button-primary {
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    border-color: #135e96;
+    color: #fff;
+}
+
+.unno-review-notice__button.button-primary:hover {
+    background: linear-gradient(135deg, #135e96 0%, #0a4b78 100%);
+    border-color: #0a4b78;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.unno-review-notice__button.button-secondary {
+    background: #fff;
+    border-color: #c3c4c7;
+    color: #2c3338;
+}
+
+.unno-review-notice__button.button-secondary:hover {
+    background: #f6f7f7;
+    border-color: #8c8f94;
+    color: #1d2327;
+}
+
+/**
+ * Review Notice Dismiss Button
+ */
+.unno-review-notice__dismiss {
+    margin-left: auto;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #787c82;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.unno-review-notice__dismiss:hover {
+    opacity: 1;
+    color: #1d2327;
+}
+
+.unno-review-notice__dismiss .screen-reader-text {
+    position: absolute;
+    left: -9999px;
+}
+
+/**
+ * Responsive Design
+ */
+@media screen and (max-width: 782px) {
+    .unno-review-notice {
+        margin: 15px 0 10px;
+    }
+    
+    .unno-review-notice__content {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .unno-review-notice__icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+        align-self: center;
+    }
+    
+    .unno-review-notice__actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .unno-review-notice__button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .unno-review-notice__dismiss {
+        margin-left: 0;
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .unno-review-notice__title {
+        font-size: 16px;
+    }
+    
+    .unno-review-notice__message {
+        font-size: 13px;
+    }
+    
+    .unno-review-notice__button {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+}
+
+/**
+ * Reduced motion support
+ */
+@media (prefers-reduced-motion: reduce) {
+    .unno-review-notice__button,
+    .unno-review-notice__dismiss {
+        transition: none;
+    }
+}
+
+/**
+ * Unnotifier Panel Integration in Review Notice
+ * 
+ * Styles for the Unnotifier hide button panel when displayed
+ * inside the Review Notice - adapted to match Review Notice design.
+ * 
+ * @since 1.2.5
+ */
+
+/* Hide button wrapper inside review notice - adapt colors only */
+.unno-review-notice .unno-hide-button-wrapper {
+    background: rgba(240, 246, 252, 0.6);
+    border-bottom: 1px solid rgba(34, 113, 177, 0.15);
+    padding: 12px 20px;
+    margin-bottom: 0;
+}
+
+/* Button group inside review notice - keep structure */
+.unno-review-notice .unno-buttons-group {
+    /* Keep original structure */
+}
+
+/* Hide buttons inside review notice - adapt colors to match Review Notice */
+.unno-review-notice .unno-hide-for-user {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(34, 113, 177, 0.3);
+    color: #2271b1;
+}
+
+.unno-review-notice .unno-hide-for-user:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #2271b1;
+    color: #135e96;
+}
+
+.unno-review-notice .unno-hide-for-all.button-primary {
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    border-color: #135e96;
+    color: #ffffff;
+}
+
+.unno-review-notice .unno-hide-for-all.button-primary:hover {
+    background: linear-gradient(135deg, #135e96 0%, #0a4b78 100%);
+    border-color: #0a4b78;
+    color: #ffffff;
+}
+
+/* Plugin info inside review notice - adapt colors */
+.unno-review-notice .unno-plugin-info small {
+    color: #50575e;
+}
+
+.unno-review-notice .unno-plugin-info strong {
+    color: #2271b1;
+    font-weight: 600;
+}
+
+.unno-review-notice .unno-plugin-info a {
+    color: #2271b1;
+    font-weight: 500;
+}
+
+.unno-review-notice .unno-plugin-info a:hover {
+    color: #135e96;
+}
+
+/**
+ * Settings Tabs Styling
+ */
+.nav-tab-wrapper {
+    margin-bottom: 0;
+}
+
+h1.nav-tab-wrapper,
+.wrap h2.nav-tab-wrapper,
+.nav-tab-wrapper {
+    border-bottom: none;
+}
+
+.nav-tab-wrapper .nav-tab {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-color: transparent;
+    background: #f6f7f7;
+    color: #1d2327;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-tab-wrapper .nav-tab:hover {
+    background: #e8f1fb;
+    border-color: #2271b1;
+    color: #135e96;
+}
+
+.nav-tab-wrapper .nav-tab-active {
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    color: #ffffff;
+    border-color: #135e96;
+    box-shadow: 0 2px 4px rgba(19, 94, 150, 0.2);
+}
+
+.unno-settings-content {
+    background: #ffffff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/**
+ * Hidden notices table column widths
+ */
+.wp-list-table.hiddennotices .column-plugin {
+    width: 300px;
+}
+
+.wp-list-table.hiddennotices .column-hidden_by {
+    width: 130px;
+}
+
+.wp-list-table.hiddennotices .column-actions {
+    width: 100px;
+}
+
+/**
+ * Elementor Notice Integration
+ * 
+ * Elementor notices (.e-notice) use display: flex, which causes
+ * unno-hide-button-wrapper to appear as a column instead of above the content.
+ * Fix: add flex-wrap and make buttons take full width of the first row.
+ * Additionally, style the buttons wrapper in Elementor's design language
+ * (Roboto font, matching colors via Elementor CSS variables).
+ * 
+ * @since 1.2.6
+ */
+
+/* Force flex-wrap on Elementor notices containing our buttons */
+.e-notice:has(> .unno-hide-button-wrapper) {
+    flex-wrap: wrap;
+}
+
+/* Buttons wrapper inside Elementor notice - full width first row + Elementor styling */
+.e-notice > .unno-hide-button-wrapper {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 10px 15px;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    background: var(--e-notice-context-tint, rgba(240, 246, 252, 0.5));
+    border-bottom: 1px solid var(--e-notice-border-color, rgba(34, 113, 177, 0.15));
+}
+
+/* Elementor-styled buttons inside e-notice */
+.e-notice > .unno-hide-button-wrapper .unno-hide-notice.button {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+/* Elementor-styled plugin info text inside e-notice */
+.e-notice > .unno-hide-button-wrapper .unno-plugin-info small {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+/* Responsive adjustments for Elementor notices */
+@media screen and (max-width: 782px) {
+    .e-notice > .unno-hide-button-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 8px 12px;
+    }
+    
+    .e-notice > .unno-hide-button-wrapper .unno-buttons-group {
+        justify-content: center;
+    }
 }

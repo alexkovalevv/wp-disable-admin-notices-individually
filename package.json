@@ -1,0 +1,14 @@
+{
+  "name": "unnotifier",
+  "version": "1.2.4",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:package",
+    "build:package": "node ./scripts/build-package.js"
+  },
+  "dependencies": {
+    "archiver": "^5.3.2"
+  }
+}
+

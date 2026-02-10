@@ -17,15 +17,16 @@ if (!class_exists('UNNO\Data\Options')) {
         use SingletonTrait;
 
         /**
-         * Единственный экземпляр класса
+         * Single instance identifier for the options storage
          */
-        public const OPTION_KEY = 'unn_settings';
+        public const OPTION_KEY = 'unno_settings';
         public const USER_HIDDEN_NOTICES_KEY = 'user_hidden_notices';
         public const GLOBAL_HIDDEN_NOTICES_KEY = 'global_hidden_notices';
 
         private $defaults = [
             self::GLOBAL_HIDDEN_NOTICES_KEY => [],
             'show_plugin_names' => true,
+            'show_notices_in_adminbar' => false,
         ];
 
         /**
@@ -33,6 +34,9 @@ if (!class_exists('UNNO\Data\Options')) {
          */
         public function set_defaults()
         {
+            // Migrate data from the legacy option key used prior to version 1.2.2
+            $this->migrate_from_old_option();
+
             $options = get_option(self::OPTION_KEY, []);
 
             if (empty($options)) {
@@ -41,6 +45,44 @@ if (!class_exists('UNNO\Data\Options')) {
                     // Try to add option instead of update
                     $result = add_option(self::OPTION_KEY, $this->defaults);
                 }
+            }
+        }
+
+        /**
+         * Migrate data from old option name (unn_settings) to new (unno_settings)
+         * Bi-directional sync to keep backward compatibility with previous releases
+         *
+         * @return void
+         */
+        private function migrate_from_old_option(): void
+        {
+            $old_option_key = 'unn_settings';
+            $new_option_key = self::OPTION_KEY;
+
+            $old_data = get_option($old_option_key, false);
+            $new_data = get_option($new_option_key, false);
+
+            // If neither option exists there is nothing to migrate
+            if ($old_data === false && $new_data === false) {
+                return;
+            }
+
+            // If the new option is missing but the old one exists, copy the data forward
+            if ($new_data === false && $old_data !== false && is_array($old_data)) {
+                add_option($new_option_key, $old_data);
+                return;
+            }
+
+            // If the old option is missing but the new one exists, backfill the legacy record for compatibility
+            if ($old_data === false && $new_data !== false && is_array($new_data)) {
+                add_option($old_option_key, $new_data);
+                return;
+            }
+
+            // If both options exist, keep the legacy option in sync (new one takes precedence)
+            if ($new_data !== false && $old_data !== false && is_array($new_data)) {
+                // Update the legacy option so older versions continue to read the latest settings
+                update_option($old_option_key, $new_data);
             }
         }
 
@@ -67,7 +109,14 @@ if (!class_exists('UNNO\Data\Options')) {
         {
             $current = $this->get_all();
             $new = array_merge($current, $options);
-            return (bool)update_option(self::OPTION_KEY, $new);
+            $result = (bool)update_option(self::OPTION_KEY, $new);
+            
+            // Keep the legacy option synchronized for backward compatibility
+            if ($result) {
+                update_option('unn_settings', $new);
+            }
+            
+            return $result;
         }
 
         /**
@@ -85,11 +134,37 @@ if (!class_exists('UNNO\Data\Options')) {
         public function update(string $key, $value): bool
         {
             $all = $this->get_all();
+            $currentValueExists = array_key_exists($key, $all);
+            $currentValue = $currentValueExists ? $all[$key] : null;
+
+            // If the value did not change, treat the operation as successful and sync the legacy option
+            if ($currentValueExists && $currentValue === $value) {
+                $stored = get_option(self::OPTION_KEY);
+                if (is_array($stored)) {
+                    update_option('unn_settings', $stored);
+                }
+                return true;
+            }
+
             $all[$key] = $value;
 
             $result = update_option(self::OPTION_KEY, $all);
 
-            return (bool)$result;
+            if ($result) {
+                // Maintain backward compatibility by syncing the legacy option key
+                update_option('unn_settings', $all);
+                return true;
+            }
+
+            // If update_option returns false, confirm the stored value already matches the desired data
+            $stored = get_option(self::OPTION_KEY);
+            if (is_array($stored) && array_key_exists($key, $stored) && $stored[$key] === $value) {
+                // Synchronize the legacy option key in case it drifted
+                update_option('unn_settings', $stored);
+                return true;
+            }
+
+            return false;
         }
 
 
@@ -105,6 +180,24 @@ if (!class_exists('UNNO\Data\Options')) {
             $data = get_user_meta($uid, self::USER_HIDDEN_NOTICES_KEY, true);
             return is_array($data) ? $data : [];
         }
+
+    /**
+     * Get combined hidden notices for user and global scope.
+     *
+     * @since 1.2.5
+     * @param int|null $user_id Optional user ID; defaults to current user.
+     * @return array{user: array, global: array}
+     */
+    public function get_combined_hidden_notices($user_id = null): array
+    {
+        $user_notices = $this->get_user_hidden_notices($user_id);
+        $global_notices = $this->get_global_hidden_notices();
+
+        return [
+            'user' => is_array($user_notices) ? $user_notices : [],
+            'global' => is_array($global_notices) ? $global_notices : [],
+        ];
+    }
 
         /**
          * Add a notice to user hidden notices with metadata.
@@ -123,7 +216,7 @@ if (!class_exists('UNNO\Data\Options')) {
                 $notice_data = array_merge([
                 ], $metadata);
 
-                // Санитизируем данные перед сохранением
+                // Sanitize notice metadata before persisting it
                 $notice_data = $this->sanitize_notice_data($notice_data);
 
                 $hidden[$notice_key] = $notice_data;
@@ -194,7 +287,7 @@ if (!class_exists('UNNO\Data\Options')) {
                 $notice_data = ['hidden_at' => current_time('timestamp')];
             }
 
-            // Санитизируем данные перед сохранением
+            // Sanitize notice metadata before saving it
             $notice_data = $this->sanitize_notice_data($notice_data);
 
             $hidden[$notice_key] = $notice_data;

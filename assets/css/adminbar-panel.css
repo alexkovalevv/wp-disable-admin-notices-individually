@@ -1,0 +1,468 @@
+/**
+ * Admin Bar Notifications Panel Styles
+ * Styles for the hidden notices panel in the admin bar
+ * Matches the look and feel of the WordPress Admin Bar
+ * 
+ * @package Unnotifier
+ * @since 1.2.2
+ */
+
+/* ========================================
+   Main Panel Container
+   ======================================== */
+
+/* Counter badge styled like WordPress */
+#wp-admin-bar-unno-hidden-notices-panel .unno-adminbar-counter {
+    background-color: #2271b1;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 600;
+    padding: 3px 7px;
+    font-size: 11px;
+    margin-left: 6px;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* Submenu wrapper with scrolling */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper {
+    max-height: 480px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu {
+    width: 420px;
+    max-width: 90vw;
+    padding: 0;
+    margin: 0;
+}
+
+/* ========================================
+   Notice Items Styling
+   ======================================== */
+
+/* Base styling for notice items */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item {
+    border-left: 3px solid #3c434a;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #3c434a;
+    transition: all 0.2s ease;
+}
+
+/* Hover effect for notices */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item:hover {
+    background-color: #32373c !important;
+    border-left-color: #2271b1;
+}
+
+/* Notice content */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item .ab-item {
+    height: auto !important;
+    white-space: normal !important;
+    padding: 12px 14px !important;
+    color: #c3c4c7;
+    line-height: 1.5 !important;
+    min-height: auto !important;
+}
+
+/* ========================================
+   Notice Header (Plugin Name Badge)
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-notice-header {
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-plugin-badge {
+    display: inline-block;
+    background: #2271b1;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+}
+
+/* ========================================
+   Notice Text Content
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-notice-text {
+    color: #dcdcde;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 6px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ========================================
+   Restore Link Section
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-line {
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link {
+    color: #72aee6 !important;
+    text-decoration: none !important;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link:hover {
+    background-color: rgba(114, 174, 230, 0.1);
+    color: #9ec2e6 !important;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link:active {
+    transform: scale(0.98);
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 1;
+    vertical-align: middle;
+    margin-top: -2px;
+    flex-shrink: 0;
+}
+
+/* Ensure Dashicons align properly with text */
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link .dashicons-visibility,
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link .dashicons {
+    display: inline-block;
+}
+
+/* ========================================
+   Settings Row (First Item - Split Layout)
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-settings-row {
+    background: #1d2327;
+    border-bottom: 2px solid #3c434a;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-settings-row .ab-item {
+    padding: 0 !important;
+    height: auto !important;
+}
+
+/* Two-column action container */
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-actions-row {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* Left column - Manage Settings */
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-action-left {
+    flex: 1;
+    border-right: 1px solid #3c434a;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-settings-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #72aee6 !important;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 10px 14px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    height: 100%;
+    width: 100%;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-settings-link-item:hover {
+    background: rgba(114, 174, 230, 0.1);
+    color: #9ec2e6 !important;
+}
+
+/* Right column - Reset All */
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-action-right {
+    flex: 1;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-reset-all-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f0a01c !important;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 10px 14px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    height: 100%;
+    width: 100%;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-reset-all-link:hover {
+    background: rgba(240, 160, 28, 0.1);
+    color: #ffc940 !important;
+}
+
+/* Icons inside the action row */
+#wp-admin-bar-unno-hidden-notices-panel .unno-settings-link-item .dashicons,
+#wp-admin-bar-unno-hidden-notices-panel .unno-reset-all-link .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    margin-top: -2px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   Group Titles (Headers)
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-group-title {
+    background: #1d2327;
+    border-bottom: 2px solid #2271b1;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-group-title .ab-item {
+    color: #f0f0f1;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    padding: 10px 14px !important;
+    cursor: default;
+}
+
+/* ========================================
+   Alternating Row Colors
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu li.unno-notice-item:nth-child(even) {
+    background: #2c3338;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu li.unno-notice-item:nth-child(odd) {
+    background: #23282d;
+}
+
+/* ========================================
+   Loading/Restoring State
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-restoring {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-restoring::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: unno-spin 0.6s linear infinite;
+}
+
+/* Loading state for the Reset All button */
+#wp-admin-bar-unno-hidden-notices-panel .unno-reset-all-link.unno-resetting {
+    opacity: 0.8;
+    pointer-events: none;
+    cursor: wait !important;
+}
+
+/* Preloader spinner */
+#wp-admin-bar-unno-hidden-notices-panel .unno-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffc940;
+    border-radius: 50%;
+    animation: unno-spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-top: -2px;
+}
+
+@keyframes unno-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Scrollbar Styling (Webkit)
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper::-webkit-scrollbar-track {
+    background: #1d2327;
+    border-left: 1px solid #3c434a;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper::-webkit-scrollbar-thumb {
+    background: #4a5259;
+    border-radius: 5px;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #5c6369;
+}
+
+/* ========================================
+   Empty State
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-no-notices {
+    padding: 20px;
+    text-align: center;
+    color: #a7aaad;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* ========================================
+   Visual Separation Between Items
+   ======================================== */
+
+/* Extra visual spacing between notices */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item + li.unno-notice-item {
+    margin-top: 1px;
+}
+
+/* Reset margin directly after a group header */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-group-title + li.unno-notice-item {
+    margin-top: 0;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media screen and (max-width: 782px) {
+    #wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu {
+        width: 100%;
+        max-width: 360px;
+    }
+    
+    #wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item .ab-item {
+        padding: 10px 12px !important;
+    }
+    
+    #wp-admin-bar-unno-hidden-notices-panel .unno-notice-text {
+        font-size: 12px;
+    }
+    
+    #wp-admin-bar-unno-hidden-notices-panel .unno-plugin-badge {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper {
+        max-height: 60vh;
+    }
+}
+
+/* ========================================
+   Admin bar adjustments on the frontend
+   ======================================== */
+
+.admin-bar #wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu {
+    max-width: 420px;
+}
+
+/* ========================================
+   Improved readability
+   ======================================== */
+
+/* Remove default WordPress link styling inside the panel */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li .ab-item a {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    line-height: inherit !important;
+    color: inherit;
+}
+
+/* Enhanced text selection */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item::selection,
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item *::selection {
+    background-color: #2271b1;
+    color: #fff;
+}
+
+/* ========================================
+   Accessibility-focused outline styles
+   ======================================== */
+
+#wp-admin-bar-unno-hidden-notices-panel .unno-panel-restore-link:focus {
+    outline: 2px solid #72aee6;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba(114, 174, 230, 0.2);
+}
+
+/* ========================================
+   Improved visual hierarchy
+   ======================================== */
+
+/* Shadow to separate the panel from the admin bar */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Rounded corners on the bottom items */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li:last-child {
+    border-bottom: none;
+}
+
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li:last-child .ab-item {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+/* ========================================
+   Divider lines between notices
+   ======================================== */
+
+/* More pronounced divider line */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-notice-item {
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Divider between group titles and notices */
+#wp-admin-bar-unno-hidden-notices-panel .ab-sub-wrapper ul.ab-submenu > li.unno-group-title + li.unno-notice-item {
+    border-top: 2px solid #1d2327;
+}

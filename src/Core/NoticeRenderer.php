@@ -34,7 +34,7 @@ class NoticeRenderer implements NoticeRendererInterface
             return;
         }
 
-        // Подключаем ассеты один раз
+        // Ensure assets are enqueued only once
         static $unn_assets_enqueued = false;
         if (!$unn_assets_enqueued) {
             wp_enqueue_script('jquery');
@@ -42,8 +42,12 @@ class NoticeRenderer implements NoticeRendererInterface
             wp_localize_script('unno-admin', 'unno_ajax', [
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('unno_ajax_nonce'),
+                'hide_text' => __('Hide notice', 'unnotifier'),
                 'hide_me_text' => __('Hide for me', 'unnotifier'),
                 'hide_all_text' => __('Hide for all', 'unnotifier'),
+                'restoring_text' => __('Restoring...', 'unnotifier'),
+                'restore_error_text' => __('Failed to restore notice. Please try again.', 'unnotifier'),
+                'restore_success_text' => __('Notice restored successfully.', 'unnotifier'),
             ]);
             wp_enqueue_style('unno-admin', UNNO_PLUGIN_URL . 'assets/css/admin.css', [], UNNO_VERSION);
             $unn_assets_enqueued = true;
@@ -120,10 +124,10 @@ class NoticeRenderer implements NoticeRendererInterface
     {
         $buttons = [];
 
-        // Создаем контейнер для кнопок
+        // Prepare the action buttons container
         $button_group = '<div class="unno-buttons-group">';
 
-        // Скрыть для меня — доступно всем авторизованным
+        // Hide for me — available to any authenticated user
         $button_group .= sprintf(
             '<a href="#" class="button button-small unno-hide-notice unno-hide-for-user" data-target="user" data-notice-id="%s" title="%s">
                 <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
@@ -134,7 +138,7 @@ class NoticeRenderer implements NoticeRendererInterface
             esc_html__('Hide for me', 'unnotifier')
         );
 
-        // Скрыть для всех — только для тех, у кого есть права админа
+        // Hide for everyone — only for users with administrative capability
         if (current_user_can('manage_options')) {
             $button_group .= sprintf(
                 '<a href="#" class="button button-small button-primary unno-hide-notice unno-hide-for-all" data-target="all" data-notice-id="%s" title="%s">
@@ -149,7 +153,7 @@ class NoticeRenderer implements NoticeRendererInterface
 
         $button_group .= '</div>';
 
-        // Добавляем информацию о плагине-источнике уведомления
+        // Append information about the plugin that produced the notice
         $plugin_info = sprintf(
             '<div class="unno-plugin-info">
                 <small>
@@ -163,7 +167,7 @@ class NoticeRenderer implements NoticeRendererInterface
             esc_html__('Disable Admin Notices Individually', 'unnotifier')
         );
 
-        // Объединяем кнопки и информацию в один контейнер
+        // Combine buttons and info into a single wrapper
         $buttons[] = $button_group . $plugin_info;
 
         return '<div class="unno-hide-button-wrapper">' . implode(' ', $buttons) . '</div>';
@@ -185,10 +189,10 @@ class NoticeRenderer implements NoticeRendererInterface
             return $content;
         }
 
-        // Попытка встроить кнопки в существующий контейнер уведомления
+        // Try to inject the buttons into an existing notice container
         $processed = false;
 
-        // 1. Ищем div с классом notice (самый распространенный случай)
+        // 1. Locate a div with the notice class (most common scenario)
         if (!$processed && preg_match('/<div([^>]*class="[^"]*notice[^"]*"[^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -196,7 +200,7 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 2. Ищем div с классом updated (WooCommerce и другие)
+        // 2. Look for a div with the updated class (WooCommerce and others)
         if (!$processed && preg_match('/<div([^>]*class="[^"]*updated[^"]*"[^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -204,7 +208,7 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 3. Ищем div с классом error
+        // 3. Look for a div with the error class
         if (!$processed && preg_match('/<div([^>]*class="[^"]*error[^"]*"[^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -212,7 +216,7 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 4. Ищем div с классом settings-error
+        // 4. Look for a div with the settings-error class
         if (!$processed && preg_match('/<div([^>]*class="[^"]*settings-error[^"]*"[^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -220,7 +224,7 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 5. Ищем div с классом woocommerce-message
+        // 5. Look for a div with the woocommerce-message class
         if (!$processed && preg_match('/<div([^>]*class="[^"]*woocommerce-message[^"]*"[^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -228,7 +232,7 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 6. Ищем div с id (как запасной вариант для TGMPA и других)
+        // 6. As a fallback, look for a div with an ID (covers TGMPA and others)
         if (!$processed && preg_match('/<div([^>]*id="[^"]*"[^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -236,7 +240,7 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 7. Ищем любой первый div (самый общий случай)
+        // 7. As a last resort, target the first available div
         if (!$processed && preg_match('/<div([^>]*)>/i', $content, $matches)) {
             $opening_tag = $matches[0];
             $new_opening_tag = $this->add_positioning_and_buttons($opening_tag, $buttons_html);
@@ -244,8 +248,8 @@ class NoticeRenderer implements NoticeRendererInterface
             $processed = true;
         }
 
-        // 8. Если ничего не найдено, выводим как есть без кнопок
-        // WordPress сам разберется с перемещением контента
+        // 8. If nothing fits, output the notice as-is without injecting buttons
+        // WordPress will handle positioning of the content on its own
         if (!$processed) {
             return $content;
         }

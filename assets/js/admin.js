@@ -62,7 +62,7 @@
                             $notice.remove();
                         });
 
-                        // Не показываем сообщение об успешном скрытии
+                        // Do not show a success message when hiding
                     } else {
                         // Show error message
                         showMessage('error', response.data || 'Failed to hide notice');
