@@ -6,7 +6,7 @@ Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
 Tested up to PHP: 8.4
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -204,6 +204,13 @@ Currently, the plugin applies settings globally for all users with admin access.
 **[AdsDestroyer – disable admin ad & adblocker](https://wordpress.org/plugins/ads-destroyer/)** - Transform your WordPress admin into a clean, distraction-free workspace. Remove unwanted notices, promotional banners, and clutter with visual selection. Perfect for maintaining focus and creating professional client experiences.
 
 == Changelog ==
+
+= 1.2.7 =
+* **Fixed Elementor Layout**: Corrected flexbox layout by injecting buttons inside .e-notice container instead of wrapping it
+* **Elementor Styling**: Added Roboto font and Elementor CSS variables for seamless visual integration
+* **Disable Comments Support**: Added flex-wrap fix for Disable Comments plugin notices (.disable__comment__alert)
+* **Better WordPress Compatibility**: Buttons now stay with notices when WordPress moves .notice elements via jQuery
+* **CSS Improvements**: Added box-sizing and proper flex-wrap for all flex-based notice containers
 
 = 1.2.6 =
 * **NEW: Elementor Notice Integration**: Added special handling for Elementor plugin notices with custom e-notice structure

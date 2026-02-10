@@ -921,7 +921,7 @@ h1.nav-tab-wrapper,
     flex-shrink: 0;
     padding: 10px 15px;
     margin: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
     font-family: Roboto, Arial, Helvetica, sans-serif;
     background: var(--e-notice-context-tint, rgba(240, 246, 252, 0.5));
     border-bottom: 1px solid var(--e-notice-border-color, rgba(34, 113, 177, 0.15));
@@ -947,6 +947,45 @@ h1.nav-tab-wrapper,
     }
     
     .e-notice > .unno-hide-button-wrapper .unno-buttons-group {
+        justify-content: center;
+    }
+}
+
+/**
+ * Disable Comments Notice Integration
+ * 
+ * Disable Comments plugin notices (.disable__comment__alert) use display: flex.
+ * Fix: add flex-wrap and make buttons take full width of the first row.
+ * 
+ * @since 1.2.6
+ */
+
+/* Force flex-wrap on Disable Comments notices containing our buttons */
+.disable__comment__alert:has(> .unno-hide-button-wrapper) {
+    flex-wrap: wrap;
+}
+
+/* Buttons wrapper inside Disable Comments notice - full width first row */
+.disable__comment__alert > .unno-hide-button-wrapper {
+    width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 0 0 10px 0;
+    background: rgba(240, 246, 252, 0.5);
+    border-bottom: 1px solid rgba(34, 113, 177, 0.15);
+}
+
+/* Responsive adjustments for Disable Comments notices */
+@media screen and (max-width: 782px) {
+    .disable__comment__alert > .unno-hide-button-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 8px 12px;
+    }
+    
+    .disable__comment__alert > .unno-hide-button-wrapper .unno-buttons-group {
         justify-content: center;
     }
 }

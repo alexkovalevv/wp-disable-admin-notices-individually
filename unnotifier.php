@@ -3,7 +3,7 @@
  * Plugin Name: Unnotifier — disable admin notices individually
  * Plugin URI: https://wp-aifactory.com/unnotifier-disable-admin-notices-wordpress-plugin/
  * Description: Unnotifier disable admin notices individually with options to hide all notices, hide selected notices, or show all notices. Each notice gets a "hide forever" button for individual control.
- * Version: 1.2.6
+ * Version: 1.2.7
  * Author: Alex Kovalev
  * Author URI: https://wp-aifactory.com
  * Text Domain: unnotifier
@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('UNNO_VERSION', '1.2.6');
+define('UNNO_VERSION', '1.2.7');
 define('UNNO_PLUGIN_FILE', __FILE__);
 define('UNNO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('UNNO_PLUGIN_URL', plugin_dir_url(__FILE__));
