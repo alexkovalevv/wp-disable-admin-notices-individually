@@ -1,0 +1,898 @@
+# Translation of Plugins - Unnotifier — disable admin notices individually - Development Readme (trunk) in Russian
+# This file is distributed under the same license as the Plugins - Unnotifier — disable admin notices individually - Development Readme (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-10-25 07:08:10+0000\n"
+"Last-Translator: WP AI Factory\n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/4.0.3\n"
+"Language: ru\n"
+"Project-Id-Version: Plugins - Unnotifier — disable admin notices individually - Development Readme (trunk)\n"
+
+#. Short description.
+#, gp-priority: high
+msgid "Disable admin notices individually or completely. Smart plugin detection, flexible modes, clean dashboard cleanup. Free &amp; lightweight solution."
+msgstr "Отключайте уведомления администратора выборочно или полностью. Умное определение плагинов, гибкие режимы работы. Бесплатное и легкое решение."
+
+#. Plugin name.
+#, gp-priority: high
+msgid "Unnotifier — disable admin notices individually"
+msgstr "Unnotifier — отключайте уведомления администратора по отдельности"
+
+#. Found in description paragraph.
+msgid ""
+"<strong><a href=\"https://wordpress.org/plugins/ai-thumbnails-maker/\">AI Thumbnails Maker</a></strong> - Automatically generate beautiful AI-powered thumbnails and force regenerate featured images for your WordPress posts. Perfect for keeping your media library fresh and professional.\n"
+"<strong><a href=\"https://wordpress.org/plugins/smartypress-ai-engine/\">SmartyPress AI Engine</a></strong> - Powerful AI integration for WordPress with ChatGPT and Deepseek. Generate high-quality content directly in Gutenberg editor with Magic Wand inline editing and AI Content Generator panel. Create titles, articles, excerpts with 10+ pre-built actions or custom prompts.\n"
+"<strong><a href=\"https://wordpress.org/plugins/ads-destroyer/\">AdsDestroyer – disable admin ad &amp; adblocker</a></strong> - Transform your WordPress admin into a clean, distraction-free workspace. Remove unwanted notices, promotional banners, and clutter with visual selection. Perfect for maintaining focus and creating professional client experiences."
+msgstr ""
+"<strong><a href=\"https://wordpress.org/plugins/ai-thumbnails-maker/\">AI Thumbnails Maker</a></strong> - Автоматически создавайте красивые миниатюры с помощью ИИ и принудительно пересоздавайте изображения записей WordPress. Отлично подходит для поддержания медиабиблиотеки в актуальном и профессиональном виде.\n"
+"<strong><a href=\"https://wordpress.org/plugins/smartypress-ai-engine/\">SmartyPress AI Engine</a></strong> - Мощная интеграция ИИ для WordPress с ChatGPT и Deepseek. Создавайте качественный контент прямо в редакторе Gutenberg с помощью встроенного редактирования Magic Wand и панели AI Content Generator. Создавайте заголовки, статьи и отрывки с 10+ готовыми действиями или собственными запросами.\n"
+"<strong><a href=\"https://wordpress.org/plugins/ads-destroyer/\">AdsDestroyer – disable admin ad &amp; adblocker</a></strong> - Превратите админ-панель WordPress в чистое рабочее пространство без отвлекающих элементов. Удаляйте нежелательные уведомления, рекламные баннеры и лишний визуальный шум с помощью визуального выбора. Отлично подходит для концентрации и создания профессионального интерфейса для клиентов."
+
+#. Found in description header.
+msgid "Our Other Plugins"
+msgstr "Наши другие плагины"
+
+#. Found in description list item.
+msgid "<strong>Type Safety:</strong> Full type declarations for PHP 7.4+ compatibility"
+msgstr "<strong>Типобезопасность:</strong> полные объявления типов для совместимости с PHP 7.4+"
+
+#. Found in description list item.
+msgid "<strong>OOP Architecture:</strong> Modern object-oriented design with PSR-4 autoloading"
+msgstr "<strong>ООП-архитектура:</strong> современная объектно-ориентированная структура с автозагрузкой PSR-4"
+
+#. Found in description list item.
+msgid "<strong>PHP Version:</strong> 7.4 - 8.4 (fully tested and compatible)"
+msgstr "<strong>Версия PHP:</strong> 7.4 - 8.4 (полностью протестировано и совместимо)"
+
+#. Screenshot description.
+msgid "<strong>Notifications Panel Overview</strong> – This is an overview of the panel where all hidden notifications are collected in the admin bar, allowing you to view and restore them."
+msgstr "<strong>Обзор панели уведомлений</strong> – обзор панели в админ-баре, где собраны все скрытые уведомления и откуда их можно просматривать и восстанавливать."
+
+#. Screenshot description.
+msgid "<strong>Settings Page Overview</strong> — Screenshot of the plugin settings page with example configuration options"
+msgstr "<strong>Обзор страницы настроек</strong> — скриншот страницы настроек плагина с примерами параметров конфигурации"
+
+#. Found in faq paragraph.
+msgid "Yes! Go to Settings → Unnotifer and click \"Reset All Hidden Notices\" to restore all previously hidden notifications. This flexibility lets you disable admin notices temporarily and restore them when needed."
+msgstr "Да! Перейдите в Настройки → Unnotifer и нажмите кнопку \"Сбросить все скрытые уведомления\", чтобы восстановить все ранее скрытые уведомления. Такая гибкость позволяет временно отключать уведомления администратора и восстанавливать их при необходимости."
+
+#. Found in faq paragraph.
+msgid "The plugin gives you control over which notices to disable. Important security and update notifications will still appear unless you specifically choose to hide them or select \"Hide all notifications\" mode. You can disable admin notices selectively while keeping critical messages visible."
+msgstr "Плагин даёт вам контроль над тем, какие уведомления отключать. Важные уведомления безопасности и обновлений будут отображаться, если вы специально не скроете их или не выберете режим \"Скрыть все уведомления\". Вы можете выборочно отключать уведомления администратора, оставляя критически важные сообщения видимыми."
+
+#. Found in description paragraph.
+msgid "<strong>Full Plugin Review:</strong> For a comprehensive overview and comparison with alternatives, read our detailed article at <a href=\"https://wp-aifactory.com/effortlessly-disable-admin-notices-in-wordpress-unnotifier-free/\">Wp Ai Factory - Effortlessly Disable Admin Notices in WordPress</a>"
+msgstr "<strong>Полный обзор плагина:</strong> подробный обзор и сравнение с альтернативами читайте в нашей статье <a href=\"https://wp-aifactory.com/effortlessly-disable-admin-notices-in-wordpress-unnotifier-free/\">Wp Ai Factory - Effortlessly Disable Admin Notices in WordPress</a>"
+
+#. Found in description paragraph.
+msgid "We studied these plugins, learned from their approaches, and created Unnotifier with modern architecture, enhanced flexibility, and active maintenance. Special thanks to their developers for pioneering admin notice management solutions."
+msgstr "Мы изучили эти плагины, переняли лучшие идеи из их подходов и создали Unnotifier с современной архитектурой, повышенной гибкостью и активной поддержкой. Особая благодарность их разработчикам за первые решения в области управления уведомлениями администратора."
+
+#. Found in description paragraph.
+msgid "<strong>Disable Admin Notices individually</strong>, <strong>Hide Dashboard Notifications</strong>, <strong>WP Hide Plugin Updates</strong>, <strong>Hide Admin Notices</strong>, <strong>WP Notification Center</strong>"
+msgstr "<strong>Disable Admin Notices individually</strong>, <strong>Hide Dashboard Notifications</strong>, <strong>WP Hide Plugin Updates</strong>, <strong>Hide Admin Notices</strong>, <strong>WP Notification Center</strong>"
+
+#. Found in description paragraph.
+msgid "This plugin was inspired by and builds upon ideas from several community projects that helped pioneers the ability to disable admin notices:"
+msgstr "Этот плагин вдохновлён идеями нескольких проектов сообщества, которые помогли заложить основу для отключения уведомлений администратора:"
+
+#. Found in description paragraph.
+msgid "<strong>Unnotifier</strong> helps you disable admin notices with complete control and flexibility. Tired of intrusive premium upgrade notices, promotional messages, and endless stream of admin notifications? Unnotifier solves this problem once and for all with powerful features to disable admin notices individually or completely."
+msgstr "<strong>Unnotifier</strong> помогает отключать уведомления администратора с полным контролем и гибкостью. Устали от навязчивых уведомлений о премиум-обновлениях, рекламных сообщений и бесконечного потока уведомлений в админ-панели? Unnotifier решает эту проблему раз и навсегда благодаря мощным функциям для выборочного или полного отключения уведомлений администратора."
+
+#. Found in description list item.
+msgid "<strong>Site administrators</strong> who want to disable admin notices for a cleaner dashboard"
+msgstr "<strong>Администраторам сайтов</strong>, которые хотят отключить уведомления администратора и сделать консоль чище"
+
+#. Found in description list item.
+msgid "<strong>Install and activate</strong> the plugin to disable admin notices"
+msgstr "<strong>Установите и активируйте</strong> плагин, чтобы отключать уведомления администратора"
+
+#. Found in description header.
+msgid "Inspiration &amp; Credits"
+msgstr "Вдохновение и благодарности"
+
+#. Found in description header.
+msgid "Perfect for Dashboard Cleanup"
+msgstr "Идеально для очистки консоли"
+
+#. Found in description header.
+msgid "How to Disable Admin Notices"
+msgstr "Как отключить уведомления администратора"
+
+#. Found in description header.
+msgid "Key Features to Disable Admin Notices"
+msgstr "Ключевые возможности для отключения уведомлений администратора"
+
+#. Found in faq paragraph.
+msgid "Currently, the plugin applies settings globally for all users with admin access. User-specific settings may be added in future versions."
+msgstr "Сейчас плагин применяет настройки глобально для всех пользователей с доступом администратора. Индивидуальные настройки пользователей могут быть добавлены в будущих версиях."
+
+#. Found in faq paragraph.
+msgid "No, the plugin is designed to be lightweight and only loads its functionality in the admin area when needed."
+msgstr "Нет, плагин разработан лёгким и загружает свои функции в админ-панели только тогда, когда это необходимо."
+
+#. Found in faq paragraph.
+msgid "Yes, your hidden notice preferences are stored in the database and will persist through plugin updates."
+msgstr "Да, ваши настройки скрытых уведомлений хранятся в базе данных и сохраняются после обновлений плагина."
+
+#. Found in faq paragraph.
+msgid "The plugin works with the vast majority of admin notices from plugins and themes. Some plugins that use non-standard notification methods might not be affected."
+msgstr "Плагин работает с подавляющим большинством уведомлений администратора от плагинов и тем. Некоторые плагины, использующие нестандартные методы вывода уведомлений, могут не затрагиваться."
+
+#. Found in faq header.
+msgid "Can I hide notices for specific users only?"
+msgstr "Можно ли скрывать уведомления только для отдельных пользователей?"
+
+#. Found in faq header.
+msgid "Does this slow down my admin area?"
+msgstr "Замедлит ли это админ-панель?"
+
+#. Found in faq header.
+msgid "Will hidden notices stay hidden after plugin updates?"
+msgstr "Останутся ли скрытые уведомления скрытыми после обновлений плагина?"
+
+#. Found in faq header.
+msgid "Does this work with all plugins?"
+msgstr "Работает ли это со всеми плагинами?"
+
+#. Found in faq header.
+msgid "Can I restore hidden notices?"
+msgstr "Можно ли восстановить скрытые уведомления?"
+
+#. Found in faq header.
+msgid "Will this affect important core notifications?"
+msgstr "Повлияет ли это на важные уведомления ядра?"
+
+#. Found in installation list item.
+msgid "Start hiding notices by clicking \"Hide for me\" or \"Hide for all\" buttons"
+msgstr "Начните скрывать уведомления, нажимая кнопки \"Скрыть для меня\" или \"Скрыть для всех\""
+
+#. Found in installation list item.
+msgid "Choose your preferred display mode"
+msgstr "Выберите предпочтительный режим отображения"
+
+#. Found in installation list item.
+msgid "Go to Settings → Unnotifer"
+msgstr "Перейдите в Настройки → Unnotifer"
+
+#. Found in installation list item.
+msgid "Activate the plugin through the 'Plugins' menu in WordPress"
+msgstr "Активируйте плагин через меню 'Плагины' в WordPress"
+
+#. Found in installation list item.
+msgid "Extract the files"
+msgstr "Распакуйте файлы"
+
+#. Found in installation list item.
+msgid "Upload it to your <code>/wp-content/plugins/</code> directory"
+msgstr "Загрузите его в каталог <code>/wp-content/plugins/</code>"
+
+#. Found in installation list item.
+msgid "Download the plugin zip file"
+msgstr "Скачайте zip-файл плагина"
+
+#. Found in installation list item.
+msgid "Click \"Install Now\" and then \"Activate\""
+msgstr "Нажмите \"Установить\", затем \"Активировать\""
+
+#. Found in installation list item.
+msgid "Search for \"Unnotifier\""
+msgstr "Найдите \"Unnotifier\""
+
+#. Found in installation list item.
+msgid "Navigate to Plugins → Add New"
+msgstr "Перейдите в Плагины → Добавить новый"
+
+#. Found in installation list item.
+msgid "Go to your WordPress admin area"
+msgstr "Перейдите в админ-панель WordPress"
+
+#. Found in installation header.
+msgid "After Installation"
+msgstr "После установки"
+
+#. Found in installation header.
+msgid "Manual Installation"
+msgstr "Ручная установка"
+
+#. Found in installation header.
+msgid "Automatic Installation"
+msgstr "Автоматическая установка"
+
+#. Found in description paragraph.
+msgid "Special thanks to all beta testers and contributors who helped make this plugin better."
+msgstr "Особая благодарность всем бета-тестерам и участникам, которые помогли сделать этот плагин лучше."
+
+#. Found in description paragraph.
+msgid "Developed with ❤️ for the WordPress community."
+msgstr "Разработано с ❤️ для сообщества WordPress."
+
+#. Found in description paragraph.
+msgid "<strong>Technical Details:</strong> The plugin analyzes the call stack to identify plugin files and extracts plugin names from their headers. This helps users identify the source of notifications for better management."
+msgstr "<strong>Технические детали:</strong> плагин анализирует стек вызовов, чтобы определить файлы плагинов, и извлекает названия плагинов из их заголовков. Это помогает пользователям находить источник уведомлений и удобнее управлять ими."
+
+#. Found in description paragraph.
+msgid "<strong>Performance Considerations:</strong> The debug_backtrace() function may have a slight performance impact on high-traffic sites. If you experience performance issues, you can disable this feature in the plugin settings. When disabled, notices will show \"Unknown Plugin\" instead of the actual plugin name."
+msgstr "<strong>Производительность:</strong> функция debug_backtrace() может немного влиять на производительность сайтов с высокой нагрузкой. Если вы заметите проблемы с производительностью, эту функцию можно отключить в настройках плагина. После отключения вместо фактического названия плагина в уведомлениях будет отображаться \"Неизвестный плагин\"."
+
+#. Found in description paragraph.
+msgid "<strong>debug_backtrace() Usage:</strong> This plugin uses PHP's debug_backtrace() function to detect which plugin generates each admin notice. This feature is enabled by default but can be disabled in the plugin settings under \"Show plugin names in notices?\"."
+msgstr "<strong>Использование debug_backtrace():</strong> этот плагин использует функцию PHP debug_backtrace(), чтобы определить, какой плагин создаёт каждое уведомление администратора. Функция включена по умолчанию, но её можно отключить в настройках плагина в параметре \"Показывать названия плагинов в уведомлениях?\"."
+
+#. Found in description paragraph.
+msgid "<strong>WordPress Managed Hosting:</strong> Some managed WordPress hosting providers may prohibit plugins that use output buffering due to potential conflicts with their caching infrastructure. Please check with your hosting provider before using this plugin if you're on a managed WordPress hosting service."
+msgstr "<strong>Управляемый WordPress-хостинг:</strong> некоторые провайдеры управляемого WordPress-хостинга могут запрещать плагины, использующие буферизацию вывода, из-за возможных конфликтов с их инфраструктурой кеширования. Если вы используете управляемый WordPress-хостинг, уточните это у провайдера перед использованием плагина."
+
+#. Found in description paragraph.
+msgid "<strong>Server Caching Compatibility:</strong> If you experience issues with admin area caching or if your hosting provider uses server-based caching (such as nginx, Varnish, or similar services), please note that this plugin may conflict with such caching systems. In such cases, we recommend not using this plugin."
+msgstr "<strong>Совместимость с серверным кешированием:</strong> если у вас возникают проблемы с кешированием админ-панели или ваш хостинг использует серверное кеширование (например, nginx, Varnish или похожие сервисы), учитывайте, что этот плагин может конфликтовать с такими системами кеширования. В таких случаях мы рекомендуем не использовать этот плагин."
+
+#. Found in description paragraph.
+msgid "<strong>Output Buffering Usage:</strong> This plugin uses output buffering (ob_start()) only in the WordPress admin area to capture and process admin notices. This functionality is NOT used on the frontend of your website."
+msgstr "<strong>Использование буферизации вывода:</strong> этот плагин использует буферизацию вывода (ob_start()) только в админ-панели WordPress для захвата и обработки уведомлений администратора. Эта функция НЕ используется на фронтенде вашего сайта."
+
+#. Found in description paragraph.
+msgid "This plugin does not collect, store, or transmit any personal data. All functionality works locally on your WordPress installation. Hidden notice preferences are stored in your WordPress database only."
+msgstr "Этот плагин не собирает, не хранит и не передаёт персональные данные. Вся функциональность работает локально в вашей установке WordPress. Настройки скрытых уведомлений хранятся только в базе данных WordPress."
+
+#. Found in description paragraph.
+msgid "We welcome contributions! If you'd like to contribute to the development of this plugin:"
+msgstr "Мы приветствуем вклад в проект! Если вы хотите помочь в разработке этого плагина:"
+
+#. Found in description paragraph.
+msgid "For support, feature requests, or bug reports, please visit:"
+msgstr "Для поддержки, предложений функций или сообщений об ошибках посетите:"
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Resetting Hidden Notices:</strong>\n"
+"1. Go to Settings → Unnotifer\n"
+"2. Click \"Reset All Hidden Notices\" button\n"
+"3. All previously hidden notices will be restored\n"
+"4. You can also reset notices for specific users if needed"
+msgstr ""
+"<strong>Сброс скрытых уведомлений:</strong>\n"
+"1. Перейдите в Настройки → Unnotifer\n"
+"2. Нажмите кнопку \"Сбросить все скрытые уведомления\"\n"
+"3. Все ранее скрытые уведомления будут восстановлены\n"
+"4. При необходимости вы также можете сбросить уведомления для отдельных пользователей"
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Using the Plugin:</strong>\n"
+"1. Navigate to any admin page with notifications\n"
+"2. Click \"Hide for me\" to hide notice for yourself only\n"
+"3. Click \"Hide for all\" to hide notice for all users (admin only)\n"
+"4. Hidden notices disappear immediately with smooth animation"
+msgstr ""
+"<strong>Использование плагина:</strong>\n"
+"1. Перейдите на любую страницу админ-панели с уведомлениями\n"
+"2. Нажмите \"Скрыть для меня\", чтобы скрыть уведомление только для себя\n"
+"3. Нажмите \"Скрыть для всех\", чтобы скрыть уведомление для всех пользователей (только для администратора)\n"
+"4. Скрытые уведомления сразу исчезают с плавной анимацией"
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Plugin Setup to Disable Admin Notices:</strong>\n"
+"1. Go to Settings → Unnotifer\n"
+"2. Choose your preferred display mode:\n"
+"   - <strong>Show all notifications:</strong> Default behavior\n"
+"   - <strong>Individual control:</strong> Adds hide buttons (recommended)\n"
+"   - <strong>Hide all:</strong> Removes all admin notices\n"
+"3. Configure additional settings if needed"
+msgstr ""
+"<strong>Настройка плагина для отключения уведомлений администратора:</strong>\n"
+"1. Перейдите в Настройки → Unnotifer\n"
+"2. Выберите предпочтительный режим отображения:\n"
+"   - <strong>Показать все уведомления:</strong> поведение по умолчанию\n"
+"   - <strong>Индивидуальный контроль:</strong> добавляет кнопки скрытия (рекомендуется)\n"
+"   - <strong>Скрыть все:</strong> удаляет все уведомления администратора\n"
+"3. При необходимости настройте дополнительные параметры"
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Installation Steps:</strong>\n"
+"1. Go to your admin area\n"
+"2. Navigate to Plugins → Add New\n"
+"3. Search for \"Unnotifier\"\n"
+"4. Click \"Install Now\" and then \"Activate\""
+msgstr ""
+"<strong>Шаги установки:</strong>\n"
+"1. Перейдите в админ-панель\n"
+"2. Откройте Плагины → Добавить новый\n"
+"3. Найдите \"Unnotifier\"\n"
+"4. Нажмите \"Установить\", затем \"Активировать\""
+
+#. Found in description paragraph.
+msgid ""
+"<strong>⚡ Performance &amp; Productivity</strong>\n"
+"By choosing to disable admin notices that distract you, you improve productivity and work speed. The clean interface helps focus on important tasks, and the smart plugin detection system shows exactly which plugins are generating notifications. You can make informed decisions about which plugins to keep and which to replace with less intrusive alternatives."
+msgstr ""
+"<strong>⚡ Производительность и продуктивность</strong>\n"
+"Отключая отвлекающие уведомления администратора, вы повышаете продуктивность и скорость работы. Чистый интерфейс помогает сосредоточиться на важных задачах, а умная система определения плагинов показывает, какие именно плагины создают уведомления. Вы сможете осознанно решать, какие плагины оставить, а какие заменить менее навязчивыми альтернативами."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>🛒 E-commerce &amp; WooCommerce</strong>\n"
+"Online stores often have dozens of plugins generating notifications: WooCommerce itself, payment systems, shipping plugins, marketing tools. Unnotifier helps organize this chaos by allowing you to selectively hide promotional messages while keeping important transactional notifications. This is especially useful for stores with many extensions and add-ons."
+msgstr ""
+"<strong>🛒 E-commerce и WooCommerce</strong>\n"
+"В интернет-магазинах часто установлены десятки плагинов, создающих уведомления: сам WooCommerce, платёжные системы, плагины доставки, маркетинговые инструменты. Unnotifier помогает упорядочить этот хаос, позволяя выборочно скрывать рекламные сообщения и оставлять важные транзакционные уведомления. Это особенно полезно для магазинов с большим количеством расширений и дополнений."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>🔧 Development &amp; Staging Environments</strong>\n"
+"Ideal for developers working with test sites and staging servers. Disable admin notices during development to focus on debugging and testing. Easily switch between modes depending on the work stage: show all notifications during initial setup, use individual control during active development, and hide all during client demonstrations."
+msgstr ""
+"<strong>🔧 Разработка и staging-окружения</strong>\n"
+"Идеально для разработчиков, работающих с тестовыми сайтами и staging-серверами. Отключайте уведомления администратора во время разработки, чтобы сосредоточиться на отладке и тестировании. Легко переключайтесь между режимами в зависимости от этапа работы: показывайте все уведомления при начальной настройке, используйте индивидуальный контроль во время активной разработки и скрывайте всё во время демонстраций клиентам."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>📊 Advanced Notice Management</strong>\n"
+"The plugin stores detailed metadata about each hidden notification: source plugin name, full content, excerpt, hiding time and user ID. This allows you to analyze which plugins generate the most notifications and make informed decisions about their use. You can always review the list of hidden notices and restore specific ones if needed."
+msgstr ""
+"<strong>📊 Расширенное управление уведомлениями</strong>\n"
+"Плагин хранит подробные метаданные о каждом скрытом уведомлении: название исходного плагина, полный текст, отрывок, время скрытия и ID пользователя. Это позволяет анализировать, какие плагины создают больше всего уведомлений, и принимать обоснованные решения об их использовании. Вы всегда можете просмотреть список скрытых уведомлений и восстановить нужные при необходимости."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>🌐 Team Work &amp; Multisite Networks</strong>\n"
+"Hiding notifications for other users or the entire network while keeping them visible only to the administrator. In Multisite networks, you can manage notifications centrally: hide specific messages for all subsites or configure individual settings for each site. This is especially useful for large projects with multiple administrators where notification coordination is important."
+msgstr ""
+"<strong>🌐 Командная работа и сети Multisite</strong>\n"
+"Скрывайте уведомления для других пользователей или всей сети, оставляя их видимыми только администратору. В сетях Multisite можно централизованно управлять уведомлениями: скрывать определённые сообщения для всех подсайтов или настраивать отдельные параметры для каждого сайта. Это особенно полезно для крупных проектов с несколькими администраторами, где важна согласованность уведомлений."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>👥 Working with Client Sites</strong>\n"
+"Creating a clean and understandable interface for clients by removing technical messages that might confuse or scare them. Agencies and freelancers can prepare a professional admin panel where clients see only what they need. Hide developer notifications, debug messages, and technical warnings while keeping important content management notifications visible. This significantly improves the user experience for non-technical clients."
+msgstr ""
+"<strong>👥 Работа с клиентскими сайтами</strong>\n"
+"Создавайте чистый и понятный интерфейс для клиентов, удаляя технические сообщения, которые могут запутать или напугать их. Агентства и фрилансеры могут подготовить профессиональную админ-панель, где клиенты видят только нужную информацию. Скрывайте уведомления для разработчиков, отладочные сообщения и технические предупреждения, оставляя важные уведомления по управлению контентом. Это заметно улучшает пользовательский опыт для нетехнических клиентов."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>🧹 Complete Dashboard Cleanup</strong>\n"
+"Disable admin notices globally (except plugin update warnings) for absolute focus. When you need maximum concentration on work, activate the \"Hide all\" mode and your admin panel becomes completely clean. This is especially useful during development, content editing, or any work that requires full attention. All hidden notifications are saved in the database, so you can restore them at any time with one click."
+msgstr ""
+"<strong>🧹 Полная очистка консоли</strong>\n"
+"Отключайте уведомления администратора глобально (кроме предупреждений об обновлениях плагинов) для полной концентрации. Когда нужно максимально сосредоточиться на работе, активируйте режим \"Hide all\", и админ-панель станет полностью чистой. Это особенно полезно во время разработки, редактирования контента или любой работы, требующей полного внимания. Все скрытые уведомления сохраняются в базе данных, поэтому их можно восстановить в любой момент одним кликом."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>🎯 Individual Notice Control</strong>\n"
+"Perfect for getting rid of individual annoying notifications (premium version ads, offers, unnecessary reminders) without losing important system messages. Disable admin notices selectively with two buttons on each notice: \"Hide for me\" (personal hiding) and \"Hide for all\" (global hiding for all users). You decide which notifications you want to see and which ones clutter your workspace. The plugin intelligently identifies the source of each notification, making it easy to understand which plugin is generating intrusive messages."
+msgstr ""
+"<strong>🎯 Индивидуальный контроль уведомлений</strong>\n"
+"Отлично подходит для удаления отдельных раздражающих уведомлений (рекламы премиум-версий, предложений, ненужных напоминаний) без потери важных системных сообщений. Отключайте уведомления администратора выборочно с помощью двух кнопок на каждом уведомлении: \"Скрыть для меня\" (скрыть только для себя) и \"Скрыть для всех\" (глобально скрыть для всех пользователей). Вы сами решаете, какие уведомления видеть, а какие только засоряют рабочее пространство. Плагин умно определяет источник каждого уведомления, помогая понять, какой плагин создаёт навязчивые сообщения."
+
+#. Found in description paragraph.
+msgid "The plugin is useful in various situations, from personal use to managing complex multisite networks."
+msgstr "Плагин полезен в самых разных ситуациях: от личного использования до управления сложными сетями Multisite."
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Plugin Architecture:</strong> Built on SOLID principles using:\n"
+"* PSR-4 class autoloading\n"
+"* Singleton pattern for state management\n"
+"* Interfaces for all core components\n"
+"* Separation of responsibilities between classes"
+msgstr ""
+"<strong>Архитектура плагина:</strong> построена на принципах SOLID с использованием:\n"
+"* Автозагрузки классов PSR-4\n"
+"* Паттерна Singleton для управления состоянием\n"
+"* Интерфейсов для всех основных компонентов\n"
+"* Разделения ответственности между классами"
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Notice Metadata:</strong> Each hidden notice is saved with detailed information:\n"
+"* Source plugin name\n"
+"* Full notice content\n"
+"* Brief description (excerpt)\n"
+"* Hide time and user ID"
+msgstr ""
+"<strong>Метаданные уведомлений:</strong> каждое скрытое уведомление сохраняется с подробной информацией:\n"
+"* Название исходного плагина\n"
+"* Полное содержимое уведомления\n"
+"* Краткое описание (отрывок)\n"
+"* Время скрытия и ID пользователя"
+
+#. Found in description paragraph.
+msgid ""
+"<strong>Smart Plugin Detection:</strong> The plugin uses advanced algorithms to identify the source of each notification:\n"
+"* Call stack analysis (debug_backtrace)\n"
+"* PHP reflection for callback function analysis\n"
+"* Plugin name extraction from file headers\n"
+"* Result caching for performance optimization"
+msgstr ""
+"<strong>Умное определение плагинов:</strong> плагин использует продвинутые алгоритмы для определения источника каждого уведомления:\n"
+"* Анализ стека вызовов (debug_backtrace)\n"
+"* PHP Reflection для анализа callback-функций\n"
+"* Извлечение названия плагина из заголовков файлов\n"
+"* Кеширование результатов для оптимизации производительности"
+
+#. Found in description paragraph.
+msgid "<strong>Dual Hide Options:</strong> Each admin notice gets two discrete buttons:"
+msgstr "<strong>Два варианта скрытия:</strong> каждое уведомление администратора получает две отдельные кнопки:"
+
+#. Found in description paragraph.
+msgid "<strong>Three Display Modes:</strong>"
+msgstr "<strong>Три режима отображения:</strong>"
+
+#. Found in description paragraph.
+msgid "<strong>Inspired by the popular plugin Disable Admin Notices individually, but Unnotifier surpasses it in stability, functionality, and support. All features of the original plugin are implemented here, but with improved architecture and regular updates.</strong>"
+msgstr "<strong>Вдохновлён популярным плагином Disable Admin Notices individually, но Unnotifier превосходит его по стабильности, функциональности и поддержке. Все функции оригинального плагина реализованы здесь, но с улучшенной архитектурой и регулярными обновлениями.</strong>"
+
+#. Found in description list item.
+msgid "<strong>Translation Ready:</strong> Yes (translations welcome!)"
+msgstr "<strong>Готов к переводу:</strong> да (переводы приветствуются!)"
+
+#. Found in description list item.
+msgid "<strong>Multisite Compatible:</strong> Yes"
+msgstr "<strong>Совместимость с Multisite:</strong> да"
+
+#. Found in description list item.
+msgid "<strong>External Dependencies:</strong> None"
+msgstr "<strong>Внешние зависимости:</strong> нет"
+
+#. Found in description list item.
+msgid "<strong>Database Tables:</strong> Uses WordPress options table only"
+msgstr "<strong>Таблицы базы данных:</strong> используется только таблица настроек WordPress"
+
+#. Found in description list item.
+msgid "<strong>Minimum WordPress Version:</strong> 5.0"
+msgstr "<strong>Минимальная версия WordPress:</strong> 5.0"
+
+#. Found in description list item.
+msgid "Submit a pull request"
+msgstr "Отправьте pull request"
+
+#. Found in description list item.
+msgid "Make your changes"
+msgstr "Внесите изменения"
+
+#. Found in description list item.
+msgid "Create a feature branch"
+msgstr "Создайте ветку для функции"
+
+#. Found in description list item.
+msgid "Fork the repository"
+msgstr "Сделайте форк репозитория"
+
+#. Found in description list item.
+msgid "<strong>Documentation:</strong> Available in the plugin settings page"
+msgstr "<strong>Документация:</strong> доступна на странице настроек плагина"
+
+#. Found in description list item.
+msgid "<strong>Plugin Support Forum:</strong> https://wordpress.org/support/plugin/unnotifier/"
+msgstr "<strong>Форум поддержки плагина:</strong> https://wordpress.org/support/plugin/unnotifier/"
+
+#. Found in description list item.
+msgid "<strong>Security</strong> — all AJAX requests protected with nonce tokens"
+msgstr "<strong>Безопасность</strong> — все AJAX-запросы защищены nonce-токенами"
+
+#. Found in description list item.
+msgid "<strong>Optimized queries</strong> — caching of plugin detection results"
+msgstr "<strong>Оптимизированные запросы</strong> — кеширование результатов определения плагинов"
+
+#. Found in description list item.
+msgid "<strong>Lightweight code</strong> — won't slow down your admin area"
+msgstr "<strong>Лёгкий код</strong> — не замедлит вашу админ-панель"
+
+#. Found in description list item.
+msgid "<strong>No tracking</strong> — your data stays on your server"
+msgstr "<strong>Без отслеживания</strong> — ваши данные остаются на вашем сервере"
+
+#. Found in description list item.
+msgid "<strong>Minimal database usage</strong> — only stores hidden notice IDs and metadata"
+msgstr "<strong>Минимальное использование базы данных</strong> — хранятся только ID скрытых уведомлений и метаданные"
+
+#. Found in description list item.
+msgid "<strong>No external requests</strong> — everything works locally"
+msgstr "<strong>Без внешних запросов</strong> — всё работает локально"
+
+#. Found in description list item.
+msgid "<strong>SEO specialists</strong> using many optimization tools"
+msgstr "<strong>SEO-специалистам</strong>, использующим много инструментов оптимизации"
+
+#. Found in description list item.
+msgid "<strong>E-commerce owners</strong> with multiple WooCommerce plugins"
+msgstr "<strong>Владельцам интернет-магазинов</strong> с несколькими плагинами WooCommerce"
+
+#. Found in description list item.
+msgid "<strong>Anyone</strong> tired of notification overload"
+msgstr "<strong>Всем</strong>, кто устал от избытка уведомлений"
+
+#. Found in description list item.
+msgid "<strong>Agencies</strong> managing client websites"
+msgstr "<strong>Агентствам</strong>, управляющим клиентскими сайтами"
+
+#. Found in description list item.
+msgid "<strong>Developers</strong> working on multiple sites with many plugins"
+msgstr "<strong>Разработчикам</strong>, работающим с несколькими сайтами и множеством плагинов"
+
+#. Found in description list item.
+msgid "<strong>Reset hidden notices</strong> anytime from the settings page"
+msgstr "<strong>Сбрасывайте скрытые уведомления</strong> в любой момент со страницы настроек"
+
+#. Found in description list item.
+msgid "<strong>Hide notices</strong> by clicking \"Hide for me\" or \"Hide for all\" buttons on any notification"
+msgstr "<strong>Скрывайте уведомления</strong>, нажимая кнопки \"Скрыть для меня\" или \"Скрыть для всех\" на любом уведомлении"
+
+#. Found in description list item.
+msgid "<strong>Hide all:</strong> Completely removes all admin notices"
+msgstr "<strong>Скрыть все:</strong> полностью удаляет все уведомления администратора"
+
+#. Found in description list item.
+msgid "<strong>Individual control:</strong> Adds hide buttons to each notice (recommended)"
+msgstr "<strong>Индивидуальный контроль:</strong> добавляет кнопки скрытия к каждому уведомлению (рекомендуется)"
+
+#. Found in description list item.
+msgid "<strong>Show all notifications:</strong> Normal behavior"
+msgstr "<strong>Показать все уведомления:</strong> обычное поведение"
+
+#. Found in description list item.
+msgid "<strong>Choose your mode</strong> in Settings → Unnotifer:"
+msgstr "<strong>Выберите режим</strong> в Настройки → Unnotifer:"
+
+#. Found in description list item.
+msgid "<strong>Security:</strong> All operations protected with nonce tokens and permission checks"
+msgstr "<strong>Безопасность:</strong> все операции защищены nonce-токенами и проверками прав доступа"
+
+#. Found in description list item.
+msgid "<strong>AJAX Technology:</strong> Smooth notice hiding without page reload"
+msgstr "<strong>Технология AJAX:</strong> плавное скрытие уведомлений без перезагрузки страницы"
+
+#. Found in description list item.
+msgid "<strong>Accessibility Ready:</strong> Full keyboard navigation and screen reader support"
+msgstr "<strong>Готовность к доступности:</strong> полная навигация с клавиатуры и поддержка программ чтения с экрана"
+
+#. Found in description list item.
+msgid "<strong>Lightweight:</strong> No bloat, just essential functionality"
+msgstr "<strong>Лёгкость:</strong> ничего лишнего, только необходимая функциональность"
+
+#. Found in description list item.
+msgid "<strong>Clean Interface:</strong> Minimalistic design that doesn't interfere with your workflow"
+msgstr "<strong>Чистый интерфейс:</strong> минималистичный дизайн, который не мешает рабочему процессу"
+
+#. Found in description list item.
+msgid "<strong>Easy Reset:</strong> Restore all hidden notices with one click in settings"
+msgstr "<strong>Простой сброс:</strong> восстановление всех скрытых уведомлений одним кликом в настройках"
+
+#. Found in description list item.
+msgid "<strong>Extended Metadata:</strong> Stores information about hidden notices with plugin names and content"
+msgstr "<strong>Расширенные метаданные:</strong> хранит информацию о скрытых уведомлениях, включая названия плагинов и содержимое"
+
+#. Found in description list item.
+msgid "<strong>Smart Plugin Detection:</strong> Automatically identifies which plugin or theme generates each notification"
+msgstr "<strong>Умное определение плагинов:</strong> автоматически определяет, какой плагин или тема создаёт каждое уведомление"
+
+#. Found in description list item.
+msgid "<strong>\"Hide for all\"</strong> — Hide notice for all users (admin only)"
+msgstr "<strong>\"Скрыть для всех\"</strong> — скрыть уведомление для всех пользователей (только администратор)"
+
+#. Found in description list item.
+msgid "<strong>\"Hide for me\"</strong> — Hide notice only for current user"
+msgstr "<strong>\"Скрыть для меня\"</strong> — скрыть уведомление только для текущего пользователя"
+
+#. Found in description list item.
+msgid "Hide all notifications completely"
+msgstr "Полностью скрывать все уведомления"
+
+#. Found in description list item.
+msgid "Individual control (recommended) — adds hide buttons to each notice"
+msgstr "Индивидуальный контроль (рекомендуется) — добавляет кнопки скрытия к каждому уведомлению"
+
+#. Found in description list item.
+msgid "Show all notifications (default WordPress behavior)"
+msgstr "Показывать все уведомления (поведение WordPress по умолчанию)"
+
+#. Found in description header.
+msgid "Credits"
+msgstr "Благодарности"
+
+#. Found in description header.
+msgid "Plugin Detection Feature"
+msgstr "Функция определения плагина"
+
+#. Found in description header.
+msgid "Important Notice About Caching"
+msgstr "Важное замечание о кешировании"
+
+#. Found in description header.
+msgid "Technical Details"
+msgstr "Технические детали"
+
+#. Found in description header.
+msgid "Privacy Policy"
+msgstr "Политика конфиденциальности"
+
+#. Found in description header.
+msgid "Contributing"
+msgstr "Участие в разработке"
+
+#. Found in description header.
+msgid "Support"
+msgstr "Поддержка"
+
+#. Found in description header.
+msgid "How to Install Plugin"
+msgstr "Как установить плагин"
+
+#. Found in description header.
+msgid "Privacy &amp; Performance"
+msgstr "Конфиденциальность и производительность"
+
+#. Found in description header.
+msgid "💼 Use Cases &amp; Practical Applications"
+msgstr "💼 Сценарии использования и практическое применение"
+
+#. Found in description header.
+msgid "Advanced Functionality"
+msgstr "Расширенная функциональность"
+
+#. Screenshot description.
+msgid "<strong>Plugin Settings Page</strong> - Configuration interface where you can choose display modes, reset hidden notices, and manage plugin options"
+msgstr "<strong>Страница настроек плагина</strong> - интерфейс конфигурации, где можно выбирать режимы отображения, сбрасывать скрытые уведомления и управлять параметрами плагина"
+
+#. Screenshot description.
+msgid "<strong>Notice Hiding Example</strong> - Shows admin notices with \"Hide for me\" and \"Hide for all\" buttons, demonstrating how the plugin adds control options to each notification"
+msgstr "<strong>Пример скрытия уведомления</strong> - показывает уведомления администратора с кнопками \"Скрыть для меня\" и \"Скрыть для всех\", демонстрируя, как плагин добавляет параметры управления к каждому уведомлению"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Code Quality</strong>: Added new wrap_elementor_notice() method for cleaner architecture and better maintainability"
+msgstr "<strong>Качество кода</strong>: добавлен новый метод wrap_elementor_notice() для более чистой архитектуры и удобного сопровождения"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Better Compatibility</strong>: Improved support for plugins using custom notice structures with display: flex layouts"
+msgstr "<strong>Лучшая совместимость</strong>: улучшена поддержка плагинов, использующих пользовательские структуры уведомлений с макетами display: flex"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Enhanced CSS Styling</strong>: Added dedicated styles for Elementor notices with proper visual integration"
+msgstr "<strong>Улучшенные CSS-стили</strong>: добавлены отдельные стили для уведомлений Elementor с корректной визуальной интеграцией"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Improved Notice Wrapping</strong>: Elementor notices now properly wrapped with buttons displayed above the notice content"
+msgstr "<strong>Улучшенная обёртка уведомлений</strong>: уведомления Elementor теперь корректно оборачиваются, а кнопки отображаются над содержимым уведомления"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Fixed Layout Issue</strong>: Resolved flexbox layout conflict where Unnotifier buttons appeared as a column alongside Elementor notice content"
+msgstr "<strong>Исправлена проблема макета</strong>: устранён конфликт flexbox-макета, из-за которого кнопки Unnotifier отображались колонкой рядом с содержимым уведомления Elementor"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>NEW: Elementor Notice Integration</strong>: Added special handling for Elementor plugin notices with custom e-notice structure"
+msgstr "<strong>НОВОЕ: интеграция с уведомлениями Elementor</strong>: добавлена специальная обработка уведомлений плагина Elementor с пользовательской структурой e-notice"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>CSS Improvements</strong>: Added box-sizing and proper flex-wrap for all flex-based notice containers"
+msgstr "<strong>Улучшения CSS</strong>: добавлены box-sizing и корректный flex-wrap для всех flex-контейнеров уведомлений"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Better WordPress Compatibility</strong>: Buttons now stay with notices when WordPress moves .notice elements via jQuery"
+msgstr "<strong>Лучшая совместимость с WordPress</strong>: кнопки теперь остаются вместе с уведомлениями, когда WordPress перемещает элементы .notice через jQuery"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Disable Comments Support</strong>: Added flex-wrap fix for Disable Comments plugin notices (.disable__comment__alert)"
+msgstr "<strong>Поддержка Disable Comments</strong>: добавлено исправление flex-wrap для уведомлений плагина Disable Comments (.disable__comment__alert)"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Elementor Styling</strong>: Added Roboto font and Elementor CSS variables for seamless visual integration"
+msgstr "<strong>Стили Elementor</strong>: добавлены шрифт Roboto и CSS-переменные Elementor для бесшовной визуальной интеграции"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Fixed Elementor Layout</strong>: Corrected flexbox layout by injecting buttons inside .e-notice container instead of wrapping it"
+msgstr "<strong>Исправлен макет Elementor</strong>: исправлен flexbox-макет за счёт вставки кнопок внутрь контейнера .e-notice вместо его оборачивания"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>WordPress 6.9 Compatibility</strong>: Added full compatibility and testing support for WordPress 6.9"
+msgstr "<strong>Совместимость с WordPress 6.9</strong>: добавлена полная совместимость и поддержка тестирования с WordPress 6.9"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>NEW: Hidden Notices Management Page</strong>: Created dedicated page with WordPress-style list table for managing hidden notices"
+msgstr "<strong>НОВОЕ: страница управления скрытыми уведомлениями</strong>: создана отдельная страница с таблицей в стиле WordPress для управления скрытыми уведомлениями"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>NEW: Tabbed Settings Interface</strong>: Added tab navigation to settings page with \"General Settings\" and \"Hidden Notices\" tabs"
+msgstr "<strong>НОВОЕ: интерфейс настроек с вкладками</strong>: на страницу настроек добавлена навигация по вкладкам \"Общие настройки\" и \"Скрытые уведомления\""
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Input Validation</strong>: Enhanced input validation in settings sanitization for PHP 8.x strict types"
+msgstr "<strong>Валидация ввода</strong>: улучшена проверка входных данных при очистке настроек для строгих типов PHP 8.x"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Type Safety Improvements</strong>: Fixed exception handling for better PHP 8.x compatibility"
+msgstr "<strong>Улучшения типобезопасности</strong>: исправлена обработка исключений для лучшей совместимости с PHP 8.x"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>PHP 8.4 Support</strong>: Fully tested and compatible with PHP versions 7.4 through 8.4"
+msgstr "<strong>Поддержка PHP 8.4</strong>: полностью протестировано и совместимо с версиями PHP от 7.4 до 8.4"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Performance</strong>: Optimized admin bar panel loading and AJAX operations"
+msgstr "<strong>Производительность</strong>: оптимизирована загрузка панели админ-бара и AJAX-операции"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Settings Option</strong>: New setting to enable/disable admin bar panel functionality"
+msgstr "<strong>Параметр настроек</strong>: новая настройка для включения/отключения функциональности панели админ-бара"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Improved UX</strong>: Hover effects, smooth animations, and better visual feedback"
+msgstr "<strong>Улучшенный UX</strong>: эффекты при наведении, плавные анимации и более понятная визуальная обратная связь"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Enhanced UI</strong>: Beautiful admin bar panel with categorized notices (hidden for you, hidden for all)"
+msgstr "<strong>Улучшенный интерфейс</strong>: красивая панель админ-бара с категоризированными уведомлениями (скрытые для вас, скрытые для всех)"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Individual Restore</strong>: Restore notices directly from admin bar without going to settings page"
+msgstr "<strong>Индивидуальное восстановление</strong>: восстановление уведомлений прямо из админ-бара без перехода на страницу настроек"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Admin Bar Counter</strong>: Badge counter shows total number of hidden notices"
+msgstr "<strong>Счётчик в админ-баре</strong>: бейдж показывает общее количество скрытых уведомлений"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>NEW: Admin Bar Panel</strong>: Added admin bar dropdown panel showing all hidden notices with quick restore functionality"
+msgstr "<strong>НОВОЕ: панель админ-бара</strong>: добавлена выпадающая панель админ-бара, показывающая все скрытые уведомления с функцией быстрого восстановления"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "WordPress 6.4 compatibility"
+msgstr "Совместимость с WordPress 6.4"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Responsive design for mobile admin"
+msgstr "Адаптивный дизайн для мобильной админ-панели"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Accessibility features and keyboard support"
+msgstr "Функции доступности и поддержка клавиатуры"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "AJAX-powered hiding with smooth animations"
+msgstr "Скрытие на базе AJAX с плавными анимациями"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Settings page with reset functionality"
+msgstr "Страница настроек с функцией сброса"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Individual hide buttons for each notice"
+msgstr "Индивидуальные кнопки скрытия для каждого уведомления"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Three display modes: show all, hide individually, hide all"
+msgstr "Три режима отображения: показывать все, скрывать индивидуально, скрывать все"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "Initial release"
+msgstr "Первый выпуск"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>WordPress 6.8 Compatibility</strong>: Updated for latest WordPress version"
+msgstr "<strong>Совместимость с WordPress 6.8</strong>: обновлено для последней версии WordPress"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Bug Fixes</strong>: Fixed various edge cases in plugin detection and notice handling"
+msgstr "<strong>Исправления ошибок</strong>: исправлены различные пограничные случаи в определении плагинов и обработке уведомлений"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Security Improvements</strong>: Enhanced nonce verification and input sanitization"
+msgstr "<strong>Улучшения безопасности</strong>: усилена проверка nonce и очистка входных данных"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Code Refactoring</strong>: Complete refactoring from DANI to UNN namespace and prefixes"
+msgstr "<strong>Рефакторинг кода</strong>: полный рефакторинг с переходом с DANI на пространство имён и префиксы UNN"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Performance Optimization</strong>: Added caching for plugin detection results"
+msgstr "<strong>Оптимизация производительности</strong>: добавлено кеширование результатов определения плагинов"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Fallback Handling</strong>: Better handling of unknown plugins with \"Unknown Plugin\" label"
+msgstr "<strong>Обработка fallback-сценариев</strong>: улучшена обработка неизвестных плагинов с меткой \"Неизвестный плагин\""
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Plugin Name Extraction</strong>: Enhanced extraction of plugin names from file paths and headers"
+msgstr "<strong>Извлечение названий плагинов</strong>: улучшено извлечение названий плагинов из путей к файлам и заголовков"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Reflection-Based Detection</strong>: Implemented reflection API for better callback analysis"
+msgstr "<strong>Определение на базе Reflection</strong>: реализован Reflection API для улучшенного анализа callback-функций"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Stack Trace Analysis</strong>: Added advanced stack trace analysis to identify plugin source files"
+msgstr "<strong>Анализ стека вызовов</strong>: добавлен расширенный анализ стека вызовов для определения исходных файлов плагинов"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Enhanced Plugin Detection</strong>: Improved algorithm for detecting which plugin generates each notice"
+msgstr "<strong>Улучшенное определение плагинов</strong>: улучшен алгоритм определения плагина, который создаёт каждое уведомление"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Performance Optimizations</strong>: Improved loading and processing of admin notices"
+msgstr "<strong>Оптимизации производительности</strong>: улучшены загрузка и обработка уведомлений администратора"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Bug Fixes</strong>: Fixed issues with notice display and metadata storage"
+msgstr "<strong>Исправления ошибок</strong>: исправлены проблемы с отображением уведомлений и хранением метаданных"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>WordPress Standards Compliance</strong>: Full compliance with WordPress coding standards and plugin directory requirements"
+msgstr "<strong>Соответствие стандартам WordPress</strong>: полное соответствие стандартам кодирования WordPress и требованиям каталога плагинов"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Code Quality Improvements</strong>: Updated all CSS classes, JavaScript selectors, and PHP functions to use new prefix"
+msgstr "<strong>Улучшения качества кода</strong>: все CSS-классы, JavaScript-селекторы и PHP-функции обновлены для использования нового префикса"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Enhanced Settings Interface</strong>: Better display of hidden notices with proper plugin names and content excerpts"
+msgstr "<strong>Улучшенный интерфейс настроек</strong>: улучшено отображение скрытых уведомлений с корректными названиями плагинов и отрывками содержимого"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Better Plugin Detection</strong>: Improved algorithm for detecting which plugin generates each notice"
+msgstr "<strong>Лучшее определение плагинов</strong>: улучшен алгоритм определения плагина, создающего каждое уведомление"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Improved Notice Metadata</strong>: Enhanced storage and display of notice metadata including plugin names and content"
+msgstr "<strong>Улучшенные метаданные уведомлений</strong>: улучшены хранение и отображение метаданных уведомлений, включая названия плагинов и содержимое"
+
+#. Found in changelog list item.
+#, gp-priority: low
+msgid "<strong>Fixed Plugin Prefix Issue</strong>: Changed plugin prefix from \"unn\" to \"unno\" to comply with WordPress.org requirements"
+msgstr "<strong>Исправлена проблема префикса плагина</strong>: префикс плагина изменён с \"unn\" на \"unno\" для соответствия требованиям WordPress.org"

@@ -1,6 +1,6 @@
 {
   "name": "unnotifier",
-  "version": "1.2.4",
+  "version": "1.2.9",
   "private": true,
   "type": "module",
   "scripts": {

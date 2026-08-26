@@ -231,24 +231,33 @@ class NoticeHandler implements NoticeHandlerInterface
     public function call_notice_callback_safely(array $callback_data): string
     {
         $callback = $callback_data['function'] ?? null;
-        $accepted_args = $callback_data['accepted_args'] ?? 1;
         
         if (!is_callable($callback)) {
             return '';
         }
 
+        $initial_buffer_level = ob_get_level();
+
         try {
+            // WordPress notice hooks do not provide callback arguments. Skip
+            // callbacks that cannot be invoked safely without them.
+            if ($this->callback_requires_arguments($callback)) {
+                return '';
+            }
+
             // Start output buffering
             ob_start();
             
-            // Call the callback
-            if ($accepted_args <= 0) {
-                call_user_func($callback);
-            } else {
-                call_user_func($callback);
-            }
+            // Call the callback without arguments, matching WordPress notice hooks.
+            call_user_func($callback);
             
-            $output = ob_get_clean() ?: '';
+            $output = '';
+            while (ob_get_level() > $initial_buffer_level) {
+                $buffer = ob_get_clean();
+                if ($buffer !== false) {
+                    $output = $buffer . $output;
+                }
+            }
             
             // If we got output, try to enhance plugin detection using stack trace
             if (!empty($output)) {
@@ -256,9 +265,43 @@ class NoticeHandler implements NoticeHandlerInterface
             }
             
             return $output;
-        } catch (\Exception $e) {
-            ob_end_clean();
+        } catch (\Throwable $e) {
+            while (ob_get_level() > $initial_buffer_level) {
+                ob_end_clean();
+            }
+
             return '';
+        }
+    }
+
+    /**
+     * Check whether a callback requires arguments to be invoked.
+     *
+     * @param mixed $callback Callable to inspect
+     * @return bool True when one or more required arguments are declared
+     */
+    private function callback_requires_arguments($callback): bool
+    {
+        try {
+            if (is_array($callback) && count($callback) >= 2) {
+                $reflection = new \ReflectionMethod($callback[0], $callback[1]);
+            } elseif ($callback instanceof \Closure) {
+                $reflection = new \ReflectionFunction($callback);
+            } elseif (is_string($callback) && strpos($callback, '::') !== false) {
+                [$class_name, $method_name] = explode('::', $callback, 2);
+                $reflection = new \ReflectionMethod($class_name, $method_name);
+            } elseif (is_string($callback)) {
+                $reflection = new \ReflectionFunction($callback);
+            } elseif (is_object($callback) && method_exists($callback, '__invoke')) {
+                $reflection = new \ReflectionMethod($callback, '__invoke');
+            } else {
+                return true;
+            }
+
+            return $reflection->getNumberOfRequiredParameters() > 0;
+        } catch (\Throwable $e) {
+            // If the callback cannot be inspected, do not risk a fatal error.
+            return true;
         }
     }
     

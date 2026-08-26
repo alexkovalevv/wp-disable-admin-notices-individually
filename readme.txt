@@ -3,10 +3,10 @@ Contributors: alexkovalevv, wpaifactory
 Donate link: https://wp-aifactory.com
 Tags: disable admin notices, disable notices, hide notifications, dashboard cleanup, notice control
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
 Tested up to PHP: 8.4
-Stable tag: 1.2.7
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -205,6 +205,14 @@ Currently, the plugin applies settings globally for all users with admin access.
 
 == Changelog ==
 
+= 1.2.9 =
+* **WordPress 7.1 Compatibility**: Verified compatibility with WordPress 7.1 and updated plugin metadata.
+* **Notice Callback Compatibility**: Prevented fatal errors when third-party admin notice callbacks require arguments that WordPress notice hooks do not provide.
+
+= 1.2.8 =
+* **WordPress 7.0 Compatibility**: Verified compatibility with WordPress 7.0 and updated plugin metadata.
+* **Release Metadata**: Updated stable tag and tested WordPress version for the latest release.
+
 = 1.2.7 =
 * **Fixed Elementor Layout**: Corrected flexbox layout by injecting buttons inside .e-notice container instead of wrapping it
 * **Elementor Styling**: Added Roboto font and Elementor CSS variables for seamless visual integration
@@ -305,7 +313,7 @@ This plugin does not collect, store, or transmit any personal data. All function
 == Technical Details ==
 
 * **PHP Version:** 7.4 - 8.4 (fully tested and compatible)
-* **Minimum WordPress Version:** 5.0
+* **WordPress Version:** 5.0 - 7.1
 * **Database Tables:** Uses WordPress options table only
 * **External Dependencies:** None
 * **Multisite Compatible:** Yes
